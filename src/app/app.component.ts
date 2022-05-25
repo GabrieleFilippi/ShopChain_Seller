@@ -21,6 +21,5 @@ export class AppComponent {
     this.tokenContract = new ethers.Contract(address.contractAddress, address.abi, this.signer);
     this.balance = await this.tokenContract.getBalance();
     console.log(this.balance);
-    //console.log(this.signer.getOrders());
   }
 }
