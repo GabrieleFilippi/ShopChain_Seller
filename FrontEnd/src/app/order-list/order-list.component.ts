@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MetamaskConnectionService } from '../metamask-connection.service';
 
 @Component({
   selector: 'app-order-list',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OrderListComponent implements OnInit {
 
-  constructor() { }
+  constructor(private metmaskConnectionService: MetamaskConnectionService) { }
 
   ngOnInit(): void {
+  }
+  getOrderList(){
+    this.metmaskConnectionService.getOrderList();
   }
 
 }

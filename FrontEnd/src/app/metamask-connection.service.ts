@@ -16,24 +16,23 @@ export class MetamaskConnectionService {
   // verifica che metamask sia installato
   if (this.isInstalled() === undefined) {
     console.log('MetaMask is NOT installed!');
-    this.connected = false;
   }else{
     console.log('MetaMask is installed');
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     this.signer = provider.getSigner();
     this.tokenContract = new ethers.Contract(address.contractAddress, address.abi, this.signer);
+    console.log(this.tokenContract);
     this.tokenAddress = this.tokenContract.address;
     this.signerAddress = await this.signer.getAddress();
     this.signer = provider.getSigner();
     if(await this.signer.getChainId() !== 43113){
-      alert("Sei sul Network sbagliato, Passa a FujiTestnet!");
-      return false;
     }
-    this.connected = true;
   }
-  return this.connected;
 }
   isInstalled(){
     return window.ethereum;
+  }
+  async getOrderList(){
+
   }
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { ContractService } from '../contract.service';
 import { ethers } from 'ethers';
 import { MetamaskConnectionService } from '../metamask-connection.service';
-import address from '../../../contracts/ShopChain.json';
 declare let window: any;
 @Component({
   selector: 'app-login',
@@ -19,14 +18,10 @@ export class LoginComponent implements OnInit {
   balance: any;
   tokenAddress: any;
   public signer: any;
-  constructor( private metmaskConnectionService: MetamaskConnectionService) { }
+  constructor( public metmaskConnectionService: MetamaskConnectionService) { }
 
   async ngOnInit(){
-    if(await this.getMetamask() === true){
-      this.signer = this.metmaskConnectionService.signer;
-      this.tokenAddress = this.metmaskConnectionService.tokenAddress;
-      this.signerAddress = this.metmaskConnectionService.signerAddress;
-    }
+    this.getMetamask();
   }
   getMetamask(){
     return this.metmaskConnectionService.getMetamask();
