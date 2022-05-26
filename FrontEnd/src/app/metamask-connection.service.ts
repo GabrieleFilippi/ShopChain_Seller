@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ethers } from 'ethers';
+import { threadId } from 'worker_threads';
 import address from '../../contracts/ShopChain.json';
 declare let window: any;
 @Injectable({
@@ -21,7 +22,7 @@ export class MetamaskConnectionService {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     this.signer = provider.getSigner();
     this.tokenContract = new ethers.Contract(address.contractAddress, address.abi, this.signer);
-    console.log(this.tokenContract);
+    //console.log(this.tokenContract);
     this.tokenAddress = this.tokenContract.address;
     this.signerAddress = await this.signer.getAddress();
     this.signer = provider.getSigner();
@@ -33,6 +34,6 @@ export class MetamaskConnectionService {
     return window.ethereum;
   }
   async getOrderList(){
-
+    console.log(this.tokenContract);
   }
 }

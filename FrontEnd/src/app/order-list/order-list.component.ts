@@ -11,6 +11,7 @@ export class OrderListComponent implements OnInit {
   constructor(private metmaskConnectionService: MetamaskConnectionService) { }
 
   ngOnInit(): void {
+    this.getOrderList();
   }
   getOrderList(){
     this.metmaskConnectionService.getOrderList();
