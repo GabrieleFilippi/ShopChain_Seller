@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ethers } from 'ethers';
+import address from '../../contracts/ShopChain.json';
 declare let window: any;
 @Injectable({
   providedIn: 'root'
@@ -18,14 +19,17 @@ export class MetamaskConnectionService {
     this.connected = false;
   }else{
     console.log('MetaMask is installed');
-    this.connected = true;
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    this.signer = provider.getSigner(0);
+    this.signer = provider.getSigner();
+    this.tokenContract = new ethers.Contract(address.contractAddress, address.abi, this.signer);
+    this.tokenAddress = this.tokenContract.address;
     this.signerAddress = await this.signer.getAddress();
     this.signer = provider.getSigner();
     if(await this.signer.getChainId() !== 43113){
-      alert("Sei sul Network sbagliato, Passa a FujiTestnet!")
+      alert("Sei sul Network sbagliato, Passa a FujiTestnet!");
+      return false;
     }
+    this.connected = true;
   }
   return this.connected;
 }
