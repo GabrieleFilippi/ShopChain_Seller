@@ -1,9 +1,10 @@
-
-<div *ngIf = "ok=='pollo'">
+<div *ngIf = "!this.signer" class="connect-button">
     <p>Non hai Metamask installato nel browser</p>
     <button onclick="window.location.href='https://metamask.io/download/'">Installa Metamask</button>
 </div>
+<div *ngIf = "this.signer">
 <p>Indirizzo del contratto:</p>
 <p>{{tokenAddress}}</p>
 <p>Il tuo indirizzo metamask:</p>
 <p>{{signerAddress}}</p>
+</div>
