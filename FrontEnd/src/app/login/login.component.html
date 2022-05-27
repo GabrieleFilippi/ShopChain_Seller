@@ -3,15 +3,26 @@
     <button onclick="window.location.href='https://metamask.io/download/'">Installa Metamask</button>
 </div>
 <div *ngIf = "metamaskConnectionService.signer">
-<p>Indirizzo del contratto:</p>
-<p>{{metamaskConnectionService.tokenAddress}}</p>
-<p>Il tuo indirizzo metamask:</p>
-<p>{{metamaskConnectionService.signerAddress}}</p>
-<p>Quanti AVAX possiedi: </p>
-<p>{{metamaskConnectionService.sellerBalance}} AVAX</p>
-<a routerLink="/orderlist">
-    <button routerLink="/orderlist">Vai a vedere la lista ordini</button>
-</a>
-
+    <p>Indirizzo del contratto:</p>
+    <p>{{metamaskConnectionService.tokenAddress}}</p>
+    <p>Il tuo indirizzo metamask:</p>
+    <p>{{metamaskConnectionService.signerAddress}}</p>
+    <p>Quanti AVAX possiedi: </p>
+    <p>{{metamaskConnectionService.sellerBalance}} AVAX</p>
+    <div *ngIf="sellerIsSigned === true">
+        <a routerLink="/orderlist">
+            <button routerLink="/orderlist">Vai a vedere la lista ordini</button>
+        </a>
+    </div>
+    <div *ngIf="this.sellerSigned === false">
+        <p>Non sei registrato come seller, clicca qui per registrarti.</p>
+        <!-- METTERE CHE FA PARTIRE REGISTERSELLER()-->
+        <button onclick="window.location.href='https://metamask.io/download/'">Installa Metamask</button>
+    </div>
+</div>
+<div *ngIf= "sellerSigned === false" >
+    <p>Non sei registrato come seller, clicca qui per registrarti.</p>
+    <!-- METTERE CHE FA PARTIRE REGISTERSELLER()-->
+    <button onclick="window.location.href='https://metamask.io/download/'">Installa Metamask</button>
 </div>
 

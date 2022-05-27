@@ -8,13 +8,17 @@ import { MetamaskConnectionService } from '../metamask-connection.service';
 })
 export class OrderListComponent implements OnInit {
   orderList: [] = [];
-  constructor(private metmaskConnectionService: MetamaskConnectionService) { }
+  sellerList: any;
+  constructor(private metamaskConnectionService: MetamaskConnectionService) { }
 
   ngOnInit(): void {
     this.getOrderList();
+    this.getSellerList();
   }
   async getOrderList(){
-    this.metmaskConnectionService.getOrderList();
+    await this.metamaskConnectionService.getOrderList();
   }
-
-}
+  async getSellerList(){
+    this.sellerList =  await this.metamaskConnectionService.getSellerList();
+    }
+  }

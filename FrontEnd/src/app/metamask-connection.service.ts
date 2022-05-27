@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ethers } from 'ethers';
+import { Seller } from './seller';
 import { threadId } from 'worker_threads';
 import address from '../../contracts/ShopChain.json';
 
@@ -15,6 +16,8 @@ export class MetamaskConnectionService {
   public tokenAddress: any;
   public connected: any;
   public sellerBalance: any;
+  public sellerList: [] = [];
+  public isSigned: boolean =  false;
   constructor(private router: Router) { }
   async getMetamask(){
   // verifica che metamask sia installato
@@ -53,14 +56,29 @@ export class MetamaskConnectionService {
     //   if(oldNetwork) window.location.reload();
     // });
     //this.value = ethers.utils.parseEther("0.1");
-    //this.tokenContract.createOrder(this.signerAddress, this.value);
+    
+    // popolare gli ordini
+    //this.tokenContract.createOrder(this.signerAddress, 1);
     return this.tokenContract;
   }
   async getOrderList(){
     this.tokenContract = await this.inizialiseContract();
-    //console.log( await this.tokenContract.getSellers()); returna un array con i due sellers
     // returna un array con gli ordini
-    console.log( await this.tokenContract.getOrders());
+    //console.log( await this.tokenContract.getOrders());
     return await this.tokenContract.getOrders();
+  }
+  async getSellerList(){
+    this.tokenContract = await this.inizialiseContract();
+    //returna un array con i due sellers
+    console.log( await this.tokenContract.getSellers());
+    this.sellerList =  await this.tokenContract.getSellers();
+    this.sellerList.forEach((element: any) => {
+      if (element === this.signerAddress){
+        console.log("true");
+        // se trova l'address di questo wallet registrato come venditore nello smart contract, allora......
+        this.isSigned = true;
+      }
+    });
+    return this.isSigned;
   }
 }

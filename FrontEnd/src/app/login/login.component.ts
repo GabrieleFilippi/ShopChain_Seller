@@ -17,11 +17,16 @@ export class LoginComponent implements OnInit {
   tokenContract: any;
   balance: any;
   tokenAddress: any;
+  sellerList: any;
+  sellerIsSigned: any;
+  sellerSigned: any;
   public signer: any;
   constructor( public metamaskConnectionService: MetamaskConnectionService) { }
 
   ngOnInit(){
     this.getMetamask();
+    this.sellerSigned = this.getSellerList();
+    console.log(this.sellerSigned);
   }
   ngOnChanges(){
     
@@ -29,4 +34,8 @@ export class LoginComponent implements OnInit {
   async getMetamask(){
     await this.metamaskConnectionService.getMetamask();
   }
+  async getSellerList(){
+    this.sellerIsSigned = await this.metamaskConnectionService.getSellerList();
+    console.log(await this.sellerIsSigned);
+    }
 }
