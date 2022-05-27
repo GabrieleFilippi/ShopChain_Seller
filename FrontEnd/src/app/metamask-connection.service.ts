@@ -14,6 +14,7 @@ export class MetamaskConnectionService {
   public tokenContract: any;
   public tokenAddress: any;
   public connected: any;
+  public sellerBalance: any;
   constructor(private router: Router) { }
   async getMetamask(){
   // verifica che metamask sia installato
@@ -27,7 +28,7 @@ export class MetamaskConnectionService {
   isInstalled(){
     return window.ethereum;
   }
-  // lo fai SOLO se sono giá connesso a metamask
+  // lo fa SOLO se sono giá connesso a metamask
   async inizialiseContract(){
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     this.signer = provider.getSigner();
@@ -36,18 +37,23 @@ export class MetamaskConnectionService {
     this.tokenAddress = this.tokenContract.address;
     this.signerAddress = await this.signer.getAddress();
     this.signer = provider.getSigner();
-    // balance dello smart contract
-    this.tokenContract.getBalance();
-    console.log(this.tokenContract.getBalance());
+    // balance del wallet connesso
+    this.sellerBalance = await provider.getBalance(this.signerAddress).then((balances) => {
+      // convert a currency unit from wei to ether
+      const balanceInEth = ethers.utils.formatEther(balances);
+      return balanceInEth;
+     })
     if(await this.signer.getChainId() !== 43113){
       alert("Network sbagliato, passa a FujiTestnet e ricarica la pagina");
       //this.router.navigate(['/wrongnetwork']);
     }
-    // serve qualcosa per aggiornare la pagina quando il netwoek viene cambiato
+    // serve qualcosa per aggiornare la pagina quando il netwoek viene cambiato 
+    //NGONCHANGER() ?????????
     // provider.on("network", (newNetwork: any, oldNetwork: any) => {
     //   if(oldNetwork) window.location.reload();
     // });
-    //this.tokenContract.createOrder(this.signerAddress, );
+    //this.value = ethers.utils.parseEther("0.1");
+    //this.tokenContract.createOrder(this.signerAddress, this.value);
     return this.tokenContract;
   }
   async getOrderList(){

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges } from '@angular/core';
 import { ContractService } from '../contract.service';
 import { ethers } from 'ethers';
 import { MetamaskConnectionService } from '../metamask-connection.service';
@@ -18,12 +18,15 @@ export class LoginComponent implements OnInit {
   balance: any;
   tokenAddress: any;
   public signer: any;
-  constructor( public metmaskConnectionService: MetamaskConnectionService) { }
+  constructor( public metamaskConnectionService: MetamaskConnectionService) { }
 
-  async ngOnInit(){
+  ngOnInit(){
     this.getMetamask();
   }
-  getMetamask(){
-    this.metmaskConnectionService.getMetamask();
+  ngOnChanges(){
+    
+  }
+  async getMetamask(){
+    await this.metamaskConnectionService.getMetamask();
   }
 }

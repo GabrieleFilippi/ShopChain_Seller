@@ -1,12 +1,14 @@
-<div *ngIf = "!metmaskConnectionService.signer" class="connect-button">
+<div *ngIf = "!metamaskConnectionService.signer" class="connect-button">
     <p>Non hai Metamask installato nel browser</p>
     <button onclick="window.location.href='https://metamask.io/download/'">Installa Metamask</button>
 </div>
-<div *ngIf = "metmaskConnectionService.signer">
+<div *ngIf = "metamaskConnectionService.signer">
 <p>Indirizzo del contratto:</p>
-<p>{{metmaskConnectionService.tokenAddress}}</p>
+<p>{{metamaskConnectionService.tokenAddress}}</p>
 <p>Il tuo indirizzo metamask:</p>
-<p>{{metmaskConnectionService.signerAddress}}</p>
+<p>{{metamaskConnectionService.signerAddress}}</p>
+<p>Quanti AVAX possiedi: </p>
+<p>{{metamaskConnectionService.sellerBalance}} AVAX</p>
 <a routerLink="/orderlist">
     <button routerLink="/orderlist">Vai a vedere la lista ordini</button>
 </a>
