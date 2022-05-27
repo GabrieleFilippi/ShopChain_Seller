@@ -24,6 +24,6 @@ export class LoginComponent implements OnInit {
     this.getMetamask();
   }
   getMetamask(){
-    return this.metmaskConnectionService.getMetamask();
+    this.metmaskConnectionService.getMetamask();
   }
 }
