@@ -58,7 +58,7 @@ export class MetamaskConnectionService {
     //this.value = ethers.utils.parseEther("0.1");
     
     // popolare gli ordini
-    //this.tokenContract.createOrder(this.signerAddress, 1);
+    //this.tokenContract.createOrder("0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f",{value: ethers.utils.parseEther("0.1")});
     //this.tokenContract.registerAsSeller();
     return this.tokenContract;
   }
