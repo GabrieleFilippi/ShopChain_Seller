@@ -62,24 +62,34 @@ export class MetamaskConnectionService {
     //this.tokenContract.registerAsSeller();
     return this.tokenContract;
   }
-  async getOrderList(){
+  async getOrderList(): Promise<any[]>{
     this.tokenContract = await this.inizialiseContract();
     // returna un array con gli ordini
     console.log( "Questi sono gli ordini nello sc: ", await this.tokenContract.getOrders());
     return await this.tokenContract.getOrders();
   }
-  async getSellerList(){
+  async getSellerList(): Promise<any[]>{
     this.tokenContract = await this.inizialiseContract();
-    //returna un array con i due sellers
+    //returna un array con i sellers
     console.log( await this.tokenContract.getSellers());
-    this.sellerList =  await this.tokenContract.getSellers();
-    this.sellerList.forEach((element: any) => {
-      if (element === this.signerAddress){
-        // se trova l'address di questo wallet registrato come venditore nello smart contract, allora......
-        this.isSigned = true;
-      }
-    });
-    console.log("Questo Waller é registrato come seller? : ",this.isSigned);
-    return this.isSigned;
+    return this.sellerList =  await this.tokenContract.getSellers();
+    // this.sellerList.forEach((element: any) => {
+    //   if (element === this.signerAddress){
+    //     // se trova l'address di questo wallet registrato come venditore nello smart contract, allora......
+    //     this.isSigned = true;
+    //   }
+    // });
+    // console.log("Questo Wallet é registrato come seller? : ",this.isSigned);
+    // return this.isSigned;
+  }
+  async isRegistered(): Promise<boolean>{
+    this.tokenContract = await this.inizialiseContract();
+    const list = await this.getSellerList();
+    if(list.includes(this.signerAddress)){
+      console.log("Questo Wallet é registrato come seller");
+      return true;
+    }
+    console.log("Questo Wallet NON é registrato come seller");
+    return false;
   }
 }
