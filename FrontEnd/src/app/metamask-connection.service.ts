@@ -47,19 +47,10 @@ export class MetamaskConnectionService {
       return balanceInEth;
      })
     if(await this.signer.getChainId() !== 43113){
-      alert("Network sbagliato, passa a FujiTestnet e ricarica la pagina");
       this.router.navigate(['/wrongnetwork']);
     }
-    // serve qualcosa per aggiornare la pagina quando il netwoek viene cambiato 
-    //NGONCHANGER() ?????????
-    // provider.on("network", (newNetwork: any, oldNetwork: any) => {
-    //   if(oldNetwork) window.location.reload();
-    // });
-    //this.value = ethers.utils.parseEther("0.1");
-    
     // popolare gli ordini
     //this.tokenContract.createOrder("0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f",{value: ethers.utils.parseEther("0.1")});
-    //this.tokenContract.registerAsSeller();
     return this.tokenContract;
   }
   async getOrderList(): Promise<any[]>{
