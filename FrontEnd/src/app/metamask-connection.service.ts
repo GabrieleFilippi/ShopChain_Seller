@@ -92,4 +92,8 @@ export class MetamaskConnectionService {
     console.log("Questo Wallet NON é registrato come seller");
     return false;
   }
+  async registerAsSeller(){
+    //this.tokenContract.registerAsSeller();
+    console.log("ora ti registra");
+  }
 }

@@ -13,6 +13,7 @@ import { MatIconModule} from '@angular/material/icon';
 import { MatSliderModule } from '@angular/material/slider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
+import {MatSidenavModule} from '@angular/material/sidenav';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import {MatListModule} from '@angular/material/list';
     MatIconModule,
     MatSliderModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    MatSidenavModule
   ],
   providers: [],
   bootstrap: [AppComponent]

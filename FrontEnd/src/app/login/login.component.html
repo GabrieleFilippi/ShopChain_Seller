@@ -1,7 +1,7 @@
-<div *ngIf = "!metamaskConnectionService.signer" class="connect-button">
+<!-- <div *ngIf = "!metamaskConnectionService.signer" class="connect-button">
     <p>Non hai Metamask installato nel browser</p>
     <button onclick="window.location.href='https://metamask.io/download/'">Installa Metamask</button>
-</div>
+</div> -->
 <div *ngIf = "metamaskConnectionService.signer">
     <p>Indirizzo del contratto:</p>
     <p>{{metamaskConnectionService.tokenAddress}}</p>
@@ -9,14 +9,15 @@
     <p>{{metamaskConnectionService.signerAddress}}</p>
     <p>Quanti AVAX possiedi: </p>
     <p>{{metamaskConnectionService.sellerBalance}} AVAX</p>
-    <div *ngIf="sellerIsSigned === true">
+    <div *ngIf="sellerIsSigned">
+        <p>Il wallet risulta registrato come venditore</p>
         <a routerLink="/orderlist">
-            <button routerLink="/orderlist">Vai a vedere la lista ordini</button>
+            <button  mat-raised-button routerLink="/orderlist">Vai a vedere la lista ordini</button>
         </a>
     </div>
-    <div *ngIf="!sellerIsSigned">
+    <div *ngIf="sellerIsSigned === false">
         <p>Non sei registrato come seller, clicca qui per registrarti.</p>
         <!-- METTERE CHE FA PARTIRE REGISTERSELLER()-->
-        <button onclick="window.location.href='https://metamask.io/download/'">Installa Metamask</button>
+        <button  mat-raised-button (click)="registerAsSeller()">Registrati come venditore</button>
     </div>
 </div>

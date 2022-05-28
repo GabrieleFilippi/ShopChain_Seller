@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(){
     // se arriva qua dovrebbe essere solo perche é gia stato provato come seller registrato
-    //this.getMetamask();
+    this.getMetamask();
     this.isRegistered();
     //console.log(this.sellerSigned);
   }
@@ -39,5 +39,8 @@ export class LoginComponent implements OnInit {
   async isRegistered(){
     this.sellerIsSigned = await this.metamaskConnectionService.isRegistered();
     //console.log(await this.sellerIsSigned);
-    }
+  }
+  async registerAsSeller(){
+    await this.metamaskConnectionService.registerAsSeller();
+  }
 }

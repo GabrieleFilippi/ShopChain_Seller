@@ -1,7 +1,21 @@
 <mat-toolbar>
     <span>Shopchain</span>
     <span class="example-spacer"></span>
-    <mat-icon>account_balance_wallet</mat-icon>
-    <span>WalletInfo</span>
+    <button mat-button>
+      <mat-icon>account_balance_wallet</mat-icon>
+    </button>
+    <span><p>WalletInfo</p></span>
+</mat-toolbar>
     <!--{{metamaskConnectionService.signerAddress}}-->
-  </mat-toolbar>
+  <!-- </mat-toolbar>
+  <mat-drawer-container class="example-container" autosize>
+  <mat-drawer #drawer class="example-sidenav" mode="push">
+  <p>I am navbar !!</p>
+  </mat-drawer>
+  <div class="example-sidenav-content">
+  <button type="button" mat-button color="primary" (click)="drawer.toggle()">
+  click me!!
+  </button>
+  </div>
+  <app-login></app-login>
+  </mat-drawer-container> -->
