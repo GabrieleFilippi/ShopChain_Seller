@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { MetamaskConnectionService } from '../metamask-connection.service';
 
 @Component({
   selector: 'app-header',
@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(public metamaskConnectionService: MetamaskConnectionService) { }
 
   ngOnInit(): void {
   }
