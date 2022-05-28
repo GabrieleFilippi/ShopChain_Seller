@@ -48,7 +48,7 @@ export class MetamaskConnectionService {
      })
     if(await this.signer.getChainId() !== 43113){
       alert("Network sbagliato, passa a FujiTestnet e ricarica la pagina");
-      //this.router.navigate(['/wrongnetwork']);
+      this.router.navigate(['/wrongnetwork']);
     }
     // serve qualcosa per aggiornare la pagina quando il netwoek viene cambiato 
     //NGONCHANGER() ?????????
@@ -59,12 +59,13 @@ export class MetamaskConnectionService {
     
     // popolare gli ordini
     //this.tokenContract.createOrder(this.signerAddress, 1);
+    //this.tokenContract.registerAsSeller();
     return this.tokenContract;
   }
   async getOrderList(){
     this.tokenContract = await this.inizialiseContract();
     // returna un array con gli ordini
-    //console.log( await this.tokenContract.getOrders());
+    console.log( "Questi sono gli ordini nello sc: ", await this.tokenContract.getOrders());
     return await this.tokenContract.getOrders();
   }
   async getSellerList(){
@@ -74,11 +75,11 @@ export class MetamaskConnectionService {
     this.sellerList =  await this.tokenContract.getSellers();
     this.sellerList.forEach((element: any) => {
       if (element === this.signerAddress){
-        console.log("true");
         // se trova l'address di questo wallet registrato come venditore nello smart contract, allora......
         this.isSigned = true;
       }
     });
+    console.log("Questo Waller é registrato come seller? : ",this.isSigned);
     return this.isSigned;
   }
 }

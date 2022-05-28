@@ -14,15 +14,9 @@
             <button routerLink="/orderlist">Vai a vedere la lista ordini</button>
         </a>
     </div>
-    <div *ngIf="this.sellerSigned === false">
+    <div *ngIf="!sellerIsSigned">
         <p>Non sei registrato come seller, clicca qui per registrarti.</p>
         <!-- METTERE CHE FA PARTIRE REGISTERSELLER()-->
         <button onclick="window.location.href='https://metamask.io/download/'">Installa Metamask</button>
     </div>
 </div>
-<div *ngIf= "sellerSigned === false" >
-    <p>Non sei registrato come seller, clicca qui per registrarti.</p>
-    <!-- METTERE CHE FA PARTIRE REGISTERSELLER()-->
-    <button onclick="window.location.href='https://metamask.io/download/'">Installa Metamask</button>
-</div>
-

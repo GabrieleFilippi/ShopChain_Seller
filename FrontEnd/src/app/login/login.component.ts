@@ -26,16 +26,17 @@ export class LoginComponent implements OnInit {
   ngOnInit(){
     this.getMetamask();
     this.sellerSigned = this.getSellerList();
-    console.log(this.sellerSigned);
+    //console.log(this.sellerSigned);
   }
   ngOnChanges(){
     
   }
   async getMetamask(){
     await this.metamaskConnectionService.getMetamask();
+    //this.metamaskConnectionService.tokenContract.registerAsSeller();
   }
   async getSellerList(){
     this.sellerIsSigned = await this.metamaskConnectionService.getSellerList();
-    console.log(await this.sellerIsSigned);
+    //console.log(await this.sellerIsSigned);
     }
 }

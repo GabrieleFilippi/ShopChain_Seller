@@ -122,7 +122,7 @@ contract ShopChain {
 		sellerExists(seller)
 	{
 		require(
-			amount > 0 && msg.value > 0, 
+			amount > 0, 
 			"ERROR: The order amount can't be null."
 		);
 
