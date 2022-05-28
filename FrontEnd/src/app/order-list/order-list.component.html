@@ -1,9 +1,5 @@
 <p>Lista dei tuoi ordini</p>
-<li *ngFor="let order of orderList">
-    qui deve apparire un ordine
+<li *ngFor="let order of orderList" async>
+    qui deve apparire un ordine {{orderList}}
 </li>
-<!--
-<li *ngFor="let order of sellerList">
-    {{sellerList}}
-</li>
--->
+

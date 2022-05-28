@@ -24,7 +24,8 @@ export class LoginComponent implements OnInit {
   constructor( public metamaskConnectionService: MetamaskConnectionService) { }
 
   ngOnInit(){
-    this.getMetamask();
+    // se arriva qua dovrebbe essere solo perche é gia stato provato come seller registrato
+    //this.getMetamask();
     this.isRegistered();
     //console.log(this.sellerSigned);
   }
