@@ -11,7 +11,8 @@ import address from '../../contracts/ShopChain.json';
 export class AppComponent {
   title = 'shopchain';
   async ngOnInit(){
-    //reload page when change the network
+    //reload page when network is changed
+    // potrei mettere che anziche mandarti in wrong network si attivi il badge tipo su pancakeswap che avverte di cmabiare network
     const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
     provider.on("network", (newNetwork: any, oldNetwork: any) => {
       if(oldNetwork) window.location.reload();

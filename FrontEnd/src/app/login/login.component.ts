@@ -27,12 +27,6 @@ export class LoginComponent implements OnInit {
     // se arriva qua dovrebbe essere solo perche é gia stato provato come seller registrato
     this.getMetamask();
     this.isRegistered();
-    //reload page when change the network
-    // const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-
-    // provider.on("network", (newNetwork: any, oldNetwork: any) => {
-    //   if(oldNetwork) window.location.reload();
-    // });
     //console.log(this.sellerSigned);
   }
   ngOnChanges(){
@@ -40,11 +34,9 @@ export class LoginComponent implements OnInit {
   }
   async getMetamask(){
     await this.metamaskConnectionService.getMetamask();
-    //this.metamaskConnectionService.tokenContract.registerAsSeller();
   }
   async isRegistered(){
     this.sellerIsSigned = await this.metamaskConnectionService.isRegistered();
-    //console.log(await this.sellerIsSigned);
   }
   async registerAsSeller(){
     await this.metamaskConnectionService.registerAsSeller();

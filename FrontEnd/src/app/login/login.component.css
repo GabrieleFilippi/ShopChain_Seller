@@ -4,3 +4,7 @@ button:hover{
 button:onclick{
     background-color: rgb(204, 204, 204);
 }
+div {
+    display: grid; 
+    place-items: center; 
+}
