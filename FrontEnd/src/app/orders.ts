@@ -1,16 +1,16 @@
 import { BigNumber } from "ethers";
 export interface Orders{
-    id: BigNumber;
+    id: string;
     buyerAddress: string;
     sellerAddress: string;
-    amount: BigNumber;
-    state: State;
+    amount: string;
+    state: string;
 }
-enum State { 
-    created,
-    shipped,
-    confirmed,
-    deleted,
-    refundAsked,
-    refunded
+export enum State {
+  created,
+  shipped,
+  confirmed,
+  deleted,
+  refundAsked,
+  refunded,
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { listenerCount } from 'process';
 import { MetamaskConnectionService } from '../metamask-connection.service';
-import { Orders } from '../orders';
+import { Orders, State } from '../orders';
 import { Order } from '../orderclass';
+import { ethers} from 'ethers';
 //import * as initOrders from '../orders';
 @Component({
   selector: 'app-order-list',
@@ -11,7 +12,7 @@ import { Order } from '../orderclass';
 })
 export class OrderListComponent implements OnInit {
   order: Order | undefined;
-  userOrdersList: Order[] = [];
+  userOrdersList: Orders[] = [];
   orderList: any;
   sellerList: any;
   list: any;
@@ -34,8 +35,8 @@ export class OrderListComponent implements OnInit {
   async getUserOrders(){
     const userAddress = await this.getUser();
     this.userOrders = await this.metamaskConnectionService.getUserOrderList(userAddress);
-    this.userOrdersList = await this.formatOrder(this.userOrders);
-    await this.formatOrderI(this.userOrders);
+    //this.userOrdersList = await this.formatOrder(this.userOrders);
+    this.userOrdersList = await this.formatOrderI(this.userOrders);
     return this.userOrders;
   }
   // funziona con orderclass ma meglio usare un interfaccia
@@ -56,12 +57,13 @@ export class OrderListComponent implements OnInit {
         id: e[0],
         buyerAddress: e[1],
         sellerAddress: e[2],
-        amount: e[3],
-        state: e[4]
+        amount: ethers.utils.formatEther(e[3]),
+        state: State[e[4]]
       }
       LIST.push(orders);
     });
     console.log("fatto con interfaccia",LIST);
+    return LIST;
   }
 }
   
