@@ -14,6 +14,8 @@ import { MatSliderModule } from '@angular/material/slider';
 import {MatButtonModule} from '@angular/material/button';
 import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import {MatTableModule} from '@angular/material/table';
+
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatSliderModule,
     MatButtonModule,
     MatListModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent]

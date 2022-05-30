@@ -3,7 +3,7 @@ export class Order{
     public buyerAddress: any;
     public sellerAddress: any;
     public amount: any;
-    public state: any;
+    public state: State;
     constructor(ID: any,  buyer: any, seller: any, amount: any, state: any){
         this.id = ID;
         this.buyerAddress = buyer;
@@ -11,4 +11,12 @@ export class Order{
         this.amount = amount;
         this.state = state;
     }
-} 
+}
+enum State { 
+    created,
+    shipped,
+    confirmed,
+    deleted,
+    refundAsked,
+    refunded
+}

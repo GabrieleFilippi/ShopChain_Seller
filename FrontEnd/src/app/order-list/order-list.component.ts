@@ -16,10 +16,10 @@ export class OrderListComponent implements OnInit {
   sellerList: any;
   list: any;
   userOrders: any;
+  displayedColumns: string[] = ['ID','buyer','amount','state'];
   constructor(private metamaskConnectionService: MetamaskConnectionService) { }
 
   ngOnInit() {
-    //this.getOrderList();
     this.getUserOrders();
   }
   async getUser(){
@@ -27,9 +27,6 @@ export class OrderListComponent implements OnInit {
   }
   async getOrderList(){
     this.orderList = await this.metamaskConnectionService.getOrderList();
-    //console.log(this.orderList);
-    //this.orderList.forEach((element: any) => {
-  // });
   }
   async getSellerList(){
     return this.sellerList =  await this.metamaskConnectionService.getSellerList();
@@ -39,26 +36,11 @@ export class OrderListComponent implements OnInit {
     this.userOrders = await this.metamaskConnectionService.getUserOrderList(userAddress);
     this.userOrdersList = await this.formatOrder(this.userOrders);
   }
-  //funzione che elabora l'orderlist
-  // senza questa orderlist da:
-  //un array di array di 5 elementi
-  // 0: bigNumber (?) -> id dell'ordine
-  // 1: buyeraddress
-  // 2: selleradddress
-  // 3: bigNumber (?) -> amount
-  // 4: 0 (?) -> stato dell'ordine (refound, completed etc...)
-  //voglio che mostri solo: buyeraddress, id, state, amount => interface Orders
   async formatOrder(list: any[]){
-    // prende l'array di array
-    // esamino un array alla volta e prendo le info
-    // separo i vari array uno dall'altro
-    // console.log(list);
-    //const order: Orders | undefined;
     const LIST: Order[] = [];
       for (let i = 0; i < list.length; i ++) {
-      const chunk = list.slice(i, i+1);
+        const chunk = list.slice(i, i+1);
         const order = new Order(chunk[0][0],chunk[0][1],chunk[0][2],chunk[0][3],chunk[0][4]);
-        console.log(order.buyerAddress);
         LIST!.push(order);
     }
     return LIST;

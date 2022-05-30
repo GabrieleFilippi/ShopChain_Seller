@@ -2,3 +2,6 @@ div {
     display: grid; 
     place-items: center; 
 }
+.table{
+    width: 80%;
+}
