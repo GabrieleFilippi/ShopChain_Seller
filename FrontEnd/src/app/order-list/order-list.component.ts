@@ -17,16 +17,23 @@ export class OrderListComponent implements OnInit {
     this.getOrderList();
     this.sellerList = this.getSellerList();
     this.formatOrder(this.sellerList);
+    this.getUserOrders();
+  }
+  async getUser(){
+    return await this.metamaskConnectionService.getUserAddress();
   }
   async getOrderList(){
     this.orderList = await this.metamaskConnectionService.getOrderList();
     //console.log(this.orderList);
-  //   this.orderList.forEach((element: any) => {
-      
+    //this.orderList.forEach((element: any) => {
   // });
   }
   async getSellerList(){
     return this.sellerList =  await this.metamaskConnectionService.getSellerList();
+  }
+  async getUserOrders(){
+    const userAddress = await this.getUser();
+    this.metamaskConnectionService.getUserOrderList(userAddress);
   }
   //funzione che elabora l'orderlist
   // senza questa orderlist da:

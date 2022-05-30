@@ -59,6 +59,12 @@ export class MetamaskConnectionService {
     console.log( "Questi sono gli ordini nello sc: ", await this.tokenContract.getOrders());
     return await this.tokenContract.getOrders();
   }
+  async getUserOrderList(address: any){
+    this.tokenContract = await this.inizialiseContract();
+    console.log("ciao",await this.tokenContract.getOrdersOfUser(address));
+    return await this.tokenContract.getOrdersOfUser(address);
+
+  }
   async getSellerList(): Promise<any[]>{
     this.tokenContract = await this.inizialiseContract();
     //returna un array con i sellers
@@ -86,5 +92,9 @@ export class MetamaskConnectionService {
   async registerAsSeller(){
     //this.tokenContract.registerAsSeller();
     console.log("ora ti registra");
+  }
+  async getUserAddress(){
+    this.tokenContract = await this.inizialiseContract();
+    return this.signerAddress;
   }
 }
