@@ -1,9 +1,10 @@
+import { BigNumber } from "ethers";
 export interface Orders{
-    id: number;
+    id: BigNumber;
     buyerAddress: string;
     sellerAddress: string;
-    amount: number;
-    state: number;
+    amount: BigNumber;
+    state: State;
 }
 enum State { 
     created,

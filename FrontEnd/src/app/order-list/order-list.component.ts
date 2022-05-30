@@ -35,7 +35,10 @@ export class OrderListComponent implements OnInit {
     const userAddress = await this.getUser();
     this.userOrders = await this.metamaskConnectionService.getUserOrderList(userAddress);
     this.userOrdersList = await this.formatOrder(this.userOrders);
+    await this.formatOrderI(this.userOrders);
+    return this.userOrders;
   }
+  // funziona con orderclass ma meglio usare un interfaccia
   async formatOrder(list: any[]){
     const LIST: Order[] = [];
       for (let i = 0; i < list.length; i ++) {
@@ -45,5 +48,20 @@ export class OrderListComponent implements OnInit {
     }
     return LIST;
   }  
+  // funziona con l'interfaccia
+  async formatOrderI(list: any[]){
+    const LIST: Orders[] = []
+    list.map((e: any[]) => {
+      const orders: Orders = {
+        id: e[0],
+        buyerAddress: e[1],
+        sellerAddress: e[2],
+        amount: e[3],
+        state: e[4]
+      }
+      LIST.push(orders);
+    });
+    console.log("fatto con interfaccia",LIST);
+  }
 }
   
