@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { listenerCount } from 'process';
 import { MetamaskConnectionService } from '../metamask-connection.service';
 import { Orders } from '../orders';
+import { Order } from '../orderclass';
+//import * as initOrders from '../orders';
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
   styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent implements OnInit {
+  order: Order | undefined;
+  userOrdersList: Orders[] | undefined;
   orderList: any;
   sellerList: any;
   list: any;
@@ -15,10 +19,9 @@ export class OrderListComponent implements OnInit {
   constructor(private metamaskConnectionService: MetamaskConnectionService) { }
 
   ngOnInit(): void {
-    this.getOrderList();
-    this.sellerList = this.getSellerList();
-    this.formatOrder(this.sellerList);
+    //this.getOrderList();
     this.getUserOrders();
+    //this.formatOrder(this.orderList);
   }
   async getUser(){
     return await this.metamaskConnectionService.getUserAddress();
@@ -35,41 +38,45 @@ export class OrderListComponent implements OnInit {
   async getUserOrders(){
     const userAddress = await this.getUser();
     this.userOrders = await this.metamaskConnectionService.getUserOrderList(userAddress);
+    this.formatOrder(this.userOrders);
+    //return await this.userOrders;
   }
   //funzione che elabora l'orderlist
   // senza questa orderlist da:
-  //[Array(5), Array(5), Array(5)]
   //un array di array di 5 elementi
   // 0: bigNumber (?) -> id dell'ordine
   // 1: buyeraddress
   // 2: selleradddress
   // 3: bigNumber (?) -> amount
   // 4: 0 (?) -> stato dell'ordine (refound, completed etc...)
-  // amount: bigNumber
-  // buyer: buyeraddress
-  // id: bigNumber (?)
-  // seller: selleraddress
-  // state: int
-  // length: 5
-  //voglio che mostri solo: buyeraddress, id, state, amount
+  //voglio che mostri solo: buyeraddress, id, state, amount => interface Orders
   async formatOrder(list: any[]){
-    // non serve mostrare il seller tanto sono sempre io
-    // mostra solo gli ordini con il mio seller address
-    // mostra id dell'ordine a sx
-    // mostra address del compratore al centro
-    // mostra stato dell'ordine a dx
-    const i: any = 0;
+    // prende l'array di array
+    // esamino un array alla volta e prendo le info
+    // separo i vari array uno dall'altro
+    // console.log(list);
+    const chunkSize = 1;
+    //const order: Orders | undefined;
+    const order = this.order;
+    for (let i = 0; i < list.length; i += chunkSize) {
+      const chunk = list.slice(i, i + chunkSize);
+        const order = new Order(chunk[0][0],chunk[0][1],chunk[0][2],chunk[0][3],chunk[0][4]);
+        console.log(order);
+    }
+
+    //const i: any = 0;
     // list.forEach((element) => {
     //     if (element[i][2] === this.metamaskConnectionService.signerAddress){
     //       // se trova l'address di questo wallet registrato come venditore nello smart contract, allora......
     //       console.log("un suo ordine");
     //     }
     //   });
-    Object.keys(list).forEach(key => {
-      console.log(key); //
+    //Object.keys(list).forEach(key => {
+      //console.log(key); //
       //console.log(list[key]); // 
-    });
+    //});
 
   }  
+
 }
   

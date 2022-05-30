@@ -31,7 +31,7 @@ export class MetamaskConnectionService {
     return window.ethereum;
   }
   // lo fa SOLO se sono giá connesso a metamask
-  async inizialiseContract(){
+  async inizialiseContract(): Promise<any>{
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     this.signer = provider.getSigner();
     this.tokenContract = new ethers.Contract(address.contractAddress, address.abi, this.signer);
@@ -55,19 +55,19 @@ export class MetamaskConnectionService {
   async getOrderList(): Promise<any[]>{
     this.tokenContract = await this.inizialiseContract();
     // returna un array con gli ordini
-    console.log( "Questi sono gli ordini nello sc: ", await this.tokenContract.getOrders());
+    //console.log( "Questi sono gli ordini nello sc: ", await this.tokenContract.getOrders());
     return await this.tokenContract.getOrders();
   }
-  async getUserOrderList(address: any){
+  async getUserOrderList(address: any): Promise<any[]>{
     this.tokenContract = await this.inizialiseContract();
-    console.log("ciao",await this.tokenContract.getOrdersOfUser(address));
+    console.log("ordini che risultano a nome di questo venditore:   ", await this.tokenContract.getOrdersOfUser(address));
     return await this.tokenContract.getOrdersOfUser(address);
 
   }
   async getSellerList(): Promise<any[]>{
     this.tokenContract = await this.inizialiseContract();
     //returna un array con i sellers
-    console.log( await this.tokenContract.getSellers());
+    //console.log( await this.tokenContract.getSellers());
     return this.sellerList =  await this.tokenContract.getSellers();
     // this.sellerList.forEach((element: any) => {
     //   if (element === this.signerAddress){
