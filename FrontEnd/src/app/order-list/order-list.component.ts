@@ -11,17 +11,16 @@ import { Order } from '../orderclass';
 })
 export class OrderListComponent implements OnInit {
   order: Order | undefined;
-  userOrdersList: Orders[] | undefined;
+  userOrdersList: Order[] = [];
   orderList: any;
   sellerList: any;
   list: any;
   userOrders: any;
   constructor(private metamaskConnectionService: MetamaskConnectionService) { }
 
-  ngOnInit(): void {
+  ngOnInit() {
     //this.getOrderList();
     this.getUserOrders();
-    //this.formatOrder(this.orderList);
   }
   async getUser(){
     return await this.metamaskConnectionService.getUserAddress();
@@ -38,8 +37,7 @@ export class OrderListComponent implements OnInit {
   async getUserOrders(){
     const userAddress = await this.getUser();
     this.userOrders = await this.metamaskConnectionService.getUserOrderList(userAddress);
-    this.formatOrder(this.userOrders);
-    //return await this.userOrders;
+    this.userOrdersList = await this.formatOrder(this.userOrders);
   }
   //funzione che elabora l'orderlist
   // senza questa orderlist da:
@@ -55,28 +53,15 @@ export class OrderListComponent implements OnInit {
     // esamino un array alla volta e prendo le info
     // separo i vari array uno dall'altro
     // console.log(list);
-    const chunkSize = 1;
     //const order: Orders | undefined;
-    const order = this.order;
-    for (let i = 0; i < list.length; i += chunkSize) {
-      const chunk = list.slice(i, i + chunkSize);
+    const LIST: Order[] = [];
+      for (let i = 0; i < list.length; i ++) {
+      const chunk = list.slice(i, i+1);
         const order = new Order(chunk[0][0],chunk[0][1],chunk[0][2],chunk[0][3],chunk[0][4]);
-        console.log(order);
+        console.log(order.buyerAddress);
+        LIST!.push(order);
     }
-
-    //const i: any = 0;
-    // list.forEach((element) => {
-    //     if (element[i][2] === this.metamaskConnectionService.signerAddress){
-    //       // se trova l'address di questo wallet registrato come venditore nello smart contract, allora......
-    //       console.log("un suo ordine");
-    //     }
-    //   });
-    //Object.keys(list).forEach(key => {
-      //console.log(key); //
-      //console.log(list[key]); // 
-    //});
-
+    return LIST;
   }  
-
 }
   

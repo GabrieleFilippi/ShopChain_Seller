@@ -3,7 +3,10 @@
     <h3 matSubheader>Your Orders</h3>
     <mat-list-item *ngFor="let order of userOrdersList">
         <mat-icon>add_shopping_cart</mat-icon>
-        <p matline>{{order}}</p>
+        <p>{{order.id}}</p>
+        <p>{{order.buyerAddress}}</p>
+        <p>{{order.amount}}</p>
+        <p>{{order.state}}</p>.
     </mat-list-item>
  </mat-list>
 </div>
