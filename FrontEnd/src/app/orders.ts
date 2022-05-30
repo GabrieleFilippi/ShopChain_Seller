@@ -1,4 +1,9 @@
+import { BigNumber } from "ethers";
+
 export interface Orders{
-    id: number;
-    name: string;
+    id: BigNumber;
+    buyerAddress: string;
+    sellerAddress: string;
+    amount: BigNumber;
+    state: number;
 }

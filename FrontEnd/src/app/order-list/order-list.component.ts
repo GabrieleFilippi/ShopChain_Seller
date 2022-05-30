@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { listenerCount } from 'process';
 import { MetamaskConnectionService } from '../metamask-connection.service';
-
+import { Orders } from '../orders';
 @Component({
   selector: 'app-order-list',
   templateUrl: './order-list.component.html',
@@ -11,6 +11,7 @@ export class OrderListComponent implements OnInit {
   orderList: any;
   sellerList: any;
   list: any;
+  userOrders: any;
   constructor(private metamaskConnectionService: MetamaskConnectionService) { }
 
   ngOnInit(): void {
@@ -33,17 +34,17 @@ export class OrderListComponent implements OnInit {
   }
   async getUserOrders(){
     const userAddress = await this.getUser();
-    this.metamaskConnectionService.getUserOrderList(userAddress);
+    this.userOrders = await this.metamaskConnectionService.getUserOrderList(userAddress);
   }
   //funzione che elabora l'orderlist
   // senza questa orderlist da:
   //[Array(5), Array(5), Array(5)]
   //un array di array di 5 elementi
-  // 0: bigNumber (?)
+  // 0: bigNumber (?) -> id dell'ordine
   // 1: buyeraddress
   // 2: selleradddress
-  // 3: bigNumber (?)
-  // 4: 0 (?)
+  // 3: bigNumber (?) -> amount
+  // 4: 0 (?) -> stato dell'ordine (refound, completed etc...)
   // amount: bigNumber
   // buyer: buyeraddress
   // id: bigNumber (?)
@@ -65,8 +66,8 @@ export class OrderListComponent implements OnInit {
     //     }
     //   });
     Object.keys(list).forEach(key => {
-      console.log(key); // 👉️ "name", "country"
-      //console.log(list[key]); // 👉️ "Tom", "Chile"
+      console.log(key); //
+      //console.log(list[key]); // 
     });
 
   }  

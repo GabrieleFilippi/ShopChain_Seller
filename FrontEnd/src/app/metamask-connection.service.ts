@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { ethers } from 'ethers';
-import { Seller } from './seller';
 import { threadId } from 'worker_threads';
 import address from '../../contracts/ShopChain.json';
 
