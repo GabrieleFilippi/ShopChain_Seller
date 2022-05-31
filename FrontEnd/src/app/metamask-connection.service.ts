@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { ethers } from 'ethers';
 import { threadId } from 'worker_threads';
 import address from '../../contracts/ShopChain.json';
+import detectEthereumProvider from "@metamask/detect-provider";
 
 import { Router } from "@angular/router";
 declare let window: any;
@@ -17,6 +18,11 @@ export class MetamaskConnectionService {
   public sellerBalance: any;
   public sellerList: [] = [];
   public isSigned: boolean =  false;
+
+  public static currentAddress : string;
+  public static provider : any;
+  public static chainId : number = 43113;
+
   constructor(private router: Router) { }
   async getMetamask(){
   // verifica che metamask sia installato
@@ -95,5 +101,22 @@ export class MetamaskConnectionService {
   async getUserAddress(){
     this.tokenContract = await this.inizialiseContract();
     return this.signerAddress;
+  }
+  async isRightChain() : Promise<boolean> {
+    const provider = await MetamaskConnectionService.getWebProvider();
+    return (await provider.getNetwork()).chainId === MetamaskConnectionService.chainId;
+  }
+  private static async getWebProvider(requestAccounts = true) {
+    MetamaskConnectionService.provider = await detectEthereumProvider();
+    if (requestAccounts)
+    MetamaskConnectionService.currentAddress =  await MetamaskConnectionService.provider.request({ method: 'eth_requestAccounts' })
+
+    return new ethers.providers.Web3Provider(MetamaskConnectionService.provider)
+  }
+  public listenerAccountChange() : void {
+    MetamaskConnectionService.provider.on("accountsChanged",async () => {
+      await this.inizialiseContract();
+      window.location.reload();
+    })
   }
 }
