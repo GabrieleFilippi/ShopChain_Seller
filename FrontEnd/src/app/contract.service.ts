@@ -14,7 +14,7 @@ export class ContractService {
   public signerAddress: any;
   public tokenAddress: any;
   // lo fai SOLO se sono giá connesso a metamask
-  async inizialiseContract(){
+  async getContract(){
       const provider = new ethers.providers.Web3Provider(window.ethereum);
       this.signer = provider.getSigner(0);
       //tokenContract é lo smart contract ShopChain.sol

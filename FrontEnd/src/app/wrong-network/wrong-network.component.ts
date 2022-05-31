@@ -10,16 +10,12 @@ declare let window: any;
 })
 export class WrongNetworkComponent implements OnInit {
 
-  constructor(private router: Router,private metmaskConnectionService: MetamaskConnectionService) { }
+  constructor(private router: Router,private metamaskConnectionService: MetamaskConnectionService) { }
 
   async ngOnInit(): Promise<void> {
-    this.checkNetwork();
+    //this.changeNetwork();
   }
-  async checkNetwork(){
-    const provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-    const signer =   provider.getSigner();
-    if(await signer.getChainId() === 43113){
-      this.router.navigate(['/login']);
-    }
+  async changeNetwork() : Promise<any> {
+    await this.metamaskConnectionService.changeNetwork();
   }
-}
+  }
