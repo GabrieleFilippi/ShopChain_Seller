@@ -3,6 +3,7 @@ import { ethers } from 'ethers';
 import { threadId } from 'worker_threads';
 import address from '../../contracts/ShopChain.json';
 import detectEthereumProvider from "@metamask/detect-provider";
+import truncateEthAddress from 'truncate-eth-address';
 
 import { Router } from "@angular/router";
 declare let window: any;
@@ -18,6 +19,7 @@ export class MetamaskConnectionService {
   public sellerBalance: any;
   public sellerList: [] = [];
   public isSigned: boolean =  false;
+  public truncatedSignerAddress: any;
 
   public currentAddress : string | undefined;
   public provider : any;
@@ -45,7 +47,10 @@ export class MetamaskConnectionService {
     //console.log(this.tokenContract);
     this.tokenAddress = this.tokenContract.address;
     this.signerAddress = await this.signer.getAddress();
+    this.truncatedSignerAddress = truncateEthAddress(this.signerAddress);
+    
     // balance del wallet connesso
+
     this.sellerBalance = await provider.getBalance(this.signerAddress).then((balances) => {
       // convert a currency unit from wei to ether
       const balanceInEth = ethers.utils.formatEther(balances);
