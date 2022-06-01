@@ -16,5 +16,6 @@ export class WrongNetworkComponent implements OnInit {
   }
   async changeNetwork() : Promise<any> {
     await this.metamaskConnectionService.changeNetwork();
+    window.location.reload();
   }
   }

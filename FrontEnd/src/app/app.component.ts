@@ -4,6 +4,8 @@ import { ethers } from 'ethers';
 import address from '../../contracts/ShopChain.json';
 import detectEthereumProvider from "@metamask/detect-provider";
 import { MetamaskConnectionService } from './metamask-connection.service';
+import { Router } from "@angular/router";
+
 
 @Component({
   selector: 'app-root',
@@ -11,7 +13,7 @@ import { MetamaskConnectionService } from './metamask-connection.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private metamaskConnectionService: MetamaskConnectionService) {
+  constructor(private router: Router, private metamaskConnectionService: MetamaskConnectionService) {
   }
   title = 'shopchain';
   public tx : any;
@@ -24,10 +26,15 @@ export class AppComponent {
       this.metamaskConnectionService.chainChanged();
       this.rightChain = true;
     } else {
-      console.log("Sbagliato")
+      console.log("Sbagliato");
+      //this.goToWrongNetwork();
+      //this.router.navigate(['/wrongnetwork']);
       this.rightChain = false;
     }
     console.log(this.rightChain);
+  }
+  goToWrongNetwork() {
+    this.metamaskConnectionService.gotToWrongNetwork();
   }
   
   }

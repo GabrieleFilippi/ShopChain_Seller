@@ -27,6 +27,11 @@ export class MetamaskConnectionService {
   public static provider : any;
 
   constructor(private router: Router) { console.log(this.tokenAddress);}
+
+  gotToWrongNetwork(){
+    this.router.navigate(['/wrongnetwork']);
+  };
+
   // verifica che metamask sia installato
   async getMetamask(){
     if (this.isInstalled() === undefined) {
@@ -56,9 +61,10 @@ export class MetamaskConnectionService {
       const balanceInEth = ethers.utils.formatEther(balances);
       return balanceInEth;
      })
-    if(await this.signer.getChainId() !== 43113){
-      this.router.navigate(['/wrongnetwork']);
-    }
+    // if(await this.signer.getChainId() !== 43113){
+    //   console.log("go to wrong netwrok");
+    //   //this.router.navigate(['/wrongnetwork']);
+    // }
     return MetamaskConnectionService.tokenContract;
   }
   static async getOrderList(): Promise<any[]>{
@@ -121,14 +127,16 @@ export class MetamaskConnectionService {
       window.location.reload();
     })
   }
-  public chainChanged() : void {
-    MetamaskConnectionService.provider.on("chainChanged", () => {
+  public async chainChanged() : Promise<void> {
+    MetamaskConnectionService.provider.on("chainChanged", async () => {
       if (MetamaskConnectionService.provider.chainId === MetamaskConnectionService.chainId) {
         MetamaskConnectionService.rightChain = true;
         window.location.reload();
       } else {
         MetamaskConnectionService.rightChain = false;
-        this.router.navigate(['/wrongnetwork']);
+       // console.log("go to wrong netwrok");
+        //await this.router.navigate(['/wrongnetwork']);
+       // window.location.reload();
       }
     })
   }
