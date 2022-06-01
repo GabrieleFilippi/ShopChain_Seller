@@ -26,10 +26,10 @@ export class MetamaskConnectionService {
   public currentAddress : string | undefined;
   public static provider : any;
 
-  constructor(private router: Router) { console.log(this.tokenAddress);}
+  constructor(private router: Router) {}
 
-  gotToWrongNetwork(){
-    this.router.navigate(['/wrongnetwork']);
+  async gotToWrongNetwork(){
+    await this.router.navigate(['/wrongnetwork']);
   };
 
   // verifica che metamask sia installato
@@ -61,10 +61,10 @@ export class MetamaskConnectionService {
       const balanceInEth = ethers.utils.formatEther(balances);
       return balanceInEth;
      })
-    // if(await this.signer.getChainId() !== 43113){
-    //   console.log("go to wrong netwrok");
-    //   //this.router.navigate(['/wrongnetwork']);
-    // }
+    if(await this.signer.getChainId() !== 43113){
+      console.log("go to wrong netwrok");
+      this.router.navigate(['/wrongnetwork']);
+    }
     return MetamaskConnectionService.tokenContract;
   }
   static async getOrderList(): Promise<any[]>{
@@ -129,16 +129,14 @@ export class MetamaskConnectionService {
   }
   public async chainChanged() : Promise<void> {
     MetamaskConnectionService.provider.on("chainChanged", async () => {
-      if (MetamaskConnectionService.provider.chainId === MetamaskConnectionService.chainId) {
-        MetamaskConnectionService.rightChain = true;
-        window.location.reload();
-      } else {
-        MetamaskConnectionService.rightChain = false;
-       // console.log("go to wrong netwrok");
-        //await this.router.navigate(['/wrongnetwork']);
-       // window.location.reload();
-      }
-    })
+      if ( await MetamaskConnectionService.provider.chainId === MetamaskConnectionService.chainId) {
+      MetamaskConnectionService.rightChain = true;
+      window.location.reload();
+    } else {
+      MetamaskConnectionService.rightChain = false;
+      window.location.reload();
+    }
+     })
   }
   public async changeNetwork() : Promise<void> {
     // funzione trovata su https://stackoverflow.com/questions/68252365/how-to-trigger-change-blockchain-network-request-on-metamask
