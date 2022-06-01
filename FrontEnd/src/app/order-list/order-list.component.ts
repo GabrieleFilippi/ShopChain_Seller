@@ -25,7 +25,7 @@ export class OrderListComponent implements OnInit {
     return await this.metamaskConnectionService.getUserAddress();
   }
   async getOrderList(){
-    this.orderList = await this.metamaskConnectionService.getOrderList();
+    this.orderList = await MetamaskConnectionService.getOrderList();
   }
   async getSellerList(){
     return this.sellerList =  await this.metamaskConnectionService.getSellerList();

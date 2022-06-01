@@ -3,14 +3,15 @@
     <button onclick="window.location.href='https://metamask.io/download/'">Installa Metamask</button>
 </div>
 <div *ngIf = "metamaskConnectionService.signer" class="home">
-    <p>Indirizzo del contratto:</p>
-    <p>{{metamaskConnectionService.tokenAddress}}</p>
-    <p>Il tuo indirizzo metamask:</p>
-    <p>{{metamaskConnectionService.signerAddress}}</p>
-    <p>Quanti AVAX possiedi: </p>
-    <p>{{metamaskConnectionService.sellerBalance}} AVAX</p>
+    <h1>Benvenuto nella sezione Venditore</h1>
+    <h2>Sei collegato con l'account: <a href="https://testnet.snowtrace.io/address/{{metamaskConnectionService.truncatedSignerAddress}}">{{metamaskConnectionService.truncatedSignerAddress}}</a></h2>
+    <!-- <p>Indirizzo del contratto:</p>
+    <p>{{metamaskConnectionService.tokenAddress}}</p> -->
+    <!-- <p>Il tuo indirizzo metamask:</p> -->
+    <!-- <p>{{metamaskConnectionService.truncatedSignerAddress}}</p> -->
+    <h2>Con un balance di: {{metamaskConnectionService.sellerBalance}} AVAX</h2>
     <div *ngIf="sellerIsSigned">
-        <p>Il wallet risulta registrato come venditore</p>
+        <p>Clicca qui per vedere la lista degli ordini collegati a questo account</p>
         <a routerLink="/orderlist">
             <button  mat-raised-button routerLink="/orderlist">Vai a vedere la lista ordini</button>
         </a>

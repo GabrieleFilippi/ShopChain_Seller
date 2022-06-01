@@ -18,10 +18,10 @@ export class AppComponent {
   public orders : any;
   public rightChain : boolean = true;
   async ngOnInit(){
-    if (await this.metamaskConnectionService.isRightChain()) {
+    if (await this.metamaskConnectionService.onRightChain()) {
       await this.metamaskConnectionService.getContract();
-      this.metamaskConnectionService.listenerAccountChange();
-      this.metamaskConnectionService.listenerNetworkChange();
+      this.metamaskConnectionService.accountChanged();
+      this.metamaskConnectionService.chainChanged();
       this.rightChain = true;
     } else {
       console.log("Sbagliato")
