@@ -62,8 +62,8 @@ export class MetamaskConnectionService {
       return balanceInEth;
      })
     if(await this.signer.getChainId() !== 43113){
-      console.log("go to wrong netwrok");
-      this.router.navigate(['/wrongnetwork']);
+      //console.log("go to wrong netwrok");
+      this.gotToWrongNetwork();
     }
     return MetamaskConnectionService.tokenContract;
   }
