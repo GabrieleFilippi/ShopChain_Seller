@@ -27,11 +27,9 @@ export class MetamaskConnectionService {
   public static provider : any;
 
   constructor(private router: Router) {}
-
-  async gotToWrongNetwork(){
-    await this.router.navigate(['/wrongnetwork']);
-  };
-
+   ///////////////////////////////////////////////////////
+  //      GET METAMASK E INIZIALIZZA CONTRATTO        ///
+  //////////////////////////////////////////////////////
   // verifica che metamask sia installato
   async getMetamask(){
     if (this.isInstalled() === undefined) {
@@ -67,6 +65,24 @@ export class MetamaskConnectionService {
     }
     return MetamaskConnectionService.tokenContract;
   }
+  ///////////////////////////////////////////////////////
+  //         INFORMAZIONI SUL SIGNER                 ///
+  /////////////////////////////////////////////////////
+  async getUserAddress(){
+    MetamaskConnectionService.tokenContract = await this.getContract();
+    return await this.signer.getAddress();
+  }
+  async getSignerBalance(){
+    this.sellerBalance = await MetamaskConnectionService.provider.getBalance(MetamaskConnectionService.signerAddress).then((balances: ethers.BigNumberish) => {
+      // convert a currency unit from wei to ether
+      const balanceInEth = ethers.utils.formatEther(balances);
+      return balanceInEth;
+     })
+  }
+
+  ///////////////////////////////////////////////////////
+  //               ORDER LIST                        ///
+  //////////////////////////////////////////////////////
   static async getOrderList(): Promise<any[]>{
     //MetamaskConnectionService.tokenContract = await this.getContract();
     // returna un array con gli ordini
@@ -78,6 +94,9 @@ export class MetamaskConnectionService {
     console.log("ordini che risultano a nome di questo venditore:  ", await MetamaskConnectionService.tokenContract.getOrdersOfUser(address));
     return await MetamaskConnectionService.tokenContract.getOrdersOfUser(address);
   }
+  ////////////////////////////////////////////////////////
+  //            GESTIONE DEI SELLER                   ///
+  //////////////////////////////////////////////////////
   async getSellerList(): Promise<any[]>{
     //MetamaskConnectionService.tokenContract = await this.getContract();
     return this.sellerList =  await MetamaskConnectionService.tokenContract.getSellers();
@@ -96,21 +115,12 @@ export class MetamaskConnectionService {
     //MetamaskConnectionService.tokenContract.registerAsSeller();
     console.log("ora ti registra");
   }
-  async getUserAddress(){
-    MetamaskConnectionService.tokenContract = await this.getContract();
-    return await this.signer.getAddress();
-  }
-  async getSignerBalance(){
-    this.sellerBalance = await MetamaskConnectionService.provider.getBalance(MetamaskConnectionService.signerAddress).then((balances: ethers.BigNumberish) => {
-      // convert a currency unit from wei to ether
-      const balanceInEth = ethers.utils.formatEther(balances);
-      return balanceInEth;
-     })
-  }
-
   ///////////////////////////////////////////////////////
   // AGGIORNAMENTO IN BASE A CAMBIO NETWORK E ACCOUNT///
   //////////////////////////////////////////////////////
+  async gotToWrongNetwork(){
+    await this.router.navigate(['/wrongnetwork']);
+  };
 
   async onRightChain() : Promise<boolean> {
     const provider =  await MetamaskConnectionService.getWebProvider();
@@ -121,12 +131,14 @@ export class MetamaskConnectionService {
     MetamaskConnectionService.provider = await detectEthereumProvider();
     return new ethers.providers.Web3Provider(MetamaskConnectionService.provider)
   }
+
   public accountChanged() : void {
     MetamaskConnectionService.provider.on("accountsChanged",async () => {
       await this.getContract();
       window.location.reload();
     })
   }
+
   public async chainChanged() : Promise<void> {
     MetamaskConnectionService.provider.on("chainChanged", async () => {
       if ( await MetamaskConnectionService.provider.chainId === MetamaskConnectionService.chainId) {
@@ -138,8 +150,8 @@ export class MetamaskConnectionService {
     }
      })
   }
+  // funzione trovata su https://stackoverflow.com/questions/68252365/how-to-trigger-change-blockchain-network-request-on-metamask
   public async changeNetwork() : Promise<void> {
-    // funzione trovata su https://stackoverflow.com/questions/68252365/how-to-trigger-change-blockchain-network-request-on-metamask
     try {
       await MetamaskConnectionService.provider.request({
         method: 'wallet_switchEthereumChain',
