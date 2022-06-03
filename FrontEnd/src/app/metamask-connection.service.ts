@@ -94,7 +94,7 @@ export class MetamaskConnectionService {
     return await MetamaskConnectionService.tokenContract.getOrdersOfUser(address);
   }
   ///////////////////////////////////////////////////////
-  //      DELETE ORDER                                ///
+  //              DELETE ORDER                        ///
   //////////////////////////////////////////////////////
   public static async deleteOrder(orderId: any): Promise<any[]>{
     //MetamaskConnectionService.tokenContract = await this.getContract();
@@ -103,10 +103,16 @@ export class MetamaskConnectionService {
     return await MetamaskConnectionService.tokenContract.deleteOrder(orderId);
   }
   ///////////////////////////////////////////////////////
-  //     SIGN AS SHIPPED                             ///
+  //            SIGN AS SHIPPED                       ///
   //////////////////////////////////////////////////////
   async shipOrder(orderId: any){
     return await MetamaskConnectionService.tokenContract.shipOrder(orderId);
+  }
+  ///////////////////////////////////////////////////////
+  //             REFUND BUYER                         ///
+  //////////////////////////////////////////////////////
+  async refundBuyer(orderId: any, amount: any){
+    return await MetamaskConnectionService.tokenContract.refundBuyer(orderId, amount);
   }
   ////////////////////////////////////////////////////////
   //            GESTIONE DEI SELLER                   ///
@@ -185,5 +191,11 @@ export class MetamaskConnectionService {
         });
       }
     }
+  }
+  ////////////////////////////////////
+  ////////////CREATE ORDER//////////////
+  /////////////////////////////////////
+  async askRefund(orderId: any){
+    return await MetamaskConnectionService.tokenContract.askRefund(orderId);
   }
 }

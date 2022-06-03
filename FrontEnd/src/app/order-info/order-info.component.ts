@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import { MetamaskConnectionService } from '../metamask-connection.service';
 import { Orders, State } from '../orders';
-import { ethers} from 'ethers';
+import { BigNumber, ethers} from 'ethers';
 
 @Component({
   selector: 'app-order-info',
@@ -17,6 +17,7 @@ export class OrderInfoComponent implements OnInit {
   userOrdersList: Orders[] = [];
   displayedColumns: string[] = ['ID','buyer','amount','state'];
   numberId: number = 0;
+  amount: BigNumber | undefined;
   constructor(private route: ActivatedRoute, private metamaskConnectionService: MetamaskConnectionService) { }
 
   async ngOnInit(): Promise<void> {
@@ -52,6 +53,10 @@ export class OrderInfoComponent implements OnInit {
         amount: ethers.utils.formatEther(e[3]),
         state: State[e[4]]
       }
+      console.log("amount ",order.amount);
+      console.log("amount ",typeof(order.amount));
+      console.log("amount ", BigNumber.from("12"));
+      this.amount = e[3];
       LIST.push(order);
     }
   });
@@ -71,9 +76,14 @@ export class OrderInfoComponent implements OnInit {
   async shipOrder(orderId: any){
     await this.metamaskConnectionService.shipOrder(orderId);
   }
-  async goToOrderPage(orderId: any){
-    //this.messageService.add(`HeroesComponent: Selected hero id=${element.id}`);
-    await this.metamaskConnectionService.gotToAnotherPage(orderId);
-
+  async refundBuyer(orderId: any, amount: any){
+    await this.metamaskConnectionService.refundBuyer(orderId, amount);
   }
+  async askRefund(orderId: any){
+    await this.metamaskConnectionService.askRefund(orderId);
+  }
+  // async goToOrderPage(orderId: any){
+  //   //this.messageService.add(`HeroesComponent: Selected hero id=${element.id}`);
+  //   await this.metamaskConnectionService.gotToAnotherPage(orderId);
+  // }
 }
