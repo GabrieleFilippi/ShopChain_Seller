@@ -16,6 +16,7 @@ export class OrderInfoComponent implements OnInit {
   userOrders: any[] | undefined;
   userOrdersList: Orders[] = [];
   displayedColumns: string[] = ['ID','buyer','amount','state'];
+  numberId: number = 0;
   constructor(private route: ActivatedRoute, private metamaskConnectionService: MetamaskConnectionService) { }
 
   async ngOnInit(): Promise<void> {
@@ -34,16 +35,18 @@ export class OrderInfoComponent implements OnInit {
     return this.sellerList =  await this.metamaskConnectionService.getSellerList();
   }
   async getId(){
+  console.log("prima ", this.numberId);
   const id = Number(this.route.snapshot.paramMap.get('id'));
   // const orderList = await MetamaskConnectionService.getOrderList();
   const userAddress = await this.getUser();
   this.userOrders = await this.metamaskConnectionService.getUserOrderList(userAddress);
+  console.log("ordini utente: ", this.userOrders)
   const LIST: Orders[] = [];
   this.userOrders.map((e: any[]) => {
-    const numberId = e[0].toNumber();
-    if(numberId === id){
+    if(e[0].toNumber() === id){
+      this.numberId = e[0].toNumber();
       const order: Orders = {
-        id: numberId,
+        id: this.numberId,
         buyerAddress: e[1],
         sellerAddress: e[2],
         amount: ethers.utils.formatEther(e[3]),
@@ -52,13 +55,21 @@ export class OrderInfoComponent implements OnInit {
       LIST.push(order);
     }
   });
+  console.log("dopo ", this.numberId);
+  console.log(LIST);
   return LIST;
   }
   ////////////////////////////////////////
   //    OPERATIONS ON THE ORDER       ///
   //////////////////////////////////////
-  static async deleteOrder(orderId: any){
-    MetamaskConnectionService.deleteOrder(orderId);
+  // prende questo ordine e lo elimina dalla lista presente nel contract
+  // uso la funzione dello sc deleteOrder(uint256 orderId)
+  async deleteOrder(orderId: any){
+    console.log("deleteOrder su un Id = ", orderId);
+    //MetamaskConnectionService.deleteOrder(orderId);
+  }
+  async shipOrder(orderId: any){
+    await this.metamaskConnectionService.shipOrder(orderId);
   }
   async goToOrderPage(orderId: any){
     //this.messageService.add(`HeroesComponent: Selected hero id=${element.id}`);

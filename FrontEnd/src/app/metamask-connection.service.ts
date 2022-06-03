@@ -102,6 +102,12 @@ export class MetamaskConnectionService {
     //console.log( "Questi sono gli ordini nello sc: ", await MetamaskConnectionService.tokenContract.getOrders());
     return await MetamaskConnectionService.tokenContract.deleteOrder(orderId);
   }
+  ///////////////////////////////////////////////////////
+  //     SIGN AS SHIPPED                             ///
+  //////////////////////////////////////////////////////
+  async shipOrder(orderId: any){
+    return await MetamaskConnectionService.tokenContract.shipOrder(orderId);
+  }
   ////////////////////////////////////////////////////////
   //            GESTIONE DEI SELLER                   ///
   //////////////////////////////////////////////////////

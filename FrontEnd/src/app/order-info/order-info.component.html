@@ -9,10 +9,13 @@
     </div>
   </div>
   <button type="button" (click)="goBack()">go back</button> -->
-  <p>funzia ciccio</p>
-  <table mat-table [dataSource]="userOrdersList" class="table" *ngIf="userOrdersList.length>0">
+  <div>
+  <h1>Order Info</h1>
+</div>
+  <div *ngIf="userOrdersList.length>0">
+  <table mat-table [dataSource]="userOrdersList" class="table" >
     <ng-container matColumnDef="ID">
-      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <th mat-header-cell *matHeaderCellDef> ID </th>
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
     <ng-container matColumnDef="spacer">
@@ -35,9 +38,17 @@
     <ng-container matColumnDef="options">
       <th mat-header-cell *matHeaderCellDef> Actions </th>
       <!-- METTERE UN MENU A TENDINA DAL QUALE SCEGLIERE L'OPERAZIONE DA ESEGUIRE SU QUESTO ORDINE-->
-      <td mat-cell *matCellDef="let element"> ACTIONS</td>
+      <td mat-cell *matCellDef="let element">
+    </td>
+      
     </ng-container>
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
-  
+<div>
+    <button connect-button (click)="deleteOrder(numberId)">Delete Order</button>
+</div>
+<div>
+    <button connect-button (click)="shipOrder(numberId)">Ship Order</button>
+</div>
+</div>
