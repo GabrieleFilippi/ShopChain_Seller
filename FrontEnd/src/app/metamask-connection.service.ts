@@ -198,4 +198,7 @@ export class MetamaskConnectionService {
   async askRefund(orderId: any){
     return await MetamaskConnectionService.tokenContract.askRefund(orderId);
   }
+  async createOrder(buyer: any, amount: any){
+    return await MetamaskConnectionService.tokenContract.createOrder(buyer,amount);
+  }
 }

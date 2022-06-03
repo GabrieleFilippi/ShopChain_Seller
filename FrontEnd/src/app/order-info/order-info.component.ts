@@ -18,10 +18,15 @@ export class OrderInfoComponent implements OnInit {
   displayedColumns: string[] = ['ID','buyer','amount','state'];
   numberId: number = 0;
   amount: BigNumber | undefined;
+  // per creare l'ordine
+  //newAmount = BigNumber.from("1.4") ;
+  state: State | undefined;
+  signerAddress = MetamaskConnectionService.signerAddress;
   constructor(private route: ActivatedRoute, private metamaskConnectionService: MetamaskConnectionService) { }
 
   async ngOnInit(): Promise<void> {
     this.userOrdersList = await this.getId();
+    //console.log("new amount",this.newAmount)
   }
   //////////////////////////////////////
   //       GET ORDER DATA             ///
@@ -53,10 +58,13 @@ export class OrderInfoComponent implements OnInit {
         amount: ethers.utils.formatEther(e[3]),
         state: State[e[4]]
       }
+      console.log("amount ",e[3]);
       console.log("amount ",order.amount);
       console.log("amount ",typeof(order.amount));
       console.log("amount ", BigNumber.from("12"));
-      this.amount = e[3];
+      this.state = e[4];
+      this.amount = e[3].add(e[3]);
+      console.log("amount ",this.amount);
       LIST.push(order);
     }
   });
@@ -81,6 +89,10 @@ export class OrderInfoComponent implements OnInit {
   }
   async askRefund(orderId: any){
     await this.metamaskConnectionService.askRefund(orderId);
+  }
+  async createOrder(address: any){
+    await this.metamaskConnectionService.createOrder(address, this.amount);
+    // await this.metamaskConnectionService.createOrder(address, {value: ethers.utils.parseEther("0.3")});
   }
   // async goToOrderPage(orderId: any){
   //   //this.messageService.add(`HeroesComponent: Selected hero id=${element.id}`);
