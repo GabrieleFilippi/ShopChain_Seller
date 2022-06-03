@@ -60,8 +60,7 @@ export class MetamaskConnectionService {
       return balanceInEth;
      })
     if(await this.signer.getChainId() !== 43113){
-      //console.log("go to wrong netwrok");
-      this.gotToWrongNetwork();
+      this.gotToAnotherPage(undefined);
     }
     return MetamaskConnectionService.tokenContract;
   }
@@ -94,6 +93,15 @@ export class MetamaskConnectionService {
     console.log("ordini che risultano a nome di questo venditore:  ", await MetamaskConnectionService.tokenContract.getOrdersOfUser(address));
     return await MetamaskConnectionService.tokenContract.getOrdersOfUser(address);
   }
+  ///////////////////////////////////////////////////////
+  //      DELETE ORDER                                ///
+  //////////////////////////////////////////////////////
+  public static async deleteOrder(orderId: any): Promise<any[]>{
+    //MetamaskConnectionService.tokenContract = await this.getContract();
+    // returna un array con gli ordini
+    //console.log( "Questi sono gli ordini nello sc: ", await MetamaskConnectionService.tokenContract.getOrders());
+    return await MetamaskConnectionService.tokenContract.deleteOrder(orderId);
+  }
   ////////////////////////////////////////////////////////
   //            GESTIONE DEI SELLER                   ///
   //////////////////////////////////////////////////////
@@ -118,8 +126,9 @@ export class MetamaskConnectionService {
   ///////////////////////////////////////////////////////
   // AGGIORNAMENTO IN BASE A CAMBIO NETWORK E ACCOUNT///
   //////////////////////////////////////////////////////
-  async gotToWrongNetwork(){
-    await this.router.navigate(['/wrongnetwork']);
+  async gotToAnotherPage(data: undefined){
+    if(!data) await this.router.navigate(['/wrongnetwork']);
+    else this.router.navigate(['/orderlist:data']);
   };
 
   async onRightChain() : Promise<boolean> {

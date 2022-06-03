@@ -34,22 +34,23 @@ export class OrderListComponent implements OnInit {
     const userAddress = await this.getUser();
     this.userOrders = await this.metamaskConnectionService.getUserOrderList(userAddress);
     this.userOrdersList = await this.formatOrderI(this.userOrders);
-    return this.userOrders;
+    console.log( this.userOrdersList);
   }
   // funziona con l'interfaccia
   async formatOrderI(list: any[]){
-    const LIST: Orders[] = []
+    const LIST: Orders[] = [];
     list.map((e: any[]) => {
+      const numberId = e[0].toNumber();
       const orders: Orders = {
-        id: e[0],
+        id: numberId,
         buyerAddress: e[1],
         sellerAddress: e[2],
         amount: ethers.utils.formatEther(e[3]),
         state: State[e[4]]
       }
+      console.log(numberId);
       LIST.push(orders);
     });
-    console.log("fatto con interfaccia",LIST);
     return LIST;
   }
 }

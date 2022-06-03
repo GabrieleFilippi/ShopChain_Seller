@@ -1,6 +1,6 @@
 export interface Orders{
     id: string;
-    buyerAddress: string;
+    buyerAddress: number;
     sellerAddress: string;
     amount: string;
     state: string;

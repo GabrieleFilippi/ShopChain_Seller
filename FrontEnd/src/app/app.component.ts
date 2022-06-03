@@ -26,15 +26,12 @@ export class AppComponent {
       this.metamaskConnectionService.chainChanged();
       this.rightChain = true;
     } else {
-      console.log("Sbagliato");
-      //this.goToWrongNetwork();
-      //this.router.navigate(['/wrongnetwork']);
       this.rightChain = false;
     }
     console.log(this.rightChain);
   }
   goToWrongNetwork() {
-    this.metamaskConnectionService.gotToWrongNetwork();
+    this.metamaskConnectionService.gotToAnotherPage(undefined);
   }
   
   }

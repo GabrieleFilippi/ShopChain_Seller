@@ -1,0 +1,43 @@
+<!-- <div >
+    <h2>{{element.id | uppercase}} Details</h2>
+    <div>id: {{hero.id}}</div>
+    <div>
+      <label for="hero-name">Hero name: {{hero.name}} </label>
+      <br>
+      <label>Change name: </label>
+      <input id="hero-name" [(ngModel)]="hero.name" placeholder="name">
+    </div>
+  </div>
+  <button type="button" (click)="goBack()">go back</button> -->
+  <p>funzia ciccio</p>
+  <table mat-table [dataSource]="userOrdersList" class="table" *ngIf="userOrdersList.length>0">
+    <ng-container matColumnDef="ID">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+    <ng-container matColumnDef="spacer">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell></td>
+    </ng-container>
+    <ng-container matColumnDef="buyer">
+      <th mat-header-cell *matHeaderCellDef> Buyer </th>
+      <td mat-cell *matCellDef="let element"> {{element.buyerAddress}} </td>
+    </ng-container>
+  
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef> amount </th>
+      <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+    </ng-container>
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef> state </th>
+      <td mat-cell *matCellDef="let element" routerLink="/orderinfo/{{element.id}}"> {{element.state}} </td>
+    </ng-container>
+    <ng-container matColumnDef="options">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <!-- METTERE UN MENU A TENDINA DAL QUALE SCEGLIERE L'OPERAZIONE DA ESEGUIRE SU QUESTO ORDINE-->
+      <td mat-cell *matCellDef="let element"> ACTIONS</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+  
