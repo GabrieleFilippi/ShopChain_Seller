@@ -1,0 +1,16 @@
+div {
+    display: grid; 
+    place-items: center; 
+}
+.table{
+    width: 100%;
+}
+button:hover{
+    background-color: rgba(199, 199, 199, 0.829);
+}
+button:onclick{
+    background-color: rgb(204, 204, 204);
+}
+ng-container{
+    margin: 100%;
+}

@@ -16,6 +16,16 @@ export class OrderListComponent implements OnInit {
   list: any;
   userOrders: any;
   displayedColumns: string[] = ['ID','buyer','amount','state'];
+  color: any;
+  Icon = ['check_circle', 'local_shipping', 'verified', 'delete', 'assignment_return', 'reply'];
+  Color: string[] = [
+     'rgb(105 235 115)', // green 
+     'rgb(255 255 255)' , //white 
+     'rgb(77 165 255)' , // blue
+     'rgb(227 85 86)' , // red
+     'rgb(242 245 70)', // yellow
+     'rgb(72 66 255)' 
+  ];
   constructor(private metamaskConnectionService: MetamaskConnectionService) { }
 
   ngOnInit() {
@@ -48,7 +58,8 @@ export class OrderListComponent implements OnInit {
         amount: ethers.utils.formatEther(e[3]),
         state: State[e[4]]
       }
-      console.log(numberId);
+      this.color = this.Color[e[4]];
+      console.log(this.color);
       LIST.push(orders);
     });
     return LIST;
