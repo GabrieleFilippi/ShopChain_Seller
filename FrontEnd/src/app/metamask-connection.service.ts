@@ -199,12 +199,12 @@ export class MetamaskConnectionService {
     }
   }
   ////////////////////////////////////
-  ////////////CREATE ORDER//////////////
+  ///ROBA BUYER ORDER DA RIMUOVERE/////
   /////////////////////////////////////
   async askRefund(orderId: any){
     return await MetamaskConnectionService.tokenContract.askRefund(orderId);
   }
   async createOrder(buyer: any, amount: any){
-    return await MetamaskConnectionService.tokenContract.createOrder(buyer,amount);
+    return await MetamaskConnectionService.tokenContract.createOrder('0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f', {value: ethers.utils.parseEther("0.2")});
   }
 }

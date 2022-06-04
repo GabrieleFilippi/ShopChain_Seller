@@ -32,6 +32,7 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table>
    -->
+   </div>
 <div class="container">
   <div class="row justify-content-center">
       <div class="col-md-6 text-center mb-5">
@@ -47,7 +48,7 @@
                     <th>Buyer Address</th>
                     <th>Amount</th>
                     <th>State</th>
-                    <th>Options</th>
+                    <th>Order's Options</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -55,8 +56,9 @@
                     <td>{{element.id}}</td>
                     <td>{{element.buyerAddress}}</td>
                     <td>{{element.amount}}</td>
-                    <td><a [ngStyle]="{'background-color':color}" class="btn">{{element.state}}</a></td>
-                    <td><a routerLink="/orderinfo/{{element.id}}" class="btn btn-info">Actions</a></td>
+                    <td [ngStyle]="{'color':Color[element.state]}" class="state">{{States[element.state] | uppercase}}</td>
+                    <!-- btn info é una classe bootstrap-->
+                    <td><a routerLink="/orderinfo/{{element.id}}" class="btn mat-raised-button">OPTIONS</a></td>
                   </tr>
                 </tbody>
               </table>
@@ -64,5 +66,6 @@
       </div>
   </div>
 </div>
-</div>
+
+
 

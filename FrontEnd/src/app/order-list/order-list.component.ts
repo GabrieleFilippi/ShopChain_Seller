@@ -19,12 +19,20 @@ export class OrderListComponent implements OnInit {
   color: any;
   Icon = ['check_circle', 'local_shipping', 'verified', 'delete', 'assignment_return', 'reply'];
   Color: string[] = [
-     'rgb(105 235 115)', // green 
-     'rgb(255 255 255)' , //white 
-     'rgb(77 165 255)' , // blue
-     'rgb(227 85 86)' , // red
-     'rgb(242 245 70)', // yellow
-     'rgb(72 66 255)' 
+     'rgb(102 255 102)', // light green // created
+     'rgb(0 204 0)' , // green // shipped
+     'rgb(0 102 204)' , // blue // confirmed
+     'rgb(227 85 86)' , // red // deleted
+     'rgb(242 245 70)', // yellow // refundAsked
+     'rgb(255 128 0)' // orange// refunded
+  ];
+  States: string[] =[
+    'created',
+    'shipped',
+    'confirmed',
+    'deleted',
+    'refundAsked',
+    'refunded',
   ];
   constructor(private metamaskConnectionService: MetamaskConnectionService) { }
 
@@ -56,7 +64,7 @@ export class OrderListComponent implements OnInit {
         buyerAddress: e[1],
         sellerAddress: e[2],
         amount: ethers.utils.formatEther(e[3]),
-        state: State[e[4]]
+        state: e[4]
       }
       this.color = this.Color[e[4]];
       console.log(this.color);

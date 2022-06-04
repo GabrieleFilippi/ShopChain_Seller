@@ -1,9 +1,6 @@
-div {
+h1 {
     display: grid; 
     place-items: center; 
-}
-.table{
-    width: 80%;
 }
 button:hover{
     background-color: rgba(199, 199, 199, 0.829);

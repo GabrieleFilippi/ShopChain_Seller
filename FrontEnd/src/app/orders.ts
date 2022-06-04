@@ -3,7 +3,7 @@ export interface Orders{
     buyerAddress: string;
     sellerAddress: string;
     amount: string;
-    state: string;
+    state: number;
 }
 export enum State {
   created,

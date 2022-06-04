@@ -21,10 +21,11 @@ export class OrderInfoComponent implements OnInit {
   // per creare l'ordine
   //newAmount = BigNumber.from("1.4") ;
   state: State | undefined;
-  signerAddress = MetamaskConnectionService.signerAddress;
+  signerAddress: any ;
   constructor(private route: ActivatedRoute, private metamaskConnectionService: MetamaskConnectionService) { }
 
   async ngOnInit(): Promise<void> {
+    this.signerAddress = await this.getUser();
     this.userOrdersList = await this.getId();
     //console.log("new amount",this.newAmount)
   }
@@ -56,7 +57,7 @@ export class OrderInfoComponent implements OnInit {
         buyerAddress: e[1],
         sellerAddress: e[2],
         amount: ethers.utils.formatEther(e[3]),
-        state: State[e[4]]
+        state: e[4]
       }
       console.log("amount ",e[3]);
       console.log("amount ",order.amount);
