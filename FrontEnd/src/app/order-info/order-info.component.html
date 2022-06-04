@@ -54,7 +54,6 @@
                   <th>Buyer Address</th>
                   <th>Amount</th>
                   <th>State</th>
-                  <th>Order's Options</th>
                 </tr>
               </thead>
               <tbody>
@@ -62,9 +61,8 @@
                   <td>{{element.id}}</td>
                   <td>{{element.buyerAddress}}</td>
                   <td>{{element.amount}}</td>
-                  <td [ngStyle]="{}" class="state">{{element.state }}</td>
+                  <td [ngStyle]="{}" class="state">{{element.state}}</td>
                   <!-- btn info é una classe bootstrap-->
-                  <td><a routerLink="/orderinfo/{{element.id}}" class="btn mat-raised-button">OPTIONS</a></td>
                 </tr>
               </tbody>
             </table>

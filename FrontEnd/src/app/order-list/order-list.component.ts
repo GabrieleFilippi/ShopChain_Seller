@@ -23,7 +23,7 @@ export class OrderListComponent implements OnInit {
      'rgb(0 204 0)' , // green // shipped
      'rgb(0 102 204)' , // blue // confirmed
      'rgb(227 85 86)' , // red // deleted
-     'rgb(242 245 70)', // yellow // refundAsked
+     'rgb(242 200 70)', // yellow // refundAsked
      'rgb(255 128 0)' // orange// refunded
   ];
   States: string[] =[
