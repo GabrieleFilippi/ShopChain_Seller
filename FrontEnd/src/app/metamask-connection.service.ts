@@ -114,6 +114,12 @@ export class MetamaskConnectionService {
   async refundBuyer(orderId: any, amount: any){
     return await MetamaskConnectionService.tokenContract.refundBuyer(orderId, amount);
   }
+  ///////////////////////////////////////////////////////
+  //            GET ORDER LOG                         ///
+  //////////////////////////////////////////////////////
+  static async getLogsOfOrder(orderId: any){
+    return await MetamaskConnectionService.tokenContract.getLogsOfOrder(orderId);
+  }
   ////////////////////////////////////////////////////////
   //            GESTIONE DEI SELLER                   ///
   //////////////////////////////////////////////////////

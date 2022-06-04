@@ -16,6 +16,7 @@ import {MatListModule} from '@angular/material/list';
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTableModule} from '@angular/material/table';
 import { OrderInfoComponent } from './order-info/order-info.component';
+import { OrderLogComponent } from './order-log/order-log.component';
 
 
 
@@ -26,7 +27,8 @@ import { OrderInfoComponent } from './order-info/order-info.component';
     OrderListComponent,
     WrongNetworkComponent,
     HeaderComponent,
-    OrderInfoComponent
+    OrderInfoComponent,
+    OrderLogComponent
   ],
   imports: [
     BrowserModule,
