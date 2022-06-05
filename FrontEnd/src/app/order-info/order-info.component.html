@@ -9,7 +9,7 @@
     </div>
   </div>
   <button type="button" (click)="goBack()">go back</button> -->
-  <div>
+  <div >
   <h1>Order Info</h1>
 </div>
   <!--<div *ngIf="userOrdersList.length>0">
@@ -44,6 +44,8 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table> -->
+  <div *ngIf="order && state">
+    {{state}}
   <div class="row">
     <div class="col-md-12">
         <div class="table-wrap">
@@ -57,11 +59,11 @@
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let element of userOrdersList">
-                  <td>{{element.id}}</td>
-                  <td>{{element.buyerAddress}}</td>
-                  <td>{{element.amount}}</td>
-                  <td [ngStyle]="{}" class="state">{{element.state}}</td>
+                <tr>
+                  <td>{{order.id}}</td>
+                  <td>{{order.buyerAddress}}</td>
+                  <td>{{order.amount}}</td>
+                  <td [ngStyle]="{}" class="state">{{States[state]}}</td>
                   <!-- btn info é una classe bootstrap-->
                 </tr>
               </tbody>
@@ -69,10 +71,12 @@
         </div>
     </div>
 </div>
-<div>
+<h2>Possible Actions on the Order</h2>
+<div *ngIf="order.state != 3" class="centered">
+<div *ngIf="order.state === 0 || order.state === 1">
     <button mat-raised-button (click)="deleteOrder(numberId)">Delete Order</button>
 </div>
-<div>
+<div *ngIf="order.state === 0">
     <button mat-raised-button (click)="shipOrder(numberId)">Ship Order</button>
 </div>
 <div>
@@ -84,6 +88,7 @@
 <div>
   <button mat-raised-button (click)="createOrder(signerAddress)">Create Order</button>
 </div>
+</div>
 <div class="container">
   <div class="row justify-content-center">
       <div class="col-md-6 text-center mb-5">
@@ -91,5 +96,6 @@
   </div>
 </div>
 <app-order-log></app-order-log>
+</div>
 
 

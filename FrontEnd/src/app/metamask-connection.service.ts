@@ -97,9 +97,6 @@ export class MetamaskConnectionService {
   //              DELETE ORDER                        ///
   //////////////////////////////////////////////////////
   public static async deleteOrder(orderId: any): Promise<any[]>{
-    //MetamaskConnectionService.tokenContract = await this.getContract();
-    // returna un array con gli ordini
-    //console.log( "Questi sono gli ordini nello sc: ", await MetamaskConnectionService.tokenContract.getOrders());
     return await MetamaskConnectionService.tokenContract.deleteOrder(orderId);
   }
   ///////////////////////////////////////////////////////

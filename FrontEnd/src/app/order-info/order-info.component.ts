@@ -14,19 +14,29 @@ export class OrderInfoComponent implements OnInit {
   orderList: any[] | undefined;
   sellerList: any[] | undefined;
   userOrders: any[] | undefined;
-  userOrdersList: Orders[] = [];
+  public userOrdersList: Orders[] = [];
   displayedColumns: string[] = ['ID','buyer','amount','state'];
   numberId: number = 0;
   amount: BigNumber | undefined;
+  public order: Orders | undefined;
   // per creare l'ordine
   //newAmount = BigNumber.from("1.4") ;
   state: State | undefined;
+  States: string[] =[
+    'created',
+    'shipped',
+    'confirmed',
+    'deleted',
+    'refundAsked',
+    'refunded',
+  ];
   signerAddress: any ;
   constructor(private route: ActivatedRoute, private metamaskConnectionService: MetamaskConnectionService) { }
 
   async ngOnInit(): Promise<void> {
+    this.order = await this.getId();
     this.signerAddress = await this.getUser();
-    this.userOrdersList = await this.getId();
+    //this.order = await this.getId();
     //console.log("new amount",this.newAmount)
   }
   //////////////////////////////////////
@@ -41,46 +51,44 @@ export class OrderInfoComponent implements OnInit {
   async getSellerList(){
     return this.sellerList =  await this.metamaskConnectionService.getSellerList();
   }
-  async getId(){
+  async getId(): Promise<Orders>{
   console.log("prima ", this.numberId);
   const id = Number(this.route.snapshot.paramMap.get('id'));
   // const orderList = await MetamaskConnectionService.getOrderList();
   const userAddress = await this.getUser();
   this.userOrders = await this.metamaskConnectionService.getUserOrderList(userAddress);
   console.log("ordini utente: ", this.userOrders)
-  const LIST: Orders[] = [];
+  //const LIST: Orders[] = [];
+  let order: Orders = {
+    id: 0,
+    buyerAddress: '',
+    sellerAddress: '',
+    amount: '',
+    state: 0
+  };
   this.userOrders.map((e: any[]) => {
-    if(e[0].toNumber() === id){
       this.numberId = e[0].toNumber();
-      const order: Orders = {
+      if(id === this.numberId){
+      order = {
         id: this.numberId,
         buyerAddress: e[1],
         sellerAddress: e[2],
         amount: ethers.utils.formatEther(e[3]),
         state: e[4]
       }
-      console.log("amount ",e[3]);
-      console.log("amount ",order.amount);
-      console.log("amount ",typeof(order.amount));
-      console.log("amount ", BigNumber.from("12"));
       this.state = e[4];
+      console.log(this.state)
       this.amount = e[3].add(e[3]);
-      console.log("amount ",this.amount);
-      LIST.push(order);
+      this.order = order;
     }
   });
-  console.log("dopo ", this.numberId);
-  console.log(LIST);
-  return LIST;
+  return order;
   }
   ////////////////////////////////////////
   //    OPERATIONS ON THE ORDER       ///
   //////////////////////////////////////
-  // prende questo ordine e lo elimina dalla lista presente nel contract
-  // uso la funzione dello sc deleteOrder(uint256 orderId)
   async deleteOrder(orderId: any){
-    console.log("deleteOrder su un Id = ", orderId);
-    //MetamaskConnectionService.deleteOrder(orderId);
+    MetamaskConnectionService.deleteOrder(orderId);
   }
   async shipOrder(orderId: any){
     await this.metamaskConnectionService.shipOrder(orderId);
