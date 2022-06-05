@@ -12,3 +12,6 @@ button:onclick{
     display: grid; 
     place-items: center;
 }
+.state{
+    font-weight: bold;
+  }

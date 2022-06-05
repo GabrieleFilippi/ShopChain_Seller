@@ -45,7 +45,6 @@
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table> -->
   <div *ngIf="order && state">
-    {{state}}
   <div class="row">
     <div class="col-md-12">
         <div class="table-wrap">
@@ -63,7 +62,7 @@
                   <td>{{order.id}}</td>
                   <td>{{order.buyerAddress}}</td>
                   <td>{{order.amount}}</td>
-                  <td [ngStyle]="{}" class="state">{{States[state]}}</td>
+                  <td [ngStyle]="{'color':Color[order.state]}" class="state">{{States[state] | uppercase }}</td>
                   <!-- btn info é una classe bootstrap-->
                 </tr>
               </tbody>
@@ -71,8 +70,10 @@
         </div>
     </div>
 </div>
-<h2>Possible Actions on the Order</h2>
+
+<h2 *ngIf="order.state === 3">No avaiable actions on this order</h2>
 <div *ngIf="order.state != 3" class="centered">
+<h2 >Possible Actions on this Order</h2>
 <div *ngIf="order.state === 0 || order.state === 1">
     <button mat-raised-button (click)="deleteOrder(numberId)">Delete Order</button>
 </div>
