@@ -17,6 +17,7 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatTableModule} from '@angular/material/table';
 import { OrderInfoComponent } from './order-info/order-info.component';
 import { OrderLogComponent } from './order-log/order-log.component';
+import { QRCodeModule } from 'angularx-qrcode';
 
 
 
@@ -40,7 +41,8 @@ import { OrderLogComponent } from './order-log/order-log.component';
     MatButtonModule,
     MatListModule,
     MatSidenavModule,
-    MatTableModule
+    MatTableModule,
+    QRCodeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

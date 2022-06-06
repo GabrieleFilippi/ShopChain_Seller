@@ -59,7 +59,7 @@ export class MetamaskConnectionService {
       const balanceInEth = ethers.utils.formatEther(balances);
       return balanceInEth;
      })
-    if(await this.signer.getChainId() !== 43113){
+    if(await this.signer.getChainId() !== MetamaskConnectionService.chainId){
       this.gotToAnotherPage(undefined);
     }
     return MetamaskConnectionService.tokenContract;

@@ -15,3 +15,6 @@ button:onclick{
 .state{
     font-weight: bold;
   }
+qrcode{
+    width: 128;
+}

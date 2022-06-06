@@ -11,6 +11,7 @@ import { BigNumber, ethers} from 'ethers';
   styleUrls: ['./order-info.component.css']
 })
 export class OrderInfoComponent implements OnInit {
+  public qrInfo: string = '';
   orderList: any[] | undefined;
   sellerList: any[] | undefined;
   userOrders: any[] | undefined;
@@ -39,7 +40,7 @@ export class OrderInfoComponent implements OnInit {
     'refunded',
   ];
   signerAddress: any ;
-  constructor(private route: ActivatedRoute, private metamaskConnectionService: MetamaskConnectionService) { }
+  constructor(private route: ActivatedRoute, private metamaskConnectionService: MetamaskConnectionService) {}
 
   async ngOnInit(): Promise<void> {
     this.order = await this.getId();
@@ -84,6 +85,8 @@ export class OrderInfoComponent implements OnInit {
         amount: ethers.utils.formatEther(e[3]),
         state: e[4]
       }
+      this.qrInfo = 'Buyer Address: ' + order.buyerAddress + '\n';
+      this.qrInfo += 'Order Id: ' + this.numberId;
       this.state = e[4];
       console.log(this.state)
       this.amount = e[3].add(e[3]);
