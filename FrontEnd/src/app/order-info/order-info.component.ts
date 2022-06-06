@@ -45,8 +45,6 @@ export class OrderInfoComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.order = await this.getId();
     this.signerAddress = await this.getUser();
-    //this.order = await this.getId();
-    //console.log("new amount",this.newAmount)
   }
   //////////////////////////////////////
   //       GET ORDER DATA             ///
@@ -61,12 +59,13 @@ export class OrderInfoComponent implements OnInit {
     return this.sellerList =  await this.metamaskConnectionService.getSellerList();
   }
   async getId(): Promise<Orders>{
-  console.log("prima ", this.numberId);
   const id = Number(this.route.snapshot.paramMap.get('id'));
+  console.log("id:", id);
   // const orderList = await MetamaskConnectionService.getOrderList();
   const userAddress = await this.getUser();
+  console.log("userAddress:", userAddress);
   this.userOrders = await this.metamaskConnectionService.getUserOrderList(userAddress);
-  console.log("ordini utente: ", this.userOrders)
+  console.log("orderList:", this.userOrders);
   //const LIST: Orders[] = [];
   let order: Orders = {
     id: 0,
@@ -77,7 +76,9 @@ export class OrderInfoComponent implements OnInit {
   };
   this.userOrders.map((e: any[]) => {
       this.numberId = e[0].toNumber();
+      console.log("numberId:", this.numberId);
       if(id === this.numberId){
+      console.log("sono uguali e sono:", id, "e", this.numberId);
       order = {
         id: this.numberId,
         buyerAddress: e[1],
@@ -88,9 +89,10 @@ export class OrderInfoComponent implements OnInit {
       this.qrInfo = 'Buyer Address: ' + order.buyerAddress + '\n';
       this.qrInfo += 'Order Id: ' + this.numberId;
       this.state = e[4];
-      console.log(this.state)
+      console.log("stato: ",this.state)
       this.amount = e[3].add(e[3]);
       this.order = order;
+      console.log("l'ordine é: ",order);
     }
   });
   return order;
@@ -114,8 +116,4 @@ export class OrderInfoComponent implements OnInit {
     await this.metamaskConnectionService.createOrder(address, this.amount);
     // await this.metamaskConnectionService.createOrder(address, {value: ethers.utils.parseEther("0.3")});
   }
-  // async goToOrderPage(orderId: any){
-  //   //this.messageService.add(`HeroesComponent: Selected hero id=${element.id}`);
-  //   await this.metamaskConnectionService.gotToAnotherPage(orderId);
-  // }
 }

@@ -16,19 +16,15 @@ export class AppComponent {
   constructor(private router: Router, private metamaskConnectionService: MetamaskConnectionService) {
   }
   title = 'shopchain';
-  public tx : any;
-  public orders : any;
   public rightChain : boolean = true;
+  public pending: any;
   async ngOnInit(){
     if (await this.metamaskConnectionService.onRightChain()) {
       await this.metamaskConnectionService.getContract();
       this.metamaskConnectionService.accountChanged();
       this.metamaskConnectionService.chainChanged();
-      this.rightChain = true;
-    } else {
-      this.rightChain = false;
+      //this.metamaskConnectionService.pendingTransaction();
     }
-    console.log(this.rightChain);
   }
   goToWrongNetwork() {
     this.metamaskConnectionService.gotToAnotherPage(undefined);
