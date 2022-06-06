@@ -16,7 +16,6 @@ export class AppComponent {
   constructor(private router: Router, private metamaskConnectionService: MetamaskConnectionService) {
   }
   title = 'shopchain';
-  public rightChain : boolean = true;
   public pending: any;
   async ngOnInit(){
     if (await this.metamaskConnectionService.onRightChain()) {
