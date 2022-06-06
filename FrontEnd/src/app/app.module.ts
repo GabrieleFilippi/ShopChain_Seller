@@ -18,6 +18,7 @@ import {MatTableModule} from '@angular/material/table';
 import { OrderInfoComponent } from './order-info/order-info.component';
 import { OrderLogComponent } from './order-log/order-log.component';
 import { QRCodeModule } from 'angularx-qrcode';
+import { ProgressbarComponent } from './progressbar/progressbar.component';
 
 
 
@@ -29,7 +30,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     WrongNetworkComponent,
     HeaderComponent,
     OrderInfoComponent,
-    OrderLogComponent
+    OrderLogComponent,
+    ProgressbarComponent
   ],
   imports: [
     BrowserModule,

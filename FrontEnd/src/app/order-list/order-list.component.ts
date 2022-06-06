@@ -52,7 +52,7 @@ export class OrderListComponent implements OnInit {
     const userAddress = await this.getUser();
     this.userOrders = await this.metamaskConnectionService.getUserOrderList(userAddress);
     this.userOrdersList = await this.formatOrderI(this.userOrders);
-    console.log( this.userOrdersList);
+    console.log("ordini per questo seller:", this.userOrdersList);
   }
   // funziona con l'interfaccia
   async formatOrderI(list: any[]){
@@ -67,7 +67,6 @@ export class OrderListComponent implements OnInit {
         state: e[4]
       }
       this.color = this.Color[e[4]];
-      console.log(this.color);
       LIST.push(orders);
     });
     return LIST;

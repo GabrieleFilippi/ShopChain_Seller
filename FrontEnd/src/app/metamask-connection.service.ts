@@ -22,6 +22,7 @@ export class MetamaskConnectionService {
   public sellerList: [] = [];
   public isSigned: boolean =  false;
   public truncatedSignerAddress: any;
+  public pending = false;
 
   public currentAddress : string | undefined;
   public static provider : any;
@@ -78,7 +79,6 @@ export class MetamaskConnectionService {
       return balanceInEth;
      })
   }
-
   ///////////////////////////////////////////////////////
   //               ORDER LIST                        ///
   //////////////////////////////////////////////////////
@@ -90,7 +90,6 @@ export class MetamaskConnectionService {
   }
   async getUserOrderList(address: any): Promise<any[]>{
     //MetamaskConnectionService.tokenContract = await this.getContract();
-    console.log("ordini che risultano a nome di questo venditore:  ", await MetamaskConnectionService.tokenContract.getOrdersOfUser(address));
     return await MetamaskConnectionService.tokenContract.getOrdersOfUser(address);
   }
   ///////////////////////////////////////////////////////
@@ -158,7 +157,7 @@ export class MetamaskConnectionService {
 
   public accountChanged() : void {
     MetamaskConnectionService.provider.on("accountsChanged",async () => {
-      await this.getContract();
+      //await this.getContract();
       window.location.reload();
     })
   }
@@ -174,6 +173,32 @@ export class MetamaskConnectionService {
     }
      })
   }
+  ///////////////////////////////////////
+  //LIVE UPDATE AT TRANSACTION PENDING//
+  /////////////////////////////////////
+  public async pendingTransaction() : Promise<any>{
+  //   MetamaskConnectionService.provider.on("pending", async () => {
+      
+  //     //return true;
+  //   })
+  // }
+  const checkTxHash = async (txHash: any) => {
+    const tx = await MetamaskConnectionService.provider.getTransaction(txHash);
+    console.log("ooooo ",tx); 
+    if (!tx || !tx.to){console.log("no transazioni in corso"); return "null";}
+    //MetamaskConnectionService.provider.removeAllListeners();
+    console.log("ooooo ",tx);
+    return tx;
+  }
+  console.log("LIVE: ", checkTxHash);
+  if(checkTxHash){
+    if(MetamaskConnectionService.provider.on("pending", checkTxHash)){
+      console.log("la transazione é live sul contratto: ", checkTxHash);
+    } else{
+      console.log("transazione completata");
+    }
+  }
+}
   // funzione trovata su https://stackoverflow.com/questions/68252365/how-to-trigger-change-blockchain-network-request-on-metamask
   public async changeNetwork() : Promise<void> {
     try {

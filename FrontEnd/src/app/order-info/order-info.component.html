@@ -9,7 +9,7 @@
     </div>
   </div>
   <button type="button" (click)="goBack()">go back</button> -->
-  <div >
+  <div>
   <h1>Order Info</h1>
 </div>
   <!--<div *ngIf="userOrdersList.length>0">
@@ -44,7 +44,7 @@
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
   </table> -->
-  <div *ngIf="order && state">
+  <div *ngIf="order">
   <div class="row">
     <div class="col-md-12">
         <div class="table-wrap">
@@ -62,7 +62,7 @@
                   <td>{{order.id}}</td>
                   <td>{{order.buyerAddress}}</td>
                   <td>{{order.amount}}</td>
-                  <td [ngStyle]="{'color':Color[order.state]}" class="state">{{States[state] | uppercase }}</td>
+                  <td [ngStyle]="{'color':Color[order.state]}" class="state">{{States[order.state] | uppercase }}</td>
                   <!-- btn info é una classe bootstrap-->
                 </tr>
               </tbody>
@@ -88,9 +88,9 @@
 <div>
   <button mat-raised-button (click)="askRefund(numberId)">Ask refund</button>
 </div>
+</div>
 <div>
   <button mat-raised-button (click)="createOrder(signerAddress)">Create Order</button>
-</div>
 </div>
 <div class="container">
   <div class="row justify-content-center">
