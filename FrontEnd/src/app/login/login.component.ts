@@ -21,6 +21,7 @@ export class LoginComponent implements OnInit {
   sellerIsSigned: any;
   sellerSigned: any;
   public signer: any;
+  public logoSrc = "../assets/images/avax.png" 
   constructor( public metamaskConnectionService: MetamaskConnectionService) { }
 
   ngOnInit(){

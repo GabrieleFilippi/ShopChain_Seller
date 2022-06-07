@@ -60,6 +60,8 @@ export class MetamaskConnectionService {
       const balanceInEth = ethers.utils.formatEther(balances);
       return balanceInEth;
      })
+     // se l'utente non ha sbloccato metamask ( funzione BETA)
+    if(!window.ethereum._metamask.isUnlocked()) this.gotToAnotherPage(undefined);
     if(await this.signer.getChainId() !== MetamaskConnectionService.chainId){
       this.gotToAnotherPage(undefined);
     }
@@ -177,28 +179,9 @@ export class MetamaskConnectionService {
   //LIVE UPDATE AT TRANSACTION PENDING//
   /////////////////////////////////////
   public async pendingTransaction() : Promise<any>{
-  //   MetamaskConnectionService.provider.on("pending", async () => {
-      
-  //     //return true;
-  //   })
-  // }
-  const checkTxHash = async (txHash: any) => {
-    const tx = await MetamaskConnectionService.provider.getTransaction(txHash);
-    console.log("ooooo ",tx); 
-    if (!tx || !tx.to){console.log("no transazioni in corso"); return "null";}
-    //MetamaskConnectionService.provider.removeAllListeners();
-    console.log("ooooo ",tx);
-    return tx;
+  MetamaskConnectionService.tokenContract
+    
   }
-  console.log("LIVE: ", checkTxHash);
-  if(checkTxHash){
-    if(MetamaskConnectionService.provider.on("pending", checkTxHash)){
-      console.log("la transazione é live sul contratto: ", checkTxHash);
-    } else{
-      console.log("transazione completata");
-    }
-  }
-}
   // funzione trovata su https://stackoverflow.com/questions/68252365/how-to-trigger-change-blockchain-network-request-on-metamask
   public async changeNetwork() : Promise<void> {
     try {

@@ -23,7 +23,7 @@ export class AppComponent {
       await this.metamaskConnectionService.getContract();
       this.metamaskConnectionService.accountChanged();
       this.metamaskConnectionService.chainChanged();
-      //this.metamaskConnectionService.pendingTransaction();
+      this.metamaskConnectionService.pendingTransaction();
     }
   }
   goToWrongNetwork() {
