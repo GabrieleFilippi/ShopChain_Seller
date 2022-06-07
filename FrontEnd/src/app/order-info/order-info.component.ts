@@ -11,6 +11,7 @@ import { BigNumber, ethers} from 'ethers';
   styleUrls: ['./order-info.component.css']
 })
 export class OrderInfoComponent implements OnInit {
+  public static AMOUNT : any;
   public qrInfo: string = '';
   orderList: any[] | undefined;
   sellerList: any[] | undefined;
@@ -45,7 +46,6 @@ export class OrderInfoComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     this.order = await this.getId();
     this.signerAddress = await this.getUser();
-    //this.pendingTransaction;
   }
   //////////////////////////////////////
   //       GET ORDER DATA             ///
@@ -61,10 +61,8 @@ export class OrderInfoComponent implements OnInit {
   }
   async getId(): Promise<Orders>{
   const id = Number(this.route.snapshot.paramMap.get('id'));
-  // const orderList = await MetamaskConnectionService.getOrderList();
   const userAddress = await this.getUser();
   this.userOrders = await this.metamaskConnectionService.getUserOrderList(userAddress);
-  //const LIST: Orders[] = [];
   let order: Orders = {
     id: 0,
     buyerAddress: '',
@@ -86,23 +84,21 @@ export class OrderInfoComponent implements OnInit {
       this.qrInfo += 'Order Id: ' + this.numberId;
       this.state = e[4];
       this.amount = e[3];
-      console.log("senza formatEther: ", this.amount);
-      console.log("con formatEther:", ethers.utils.formatEther(e[3]));
+      OrderInfoComponent.AMOUNT = e[3];
       this.order = order;
     }
   });
   return order;
   }
-  ////////////////////////////////////////
-  ///update page as transaction proceed///
-  ///////////////////////////////////////
-  public async pendingTransaction() : Promise<any>{
-    MetamaskConnectionService.tokenContract.on("ValueChanged", async () => {
-      console.log("Something changed")
-      //if(){}
-    });
-  
-    }
+////////////////////////////////////////
+///update page as transaction proceed///
+///////////////////////////////////////
+// public async pendingTransaction() : Promise<any>{
+//   MetamaskConnectionService.tokenContract.on("ValueChanged", async () => {
+//     console.log("Something changed")
+//     //if(){}
+//   });
+//}
   ////////////////////////////////////////
   //    OPERATIONS ON THE ORDER       ///
   //////////////////////////////////////
@@ -112,14 +108,13 @@ export class OrderInfoComponent implements OnInit {
   async shipOrder(orderId: any){
     await this.metamaskConnectionService.shipOrder(orderId);
   }
-  async refundBuyer(orderId: any, amount: any){
-    await this.metamaskConnectionService.refundBuyer(orderId, amount);
+  async refundBuyer(orderId: any){
+    await this.metamaskConnectionService.refundBuyer(orderId, OrderInfoComponent.AMOUNT);
   }
   async askRefund(orderId: any){
     await this.metamaskConnectionService.askRefund(orderId);
   }
   async createOrder(address: any){
     await this.metamaskConnectionService.createOrder(address, this.amount);
-    // await this.metamaskConnectionService.createOrder(address, {value: ethers.utils.parseEther("0.3")});
   }
 }
