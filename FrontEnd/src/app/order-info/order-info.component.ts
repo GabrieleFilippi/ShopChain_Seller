@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MetamaskConnectionService } from '../metamask-connection.service';
 import { Orders, State } from '../orders';
 import { BigNumber, Contract, ethers} from 'ethers';
+import { waitFor } from 'wait-for-event';
 
 @Component({
   selector: 'app-order-info',
@@ -119,6 +120,14 @@ export class OrderInfoComponent implements OnInit {
     await this.metamaskConnectionService.askRefund(orderId);
   }
   async createOrder(address: any){
-    await this.metamaskConnectionService.createOrder(address, this.amount);
+    var elem = document.getElementById('loader');
+    if(elem){
+      elem.hidden = false;
+    }
+    const result = await this.metamaskConnectionService.createOrder(address, this.amount);
+    if(result) console.log("fine transazione");
+    if(elem){
+      elem.hidden = true;
+    }
   }
 }

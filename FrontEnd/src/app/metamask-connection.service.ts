@@ -4,7 +4,6 @@ import { threadId } from 'worker_threads';
 import address from '../../contracts/ShopChain.json';
 import detectEthereumProvider from "@metamask/detect-provider";
 import truncateEthAddress from 'truncate-eth-address';
-import {isSuccessfulTransaction, waitTransaction} from './waittransaction';
 import { Router } from "@angular/router";
 import { Meta } from '@angular/platform-browser';
 import { getContractAddress } from 'ethers/lib/utils';
@@ -55,7 +54,7 @@ export class MetamaskConnectionService {
     this.signer = provider.getSigner();
     MetamaskConnectionService.tokenContract = new ethers.Contract(address.contractAddress, address.abi, this.signer);
     ///
-    //MetamaskConnectionService.FAKETokenContract = new ethers.Contract('0xd9145CCE52D386f254917e481eB44e9943F39138', fake, this.signer);
+    MetamaskConnectionService.FAKETokenContract = new ethers.Contract('0xd9145CCE52D386f254917e481eB44e9943F39138', fake, this.signer);
     //////////////////
     //console.log(MetamaskConnectionService.tokenContract);
     this.tokenAddress = MetamaskConnectionService.tokenContract.address;
@@ -254,11 +253,14 @@ export class MetamaskConnectionService {
     return await MetamaskConnectionService.tokenContract.askRefund(orderId);
   }
   async createOrder(buyer: any, amount: any){
-    //const transaction = await MetamaskConnectionService.FAKETokenContract.createOrder('0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f', {value: ethers.utils.parseEther("0.02")});
-   //const tx = await transaction.wait();
-    // status = 1 quando termina
-    //return tx.status === 1;
-    // returna true se ha finito false altrimenti
+    const transaction = await MetamaskConnectionService.FAKETokenContract.createOrder('0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f', {value: ethers.utils.parseEther("0.02")});
+    console.log("prima del wait");
+    const tx = await transaction.wait();
+    //status = 1 quando termina
+    console.log(tx.status);
+    console.log("dopo il wait");
+    return tx.status === 1;
+    //returna true se ha finito false altrimenti
   }
 
 }
