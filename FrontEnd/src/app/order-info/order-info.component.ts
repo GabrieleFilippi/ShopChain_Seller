@@ -3,7 +3,7 @@ import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import { MetamaskConnectionService } from '../metamask-connection.service';
 import { Orders, State } from '../orders';
-import { BigNumber, ethers} from 'ethers';
+import { BigNumber, Contract, ethers} from 'ethers';
 
 @Component({
   selector: 'app-order-info',
@@ -21,6 +21,7 @@ export class OrderInfoComponent implements OnInit {
   numberId: number = 0;
   amount: BigNumber | undefined;
   public order: Orders | undefined;
+  public userAddress: any;
   // per creare l'ordine
   //newAmount = BigNumber.from("1.4") ;
   state: State | undefined;
@@ -40,6 +41,9 @@ export class OrderInfoComponent implements OnInit {
     'refundAsked',
     'refunded',
   ];
+  // abi = [
+  //   "event Transfer(address indexed src, address indexed dst, uint val)"
+  // ];
   signerAddress: any ;
   constructor(private route: ActivatedRoute, private metamaskConnectionService: MetamaskConnectionService) {}
 
@@ -61,8 +65,8 @@ export class OrderInfoComponent implements OnInit {
   }
   async getId(): Promise<Orders>{
   const id = Number(this.route.snapshot.paramMap.get('id'));
-  const userAddress = await this.getUser();
-  this.userOrders = await this.metamaskConnectionService.getUserOrderList(userAddress);
+  this.userAddress = await this.getUser();
+  this.userOrders = await this.metamaskConnectionService.getUserOrderList(this.userAddress);
   let order: Orders = {
     id: 0,
     buyerAddress: '',
@@ -90,15 +94,6 @@ export class OrderInfoComponent implements OnInit {
   });
   return order;
   }
-////////////////////////////////////////
-///update page as transaction proceed///
-///////////////////////////////////////
-// public async pendingTransaction() : Promise<any>{
-//   MetamaskConnectionService.tokenContract.on("ValueChanged", async () => {
-//     console.log("Something changed")
-//     //if(){}
-//   });
-//}
   ////////////////////////////////////////
   //    OPERATIONS ON THE ORDER       ///
   //////////////////////////////////////
@@ -106,6 +101,15 @@ export class OrderInfoComponent implements OnInit {
     MetamaskConnectionService.deleteOrder(orderId);
   }
   async shipOrder(orderId: any){
+    await this.metamaskConnectionService.getContract();
+    // const contract = new Contract(tokenAddress, abi, provider);
+    //   depositEvent.watch(function(err: any, result: any) {
+    //   if (err) {
+    //   console.log(err)
+    //   return;
+    //   }
+    //   console.log("completato");
+    // });
     await this.metamaskConnectionService.shipOrder(orderId);
   }
   async refundBuyer(orderId: any){

@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ethers } from 'ethers';
+import { Contract, ethers } from 'ethers';
 import { threadId } from 'worker_threads';
 import address from '../../contracts/ShopChain.json';
 import detectEthereumProvider from "@metamask/detect-provider";
 import truncateEthAddress from 'truncate-eth-address';
-
+import {isSuccessfulTransaction, waitTransaction} from './waittransaction';
 import { Router } from "@angular/router";
 import { Meta } from '@angular/platform-browser';
+import { getContractAddress } from 'ethers/lib/utils';
+import {EventEmitter} from 'events';
+import {waitFor} from 'wait-for-event';
+import fake from './tesABI.json';
+import web3 from 'web3';
 declare let window: any;
 @Injectable({
   providedIn: 'root'
@@ -23,9 +28,10 @@ export class MetamaskConnectionService {
   public isSigned: boolean =  false;
   public truncatedSignerAddress: any;
   public pending = false;
-
   public currentAddress : string | undefined;
   public static provider : any;
+  public static web3Contract: any;
+  public static FAKETokenContract: any;
 
   constructor(private router: Router) {}
    ///////////////////////////////////////////////////////
@@ -48,6 +54,9 @@ export class MetamaskConnectionService {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     this.signer = provider.getSigner();
     MetamaskConnectionService.tokenContract = new ethers.Contract(address.contractAddress, address.abi, this.signer);
+    ///
+    //MetamaskConnectionService.FAKETokenContract = new ethers.Contract('0xd9145CCE52D386f254917e481eB44e9943F39138', fake, this.signer);
+    //////////////////
     //console.log(MetamaskConnectionService.tokenContract);
     this.tokenAddress = MetamaskConnectionService.tokenContract.address;
     MetamaskConnectionService.signerAddress = await this.signer.getAddress();
@@ -60,7 +69,23 @@ export class MetamaskConnectionService {
       const balanceInEth = ethers.utils.formatEther(balances);
       return balanceInEth;
      })
-     // se l'utente non ha sbloccato metamask ( funzione BETA)
+    // console.log("da ora");
+    // await provider.getTransaction('0xd55babaa15171bca4a00431f6e6ce771ac29682b03cf429c850e89c7116b933f');
+    // console.log("ad ora");
+    // MetamaskConnectionService.tokenContract.send({from: '0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f'}).
+    // once('sending', function(){
+    //   console.log("sending")
+    // }).once('transactionHash', function(){
+    //   console.log("transactionhash")
+    // }).once('confirmation', function(){
+    //   console.log("confirm")
+    // }).once('error', function(){
+    //   console.log("errore")
+    // })
+    // se l'utente non ha sbloccato metamask ( funzione BETA)
+    // const contract = new Contract(this.tokenAddress, this.abi, provider);
+    // contract.filters['Transfer']('0x32a6Adb8A03072Da9c51f597067b95008364F497');
+    // console.log(contract.filters['Transfer']('0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f'));
     if(!window.ethereum._metamask.isUnlocked()) this.gotToAnotherPage(undefined);
     if(await this.signer.getChainId() !== MetamaskConnectionService.chainId){
       this.gotToAnotherPage(undefined);
@@ -104,13 +129,32 @@ export class MetamaskConnectionService {
   //            SIGN AS SHIPPED                       ///
   //////////////////////////////////////////////////////
   async shipOrder(orderId: any){
-    return await MetamaskConnectionService.tokenContract.shipOrder(orderId);
+    const tx = await MetamaskConnectionService.tokenContract.shipOrder(orderId);
+    // console.log("ora lo shippo");
+    // tx.wait();
+    // window.location.reload();
+    // return new Promise((resolve, reject) => {
+    //   MetamaskConnectionService.tokenContract.methods.doWork(1, 2, 3).send({from: this.signer}) 
+    //     .on('confirmation', (confirmationNumber: number) => {
+    //       if (confirmationNumber === 5) {
+    //         resolve()
+    //       }
+    //     })
+    //     .on('error', (error) => {
+    //       reject(error)
+    //     })
+    // })
   }
   ///////////////////////////////////////////////////////
   //             REFUND BUYER                         ///
   //////////////////////////////////////////////////////
   async refundBuyer(orderId: any, amount: any){
-    return await MetamaskConnectionService.tokenContract.refundBuyer(orderId, amount);
+    const tx = await MetamaskConnectionService.tokenContract.refundBuyer(orderId, amount);
+    // console.log("attendi mentre faccio il refund.....");
+    // tx.wait();
+    // console.log("refund fatto")
+    //window.location.reload();
+
   }
   ///////////////////////////////////////////////////////
   //            GET ORDER LOG                         ///
@@ -178,10 +222,10 @@ export class MetamaskConnectionService {
   ///////////////////////////////////////
   //LIVE UPDATE AT TRANSACTION PENDING//
   /////////////////////////////////////
-  public async pendingTransaction() : Promise<any>{
-  MetamaskConnectionService.tokenContract
-    
-  }
+  // public async pendingTransaction() : Promise<any>{
+  // const transferEvents = await MetamaskConnectionService.tokenContract.queryFilter('Transfer');
+  // console.log(transferEvents);
+  // }
   // funzione trovata su https://stackoverflow.com/questions/68252365/how-to-trigger-change-blockchain-network-request-on-metamask
   public async changeNetwork() : Promise<void> {
     try {
@@ -210,6 +254,12 @@ export class MetamaskConnectionService {
     return await MetamaskConnectionService.tokenContract.askRefund(orderId);
   }
   async createOrder(buyer: any, amount: any){
-    return await MetamaskConnectionService.tokenContract.createOrder('0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f', {value: ethers.utils.parseEther("0.2")});
+    //const transaction = await MetamaskConnectionService.FAKETokenContract.createOrder('0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f', {value: ethers.utils.parseEther("0.02")});
+   //const tx = await transaction.wait();
+    // status = 1 quando termina
+    //return tx.status === 1;
+    // returna true se ha finito false altrimenti
   }
+
 }
+
