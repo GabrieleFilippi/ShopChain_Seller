@@ -1,10 +1,17 @@
+button{
+    background-color: rgb(36,82,122);
+    color: rgb(92,173,189);
+}
+
 button:hover{
-    background-color: rgba(199, 199, 199, 0.829);
+    background-color: rgb(92,173,189);
+    color: rgb(36,82,122);
 }
-button:onclick{
-    background-color: rgb(204, 204, 204);
+.logo{
+    height: 8%;
+    width: 8%; 
 }
-div {
-    display: grid; 
-    place-items: center; 
+.home{
+    display: grid;
+    place-items: center;
 }

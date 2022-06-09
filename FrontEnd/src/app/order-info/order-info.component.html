@@ -70,9 +70,13 @@
         </div>
     </div>
 </div>
-
-<qrcode [qrdata]="qrInfo" [errorCorrectionLevel]="'M'" class="centered"></qrcode>
-
+<div class="centered">
+<qrcode [elementType]="'canvas'" [qrdata]="qrInfo" [errorCorrectionLevel]="'M'" hidden></qrcode>
+<button>Download Qr</button>
+<div class="downloadButton">
+    <button (click)="saveAsImage()">Download QR Code Image</button>
+</div>
+</div>
 <h2 *ngIf="order.state === 3">No avaiable actions on this order</h2>
 <div *ngIf="order.state != 3" class="centered">
 <h2 >Possible Actions on this Order</h2>
@@ -83,7 +87,7 @@
     <button mat-raised-button (click)="shipOrder(numberId)">Ship Order</button>
 </div>
 <div>
-  <button mat-raised-button (click)="refundBuyer(numberId, amount)">Refund Buyer</button>
+  <button mat-raised-button (click)="refundBuyer(numberId)">Refund Buyer</button>
 </div>
 <div>
   <button mat-raised-button (click)="askRefund(numberId)">Ask refund</button>
@@ -91,6 +95,9 @@
 </div>
 <div>
   <button mat-raised-button (click)="createOrder(signerAddress)">Create Order</button>
+</div>
+<div>
+  <img id="loader" hidden SRC="../../assets/Loading_2.gif"/>
 </div>
 <div class="container">
   <div class="row justify-content-center">

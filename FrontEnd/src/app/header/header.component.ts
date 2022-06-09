@@ -7,14 +7,24 @@ import { MetamaskConnectionService } from '../metamask-connection.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
+  logoSrc: string = "../assets/images/logobluep1.png"
+  logoSrc2: string = "../assets/images/logobluep2.png"
+  public balance: any;
 
   constructor(public metamaskConnectionService: MetamaskConnectionService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     this.getMetamask();
+    this.balance = await this.truncateBalance();
   }
   async getMetamask(){
     await this.metamaskConnectionService.getMetamask();
+  }
+  async truncateBalance(){
+    //console.log(this.metamaskConnectionService.sellerBalance.toFixed(2));
+    const balance =  await this.metamaskConnectionService.sellerBalance;
+    console.log(balance);
+    return balance;
   }
 
 }

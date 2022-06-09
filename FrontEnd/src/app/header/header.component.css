@@ -4,4 +4,26 @@
 p{
   font-size: 0.5em;
   margin: 0;
+  color: rgb(92,173,189);
+}
+a{
+  color: rgb(92,173,189);
+}
+.logo{
+  width: 2em;
+  height: 70%;
+}
+.logot{
+  margin-left: 1em;
+  height: 50%;
+}
+mat-toolbar{
+  background-color: rgb(36,82,122);
+}
+li{
+  list-style-type: none;
+}
+ul{
+  border-top: 1px;
+  padding-top: 15px;
 }

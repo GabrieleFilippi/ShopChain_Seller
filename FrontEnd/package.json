@@ -27,6 +27,8 @@
     "rxjs": "~7.5.0",
     "truncate-eth-address": "^1.0.2",
     "tslib": "^2.3.0",
+    "wait-for-event": "^2.0.1",
+    "web3": "^1.7.3",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

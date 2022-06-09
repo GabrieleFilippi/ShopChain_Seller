@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { ethers } from 'ethers';
+import { Contract, ethers } from 'ethers';
 import { threadId } from 'worker_threads';
 import address from '../../contracts/ShopChain.json';
 import detectEthereumProvider from "@metamask/detect-provider";
 import truncateEthAddress from 'truncate-eth-address';
-
 import { Router } from "@angular/router";
 import { Meta } from '@angular/platform-browser';
+import { getContractAddress } from 'ethers/lib/utils';
+import {EventEmitter} from 'events';
+import {waitFor} from 'wait-for-event';
+import fake from './tesABI.json';
+import web3 from 'web3';
 declare let window: any;
 @Injectable({
   providedIn: 'root'
@@ -23,9 +27,10 @@ export class MetamaskConnectionService {
   public isSigned: boolean =  false;
   public truncatedSignerAddress: any;
   public pending = false;
-
   public currentAddress : string | undefined;
   public static provider : any;
+  public static web3Contract: any;
+  public static FAKETokenContract: any;
 
   constructor(private router: Router) {}
    ///////////////////////////////////////////////////////
@@ -48,7 +53,10 @@ export class MetamaskConnectionService {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     this.signer = provider.getSigner();
     MetamaskConnectionService.tokenContract = new ethers.Contract(address.contractAddress, address.abi, this.signer);
-    //console.log(MetamaskConnectionService.tokenContract);
+    //////FAKE////////
+    MetamaskConnectionService.FAKETokenContract = new ethers.Contract('0xd9145CCE52D386f254917e481eB44e9943F39138', fake, this.signer);
+    //////////////////
+
     this.tokenAddress = MetamaskConnectionService.tokenContract.address;
     MetamaskConnectionService.signerAddress = await this.signer.getAddress();
     this.truncatedSignerAddress = truncateEthAddress(MetamaskConnectionService.signerAddress);
@@ -60,6 +68,7 @@ export class MetamaskConnectionService {
       const balanceInEth = ethers.utils.formatEther(balances);
       return balanceInEth;
      })
+    if(!window.ethereum._metamask.isUnlocked()) this.gotToAnotherPage(undefined);
     if(await this.signer.getChainId() !== MetamaskConnectionService.chainId){
       this.gotToAnotherPage(undefined);
     }
@@ -95,20 +104,27 @@ export class MetamaskConnectionService {
   ///////////////////////////////////////////////////////
   //              DELETE ORDER                        ///
   //////////////////////////////////////////////////////
-  public static async deleteOrder(orderId: any): Promise<any[]>{
-    return await MetamaskConnectionService.tokenContract.deleteOrder(orderId);
+  public static async deleteOrder(orderId: any): Promise<any>{
+    const del =  await MetamaskConnectionService.tokenContract.deleteOrder(orderId);
+    const tx = await del.wait();
+    return tx.status === 1;
   }
   ///////////////////////////////////////////////////////
   //            SIGN AS SHIPPED                       ///
   //////////////////////////////////////////////////////
   async shipOrder(orderId: any){
-    return await MetamaskConnectionService.tokenContract.shipOrder(orderId);
+    const ship = await MetamaskConnectionService.tokenContract.shipOrder(orderId);
+    const tx = await ship.wait();
+    return tx.status === 1;
   }
   ///////////////////////////////////////////////////////
   //             REFUND BUYER                         ///
   //////////////////////////////////////////////////////
   async refundBuyer(orderId: any, amount: any){
-    return await MetamaskConnectionService.tokenContract.refundBuyer(orderId, amount);
+    const refund = await MetamaskConnectionService.tokenContract.refundBuyer(orderId, amount);
+    const tx = await refund.wait();
+    return tx.status === 1;
+
   }
   ///////////////////////////////////////////////////////
   //            GET ORDER LOG                         ///
@@ -176,29 +192,10 @@ export class MetamaskConnectionService {
   ///////////////////////////////////////
   //LIVE UPDATE AT TRANSACTION PENDING//
   /////////////////////////////////////
-  public async pendingTransaction() : Promise<any>{
-  //   MetamaskConnectionService.provider.on("pending", async () => {
-      
-  //     //return true;
-  //   })
+  // public async pendingTransaction() : Promise<any>{
+  // const transferEvents = await MetamaskConnectionService.tokenContract.queryFilter('Transfer');
+  // console.log(transferEvents);
   // }
-  const checkTxHash = async (txHash: any) => {
-    const tx = await MetamaskConnectionService.provider.getTransaction(txHash);
-    console.log("ooooo ",tx); 
-    if (!tx || !tx.to){console.log("no transazioni in corso"); return "null";}
-    //MetamaskConnectionService.provider.removeAllListeners();
-    console.log("ooooo ",tx);
-    return tx;
-  }
-  console.log("LIVE: ", checkTxHash);
-  if(checkTxHash){
-    if(MetamaskConnectionService.provider.on("pending", checkTxHash)){
-      console.log("la transazione é live sul contratto: ", checkTxHash);
-    } else{
-      console.log("transazione completata");
-    }
-  }
-}
   // funzione trovata su https://stackoverflow.com/questions/68252365/how-to-trigger-change-blockchain-network-request-on-metamask
   public async changeNetwork() : Promise<void> {
     try {
@@ -227,6 +224,10 @@ export class MetamaskConnectionService {
     return await MetamaskConnectionService.tokenContract.askRefund(orderId);
   }
   async createOrder(buyer: any, amount: any){
-    return await MetamaskConnectionService.tokenContract.createOrder('0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f', {value: ethers.utils.parseEther("0.2")});
+    const create = await MetamaskConnectionService.FAKETokenContract.createOrder('0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f', {value: ethers.utils.parseEther("0.02")});
+    const tx = await create.wait();
+    return tx.status === 1;
   }
+
 }
+

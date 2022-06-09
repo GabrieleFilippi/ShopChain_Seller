@@ -23,10 +23,10 @@ export class AppComponent {
       this.metamaskConnectionService.accountChanged();
       this.metamaskConnectionService.chainChanged();
       //this.metamaskConnectionService.pendingTransaction();
+  // append details of result.args to UI
     }
   }
   goToWrongNetwork() {
     this.metamaskConnectionService.gotToAnotherPage(undefined);
   }
-  
-  }
+}

@@ -1,14 +1,13 @@
 <mat-toolbar>
-    <span>Shopchain</span>
+    <img [src]="logoSrc" class="logo"/>
+    <img [src]="logoSrc2" class="logot"/>
+    <!-- <span>Shopchain</span> -->
     <span class="example-spacer"></span>
-    <button mat-button>
       <mat-icon>account_balance_wallet</mat-icon>
-    </button>
-    <span><p>Balance: </p></span>
-    <span>
-    <p>{{metamaskConnectionService.sellerBalance}} AVAX</p>
-    <p><a href="https://testnet.snowtrace.io/address/{{metamaskConnectionService.truncatedSignerAddress}}">{{metamaskConnectionService.truncatedSignerAddress}}</a></p>
-  </span>
+    <ul>
+    <li><p>Balance: {{metamaskConnectionService.sellerBalance}} AVAX</p></li>
+    <li><p><a href="https://testnet.snowtrace.io/address/{{metamaskConnectionService.truncatedSignerAddress}}">{{metamaskConnectionService.truncatedSignerAddress}}</a></p></li>
+</ul>
 </mat-toolbar>
     <!--{{metamaskConnectionService.signerAddress}}-->
   <!-- </mat-toolbar>

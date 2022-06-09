@@ -2,7 +2,6 @@ require("@nomiclabs/hardhat-waffle");
 /**
  * @type import('hardhat/config').HardhatUserConfig
  */
- const ALCHEMY_API_KEY = "wCabfKLw6ozClq__UJ4t9xFmLwTtH4yF";
 
  // Replace this private key with your Ropsten account private key
  // To export your private key from Metamask, open Metamask and

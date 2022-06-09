@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
 import { MetamaskConnectionService } from '../metamask-connection.service';
@@ -11,7 +11,7 @@ import { Log } from '../Log';
   templateUrl: './order-log.component.html',
   styleUrls: ['./order-log.component.css']
 })
-export class OrderLogComponent implements OnInit {
+export class OrderLogComponent implements OnInit, OnChanges {
   // nella posizione orderId c'e' il log di quell'ordine
   //logs: Log[] = [];
   logs: any;
@@ -38,8 +38,6 @@ export class OrderLogComponent implements OnInit {
     const LIST: Log[] = [];
     logs.map((e: any[]) => {
       let date = new Date(parseInt(e[1].toString())*1000).toLocaleString();
-      let am_or_pm = date.substring(date.length-3, date.length);
-      date = date.replace(",", "").substring(0, date.length - 7) + am_or_pm;
       const logs: Log = {
         state: State[e[0]],
         timestamp: date
@@ -47,5 +45,7 @@ export class OrderLogComponent implements OnInit {
       LIST.push(logs);
   });
   return LIST;
+  }
+  ngOnChanges(changes: SimpleChanges){
   }
 }
