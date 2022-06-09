@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MetamaskConnectionService } from '../metamask-connection.service';
 import { Orders, State } from '../orders';
 import { BigNumber, Contract, ethers} from 'ethers';
-import { waitFor } from 'wait-for-event';
+import { QRCodeElementType } from 'angularx-qrcode';
 
 @Component({
   selector: 'app-order-info',
@@ -46,6 +46,7 @@ export class OrderInfoComponent implements OnInit {
   //   "event Transfer(address indexed src, address indexed dst, uint val)"
   // ];
   signerAddress: any ;
+  elementType = "canvas";
   constructor(private route: ActivatedRoute, private metamaskConnectionService: MetamaskConnectionService) {}
 
   async ngOnInit(): Promise<void> {
@@ -102,32 +103,77 @@ export class OrderInfoComponent implements OnInit {
     MetamaskConnectionService.deleteOrder(orderId);
   }
   async shipOrder(orderId: any){
-    await this.metamaskConnectionService.getContract();
-    // const contract = new Contract(tokenAddress, abi, provider);
-    //   depositEvent.watch(function(err: any, result: any) {
-    //   if (err) {
-    //   console.log(err)
-    //   return;
-    //   }
-    //   console.log("completato");
-    // });
-    await this.metamaskConnectionService.shipOrder(orderId);
+    //await this.metamaskConnectionService.getContract();
+    var elem = document.getElementById('loader');
+    if(elem) elem.hidden = false;
+    const result = await this.metamaskConnectionService.shipOrder(orderId);
+    if(elem && result) elem.hidden = true;
+    if(!result) console.log("error");
   }
   async refundBuyer(orderId: any){
-    await this.metamaskConnectionService.refundBuyer(orderId, OrderInfoComponent.AMOUNT);
+    var elem = document.getElementById('loader');
+    if(elem) elem.hidden = false;
+    const result = await this.metamaskConnectionService.refundBuyer(orderId, OrderInfoComponent.AMOUNT);
+    if(elem && result) elem.hidden = true;
+    if(!result) console.log("error");
   }
   async askRefund(orderId: any){
-    await this.metamaskConnectionService.askRefund(orderId);
+    var elem = document.getElementById('loader');
+    if(elem) elem.hidden = false;
+    const result = await this.metamaskConnectionService.askRefund(orderId);
+    if(elem && result) elem.hidden = true;
+    if(!result) console.log("error");
   }
   async createOrder(address: any){
     var elem = document.getElementById('loader');
-    if(elem){
-      elem.hidden = false;
-    }
+    if(elem) elem.hidden = false;
     const result = await this.metamaskConnectionService.createOrder(address, this.amount);
-    if(result) console.log("fine transazione");
-    if(elem){
-      elem.hidden = true;
-    }
+    if(elem && result) elem.hidden = true;
+    if(!result) console.log("error");
   }
+  saveAsImage() {
+  }
+  //   let parentElement = null
+
+  //   if (this.elementType === "canvas") {
+  //     // fetches base 64 data from canvas
+  //     parentElement = parent.qrcElement.nativeElement
+  //       .querySelector("canvas")
+  //       .toDataURL("image/png")
+  //   } else if (this.elementType === "img" || this.elementType === "url") {
+  //     // fetches base 64 data from image
+  //     // parentElement contains the base64 encoded image src
+  //     // you might use to store somewhere
+  //     parentElement = parent.qrcElement.nativeElement.querySelector("img").src
+  //   } else {
+  //     alert("Set elementType to 'canvas', 'img' or 'url'.")
+  //   }
+
+  //   if (parentElement) {
+  //     // converts base 64 encoded image to blobData
+  //     let blobData = this.convertBase64ToBlob(parentElement)
+  //     // saves as image
+  //     const blob = new Blob([blobData], { type: "image/png" })
+  //     const url = window.URL.createObjectURL(blob)
+  //     const link = document.createElement("a")
+  //     link.href = url
+  //     // name of the file
+  //     link.download = "Qrcode"
+  //     link.click()
+  //   }
+  // }
+
+  // private convertBase64ToBlob(Base64Image: string) {
+  //   // split into two parts
+  //   const parts = Base64Image.split(";base64,")
+  //   // hold the content type
+  //   const imageType = parts[0].split(":")[1]
+  //   // decode base64 string
+  //   const decodedData = window.atob(parts[1])
+  //   // create unit8array of size same as row data length
+  //   const uInt8Array = new Uint8Array(decodedData.length)
+  //   // insert all character code into uint8array
+  //   for (let i = 0; i < decodedData.length; ++i) {
+  //     uInt8Array[i] = decodedData.charCodeAt(i)
+  //   }
 }

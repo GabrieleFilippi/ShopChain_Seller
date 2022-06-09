@@ -53,10 +53,10 @@ export class MetamaskConnectionService {
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     this.signer = provider.getSigner();
     MetamaskConnectionService.tokenContract = new ethers.Contract(address.contractAddress, address.abi, this.signer);
-    ///
+    //////FAKE////////
     MetamaskConnectionService.FAKETokenContract = new ethers.Contract('0xd9145CCE52D386f254917e481eB44e9943F39138', fake, this.signer);
     //////////////////
-    //console.log(MetamaskConnectionService.tokenContract);
+
     this.tokenAddress = MetamaskConnectionService.tokenContract.address;
     MetamaskConnectionService.signerAddress = await this.signer.getAddress();
     this.truncatedSignerAddress = truncateEthAddress(MetamaskConnectionService.signerAddress);
@@ -68,23 +68,6 @@ export class MetamaskConnectionService {
       const balanceInEth = ethers.utils.formatEther(balances);
       return balanceInEth;
      })
-    // console.log("da ora");
-    // await provider.getTransaction('0xd55babaa15171bca4a00431f6e6ce771ac29682b03cf429c850e89c7116b933f');
-    // console.log("ad ora");
-    // MetamaskConnectionService.tokenContract.send({from: '0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f'}).
-    // once('sending', function(){
-    //   console.log("sending")
-    // }).once('transactionHash', function(){
-    //   console.log("transactionhash")
-    // }).once('confirmation', function(){
-    //   console.log("confirm")
-    // }).once('error', function(){
-    //   console.log("errore")
-    // })
-    // se l'utente non ha sbloccato metamask ( funzione BETA)
-    // const contract = new Contract(this.tokenAddress, this.abi, provider);
-    // contract.filters['Transfer']('0x32a6Adb8A03072Da9c51f597067b95008364F497');
-    // console.log(contract.filters['Transfer']('0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f'));
     if(!window.ethereum._metamask.isUnlocked()) this.gotToAnotherPage(undefined);
     if(await this.signer.getChainId() !== MetamaskConnectionService.chainId){
       this.gotToAnotherPage(undefined);
@@ -121,38 +104,26 @@ export class MetamaskConnectionService {
   ///////////////////////////////////////////////////////
   //              DELETE ORDER                        ///
   //////////////////////////////////////////////////////
-  public static async deleteOrder(orderId: any): Promise<any[]>{
-    return await MetamaskConnectionService.tokenContract.deleteOrder(orderId);
+  public static async deleteOrder(orderId: any): Promise<any>{
+    const del =  await MetamaskConnectionService.tokenContract.deleteOrder(orderId);
+    const tx = await del.wait();
+    return tx.status === 1;
   }
   ///////////////////////////////////////////////////////
   //            SIGN AS SHIPPED                       ///
   //////////////////////////////////////////////////////
   async shipOrder(orderId: any){
-    const tx = await MetamaskConnectionService.tokenContract.shipOrder(orderId);
-    // console.log("ora lo shippo");
-    // tx.wait();
-    // window.location.reload();
-    // return new Promise((resolve, reject) => {
-    //   MetamaskConnectionService.tokenContract.methods.doWork(1, 2, 3).send({from: this.signer}) 
-    //     .on('confirmation', (confirmationNumber: number) => {
-    //       if (confirmationNumber === 5) {
-    //         resolve()
-    //       }
-    //     })
-    //     .on('error', (error) => {
-    //       reject(error)
-    //     })
-    // })
+    const ship = await MetamaskConnectionService.tokenContract.shipOrder(orderId);
+    const tx = await ship.wait();
+    return tx.status === 1;
   }
   ///////////////////////////////////////////////////////
   //             REFUND BUYER                         ///
   //////////////////////////////////////////////////////
   async refundBuyer(orderId: any, amount: any){
-    const tx = await MetamaskConnectionService.tokenContract.refundBuyer(orderId, amount);
-    // console.log("attendi mentre faccio il refund.....");
-    // tx.wait();
-    // console.log("refund fatto")
-    //window.location.reload();
+    const refund = await MetamaskConnectionService.tokenContract.refundBuyer(orderId, amount);
+    const tx = await refund.wait();
+    return tx.status === 1;
 
   }
   ///////////////////////////////////////////////////////
@@ -253,14 +224,9 @@ export class MetamaskConnectionService {
     return await MetamaskConnectionService.tokenContract.askRefund(orderId);
   }
   async createOrder(buyer: any, amount: any){
-    const transaction = await MetamaskConnectionService.FAKETokenContract.createOrder('0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f', {value: ethers.utils.parseEther("0.02")});
-    console.log("prima del wait");
-    const tx = await transaction.wait();
-    //status = 1 quando termina
-    console.log(tx.status);
-    console.log("dopo il wait");
+    const create = await MetamaskConnectionService.FAKETokenContract.createOrder('0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f', {value: ethers.utils.parseEther("0.02")});
+    const tx = await create.wait();
     return tx.status === 1;
-    //returna true se ha finito false altrimenti
   }
 
 }
