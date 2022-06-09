@@ -100,47 +100,64 @@ export class OrderInfoComponent implements OnInit {
   //    OPERATIONS ON THE ORDER       ///
   //////////////////////////////////////
   async deleteOrder(orderId: any){
-    MetamaskConnectionService.deleteOrder(orderId);
+    const elem = this.getElement();
+    const result = await MetamaskConnectionService.deleteOrder(orderId);
+    if(elem && result){
+      elem.hidden = true;
+      window.location.reload();
+    } else console.log("error");
   }
   async shipOrder(orderId: any){
     //await this.metamaskConnectionService.getContract();
-    var elem = document.getElementById('loader');
+    const elem = this.getElement();
     if(elem) elem.hidden = false;
     const result = await this.metamaskConnectionService.shipOrder(orderId);
-    if(elem && result) elem.hidden = true;
-    if(!result) console.log("error");
+    if(elem&& result){
+      elem.hidden = true;
+      window.location.reload();
+    }else console.log("error");
   }
   async refundBuyer(orderId: any){
-    var elem = document.getElementById('loader');
+    const elem = this.getElement();
     if(elem) elem.hidden = false;
     const result = await this.metamaskConnectionService.refundBuyer(orderId, OrderInfoComponent.AMOUNT);
-    if(elem && result) elem.hidden = true;
-    if(!result) console.log("error");
+    if(elem && result){
+      elem.hidden = true;
+      window.location.reload();
+    }else console.log("error");
   }
   async askRefund(orderId: any){
-    var elem = document.getElementById('loader');
+    const elem = this.getElement();
     if(elem) elem.hidden = false;
     const result = await this.metamaskConnectionService.askRefund(orderId);
-    if(elem && result) elem.hidden = true;
-    if(!result) console.log("error");
+    if(elem && result){
+      elem.hidden = true;
+      window.location.reload();
+    }else console.log("error");
   }
   async createOrder(address: any){
-    var elem = document.getElementById('loader');
+    const elem = this.getElement();
     if(elem) elem.hidden = false;
     const result = await this.metamaskConnectionService.createOrder(address, this.amount);
-    if(elem && result) elem.hidden = true;
-    if(!result) console.log("error");
+    if(elem && result){
+      elem.hidden = true;
+      window.location.reload();
+    }else console.log("error");
+  }
+  getElement(){
+    var elem = document.getElementById('overlay');
+    return elem;
   }
   saveAsImage() {
   }
   //   let parentElement = null
 
-  //   if (this.elementType === "canvas") {
+  //   if (elementType === "canvas") {
   //     // fetches base 64 data from canvas
   //     parentElement = parent.qrcElement.nativeElement
   //       .querySelector("canvas")
   //       .toDataURL("image/png")
-  //   } else if (this.elementType === "img" || this.elementType === "url") {
+  //   } else if (elementType === "img" || elementType === "url") {
   //     // fetches base 64 data from image
   //     // parentElement contains the base64 encoded image src
   //     // you might use to store somewhere
