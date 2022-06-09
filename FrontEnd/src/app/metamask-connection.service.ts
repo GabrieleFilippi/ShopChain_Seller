@@ -52,7 +52,7 @@ export class MetamaskConnectionService {
   async getContract(): Promise<any>{
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     this.signer = provider.getSigner();
-    MetamaskConnectionService.tokenContract = new ethers.Contract(address.contractAddress, address.abi, this.signer);
+    MetamaskConnectionService.tokenContract = new ethers.Contract('0xAc7C41567EaC78Ba97FAa1004ac31C2BAffeA493', address, this.signer);
     //////FAKE////////
     MetamaskConnectionService.FAKETokenContract = new ethers.Contract('0xd9145CCE52D386f254917e481eB44e9943F39138', fake, this.signer);
     //////////////////
@@ -224,7 +224,7 @@ export class MetamaskConnectionService {
     return await MetamaskConnectionService.tokenContract.askRefund(orderId);
   }
   async createOrder(buyer: any, amount: any){
-    const create = await MetamaskConnectionService.FAKETokenContract.createOrder('0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f', {value: ethers.utils.parseEther("0.02")});
+    const create = await MetamaskConnectionService.tokenContract.createOrder('0xEbDC67e05348AB26BF1a5662B3C7129BE08a601f', {value: ethers.utils.parseEther("0.02")});
     const tx = await create.wait();
     return tx.status === 1;
   }

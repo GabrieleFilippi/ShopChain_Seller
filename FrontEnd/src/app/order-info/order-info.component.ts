@@ -101,52 +101,54 @@ export class OrderInfoComponent implements OnInit {
   //////////////////////////////////////
   async deleteOrder(orderId: any){
     const elem = this.getElement();
-    const result = await MetamaskConnectionService.deleteOrder(orderId);
-    if(elem && result){
-      elem.hidden = true;
-      window.location.reload();
-    } else console.log("error");
+    if(elem){
+      elem.hidden = false;
+      const result = await MetamaskConnectionService.deleteOrder(orderId);
+      this.transactionEnd(elem, result);
+    }
   }
   async shipOrder(orderId: any){
     //await this.metamaskConnectionService.getContract();
     const elem = this.getElement();
-    if(elem) elem.hidden = false;
-    const result = await this.metamaskConnectionService.shipOrder(orderId);
-    if(elem&& result){
-      elem.hidden = true;
-      window.location.reload();
-    }else console.log("error");
+    if(elem){
+      elem.hidden = false;
+      const result = await this.metamaskConnectionService.shipOrder(orderId);
+      this.transactionEnd(elem, result);
+    }
   }
   async refundBuyer(orderId: any){
     const elem = this.getElement();
-    if(elem) elem.hidden = false;
-    const result = await this.metamaskConnectionService.refundBuyer(orderId, OrderInfoComponent.AMOUNT);
-    if(elem && result){
-      elem.hidden = true;
-      window.location.reload();
-    }else console.log("error");
+    if(elem){
+      elem.hidden = false;
+      const result = await this.metamaskConnectionService.refundBuyer(orderId, OrderInfoComponent.AMOUNT);
+      this.transactionEnd(elem, result);
+    }
   }
   async askRefund(orderId: any){
     const elem = this.getElement();
-    if(elem) elem.hidden = false;
-    const result = await this.metamaskConnectionService.askRefund(orderId);
-    if(elem && result){
-      elem.hidden = true;
-      window.location.reload();
-    }else console.log("error");
+    if(elem){
+      elem.hidden = false;
+      const result = await this.metamaskConnectionService.askRefund(orderId);
+      this.transactionEnd(elem, result);
+    }
   }
   async createOrder(address: any){
     const elem = this.getElement();
-    if(elem) elem.hidden = false;
-    const result = await this.metamaskConnectionService.createOrder(address, this.amount);
-    if(elem && result){
-      elem.hidden = true;
-      window.location.reload();
-    }else console.log("error");
+    if(elem){ 
+      elem.hidden = false;
+      const result = await this.metamaskConnectionService.createOrder(address, this.amount);
+      this.transactionEnd(elem, result);
+    }
   }
   getElement(){
     var elem = document.getElementById('overlay');
     return elem;
+  }
+  transactionEnd(elem: { hidden: boolean; },result: any){
+    if(elem && result){
+      elem.hidden = true;
+      window.location.reload();
+    }else console.log("error");
   }
   saveAsImage() {
   }

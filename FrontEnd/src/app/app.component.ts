@@ -13,18 +13,14 @@ import { Router } from "@angular/router";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private router: Router, private metamaskConnectionService: MetamaskConnectionService) {
+  constructor(private metamaskConnectionService: MetamaskConnectionService) {
   }
   title = 'shopchain';
-  public rightChain : boolean = true;
-  public pending: any;
   async ngOnInit(){
     if (await this.metamaskConnectionService.onRightChain()) {
       await this.metamaskConnectionService.getContract();
       this.metamaskConnectionService.accountChanged();
       this.metamaskConnectionService.chainChanged();
-      //this.metamaskConnectionService.pendingTransaction();
-  // append details of result.args to UI
     }
   }
   goToWrongNetwork() {
