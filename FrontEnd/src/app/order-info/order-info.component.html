@@ -1,50 +1,12 @@
-<!-- <div >
-    <h2>{{element.id | uppercase}} Details</h2>
-    <div>id: {{hero.id}}</div>
-    <div>
-      <label for="hero-name">Hero name: {{hero.name}} </label>
-      <br>
-      <label>Change name: </label>
-      <input id="hero-name" [(ngModel)]="hero.name" placeholder="name">
-    </div>
-  </div>
-  <button type="button" (click)="goBack()">go back</button> -->
-  <div>
-  <h1>Order Info</h1>
+
+<div>
+<div>
+<h1>Order Info</h1>
 </div>
-  <!--<div *ngIf="userOrdersList.length>0">
-  <table mat-table [dataSource]="userOrdersList" class="table" >
-    <ng-container matColumnDef="ID">
-      <th mat-header-cell *matHeaderCellDef> ID </th>
-      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
-    </ng-container>
-    <ng-container matColumnDef="spacer">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell></td>
-    </ng-container>
-    <ng-container matColumnDef="buyer">
-      <th mat-header-cell *matHeaderCellDef> Buyer </th>
-      <td mat-cell *matCellDef="let element"> {{element.buyerAddress}} </td>
-    </ng-container>
-  
-    <ng-container matColumnDef="amount">
-      <th mat-header-cell *matHeaderCellDef> amount </th>
-      <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
-    </ng-container>
-    <ng-container matColumnDef="state">
-      <th mat-header-cell *matHeaderCellDef> state </th>
-      <td mat-cell *matCellDef="let element" routerLink="/orderinfo/{{element.id}}"> {{element.state}} </td>
-    </ng-container>
-    <ng-container matColumnDef="options">
-      <th mat-header-cell *matHeaderCellDef> Actions </th>
-      <td mat-cell *matCellDef="let element">
-    </td>
-      
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table> -->
-  <div *ngIf="order">
+<div *ngIf="order">
+  <div class="container">
+    <div class="row justify-content-center">
+    </div>
   <div class="row">
     <div class="col-md-12">
         <div class="table-wrap">
@@ -60,6 +22,7 @@
               <tbody>
                 <tr>
                   <td>{{order.id}}</td>
+                  <!-- inserire qui un bottone visibile solo da mobile che permette di copiare l'address anziche farlo vedere che occupa mezzo schermo -->
                   <td>{{order.buyerAddress}}</td>
                   <td>{{order.amount}}</td>
                   <td [ngStyle]="{'color':Color[order.state]}" class="state">{{States[order.state] | uppercase }}</td>
@@ -69,43 +32,51 @@
             </table>
         </div>
     </div>
-</div>
-<div class="centered">
-<qrcode [elementType]="'canvas'" [qrdata]="qrInfo" [errorCorrectionLevel]="'M'" hidden></qrcode>
-<button>Download Qr</button>
-<div class="downloadButton">
-    <button (click)="saveAsImage()">Download QR Code Image</button>
-</div>
-</div>
-<h2 *ngIf="order.state === 3">No avaiable actions on this order</h2>
-<div *ngIf="order.state != 3" class="centered">
-<h2 >Possible Actions on this Order</h2>
-<div *ngIf="order.state === 0 || order.state === 1">
-    <button mat-raised-button (click)="deleteOrder(numberId)">Delete Order</button>
-</div>
-<div *ngIf="order.state === 0">
-    <button mat-raised-button (click)="shipOrder(numberId)">Ship Order</button>
-</div>
-<div>
-  <button mat-raised-button (click)="refundBuyer(numberId)">Refund Buyer</button>
-</div>
-<div>
-  <button mat-raised-button (click)="askRefund(numberId)">Ask refund</button>
-</div>
-</div>
-<div>
-  <button mat-raised-button (click)="createOrder(signerAddress)">Create Order</button>
-</div>
-<div>
-  <img id="loader" hidden SRC="../../assets/Loading_2.gif"/>
-</div>
-<div class="container">
-  <div class="row justify-content-center">
+  </div>
+  <div class="centered">
+    <div class="container">
+      <!-- <button (click)="downloadQRCode()">Download QRCode</button> -->
+      <a href="{{link}}" download><button type="button" class="btn btn-primary" (click)="downloadQrImage()" style="margin-right:10px;">Download Image</button></a>
+      <h1>QRCODE GENERATOR</h1>
+      <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="value" class="coolQRCode"></ngx-qrcode>
+   </div>
+    <!-- <qrcode [elementType]="'canvas'" [qrdata]="qrInfo" [errorCorrectionLevel]="'M'" hidden></qrcode>
+    <button>Download Qr</button>
+    <div class="downloadButton">
+      <button (click)="saveAsImage()">Download QR Code Image</button>
+    </div> -->
+  </div>
+  <h2 *ngIf="order.state === 3">No avaiable actions on this order</h2>
+  <div *ngIf="order.state != 3" class="centered">
+    <h2 >Possible Actions on this Order</h2>
+    <div *ngIf="order.state === 0 || order.state === 1">
+      <button mat-raised-button (click)="deleteOrder()">Delete Order</button>
+    </div>
+    <div *ngIf="order.state === 0">
+      <button mat-raised-button (click)="shipOrder()">Ship Order</button>
+    </div>
+    <div *ngIf="order.state === 4">
+      <button mat-raised-button (click)="refundBuyer()">Refund Buyer</button>
+    </div>
+    <div>
+      <button mat-raised-button (click)="askRefund(numberId)">Ask refund</button>
+    </div>
+    <div>
+      <button mat-raised-button (click)="createOrder(signerAddress)">Create Order</button>
+    </div>
+  </div>
+  <div id="overlay" hidden>
+  <img id="loading" src="../../assets/images/output-onlinegiftools.gif"/>
+  <p id="loadingtext">Waiting for Transaction...</p>
+  </div>
+  <div class="container">
+    <div class="row justify-content-center">
       <div class="col-md-6 text-center mb-5">
       </div>
+    </div>
   </div>
+  <app-order-log></app-order-log>
 </div>
-<app-order-log></app-order-log>
 </div>
 
 
