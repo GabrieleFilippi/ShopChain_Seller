@@ -23,7 +23,4 @@ export class AppComponent {
       this.metamaskConnectionService.chainChanged();
     }
   }
-  goToWrongNetwork() {
-    this.metamaskConnectionService.gotToAnotherPage(undefined);
-  }
 }

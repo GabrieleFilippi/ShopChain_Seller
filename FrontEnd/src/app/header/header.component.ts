@@ -21,9 +21,7 @@ export class HeaderComponent implements OnInit {
     await this.metamaskConnectionService.getMetamask();
   }
   async truncateBalance(){
-    //console.log(this.metamaskConnectionService.sellerBalance.toFixed(2));
     const balance =  await this.metamaskConnectionService.sellerBalance;
-    console.log(balance);
     return balance;
   }
 

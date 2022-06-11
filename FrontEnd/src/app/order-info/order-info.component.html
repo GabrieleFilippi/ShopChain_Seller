@@ -44,20 +44,20 @@
   <div *ngIf="order.state != 3" class="centered">
     <h2 >Possible Actions on this Order</h2>
     <div *ngIf="order.state === 0 || order.state === 1">
-      <button mat-raised-button (click)="deleteOrder(numberId)">Delete Order</button>
+      <button mat-raised-button (click)="deleteOrder()">Delete Order</button>
     </div>
     <div *ngIf="order.state === 0">
-      <button mat-raised-button (click)="shipOrder(numberId)">Ship Order</button>
+      <button mat-raised-button (click)="shipOrder()">Ship Order</button>
     </div>
-    <div>
-      <button mat-raised-button (click)="refundBuyer(numberId)">Refund Buyer</button>
+    <div *ngIf="order.state === 4">
+      <button mat-raised-button (click)="refundBuyer()">Refund Buyer</button>
     </div>
     <div>
       <button mat-raised-button (click)="askRefund(numberId)">Ask refund</button>
     </div>
-  </div>
-  <div>
-    <button mat-raised-button (click)="createOrder(signerAddress)">Create Order</button>
+    <div>
+      <button mat-raised-button (click)="createOrder(signerAddress)">Create Order</button>
+    </div>
   </div>
   <div id="overlay" hidden>
   <img id="loading" src="../../assets/images/output-onlinegiftools.gif"/>

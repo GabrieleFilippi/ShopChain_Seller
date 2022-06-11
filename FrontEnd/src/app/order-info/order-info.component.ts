@@ -13,6 +13,7 @@ import { QRCodeElementType } from 'angularx-qrcode';
 })
 export class OrderInfoComponent implements OnInit {
   public static AMOUNT : any;
+  public static ID: any;
   public qrInfo: string = '';
   orderList: any[] | undefined;
   sellerList: any[] | undefined;
@@ -66,7 +67,7 @@ export class OrderInfoComponent implements OnInit {
     return this.sellerList =  await this.metamaskConnectionService.getSellerList();
   }
   async getId(): Promise<Orders>{
-  const id = Number(this.route.snapshot.paramMap.get('id'));
+  OrderInfoComponent.ID = Number(this.route.snapshot.paramMap.get('id'));
   this.userAddress = await this.getUser();
   this.userOrders = await this.metamaskConnectionService.getUserOrderList(this.userAddress);
   let order: Orders = {
@@ -78,7 +79,7 @@ export class OrderInfoComponent implements OnInit {
   };
   this.userOrders.map((e: any[]) => {
       this.numberId = e[0].toNumber();
-      if(id === this.numberId){
+      if(OrderInfoComponent.ID === this.numberId){
       order = {
         id: this.numberId,
         buyerAddress: e[1],
@@ -91,6 +92,10 @@ export class OrderInfoComponent implements OnInit {
       this.state = e[4];
       this.amount = e[3];
       OrderInfoComponent.AMOUNT = e[3];
+      console.log(OrderInfoComponent.AMOUNT);
+      console.log(this.amount);
+      console.log(order.amount);
+      console.log(ethers.utils.parseEther(order.amount.toString()));
       this.order = order;
     }
   });
@@ -99,15 +104,17 @@ export class OrderInfoComponent implements OnInit {
   ////////////////////////////////////////
   //    OPERATIONS ON THE ORDER       ///
   //////////////////////////////////////
-  async deleteOrder(orderId: any){
+  async deleteOrder(){
     const elem = this.getElement();
     if(elem){
+      const orderId = OrderInfoComponent.ID;
       elem.hidden = false;
       const result = await MetamaskConnectionService.deleteOrder(orderId);
       this.transactionEnd(elem, result);
     }
   }
-  async shipOrder(orderId: any){
+  async shipOrder(){
+    const orderId = OrderInfoComponent.ID;
     //await this.metamaskConnectionService.getContract();
     const elem = this.getElement();
     if(elem){
@@ -116,7 +123,8 @@ export class OrderInfoComponent implements OnInit {
       this.transactionEnd(elem, result);
     }
   }
-  async refundBuyer(orderId: any){
+  async refundBuyer(){
+    const orderId = OrderInfoComponent.ID;
     const elem = this.getElement();
     if(elem){
       elem.hidden = false;
