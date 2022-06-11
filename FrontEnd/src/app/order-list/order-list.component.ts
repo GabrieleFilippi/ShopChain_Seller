@@ -52,7 +52,6 @@ export class OrderListComponent implements OnInit {
     const userAddress = await this.getUser();
     this.userOrders = await this.metamaskConnectionService.getUserOrderList(userAddress);
     this.userOrdersList = await this.formatOrderI(this.userOrders);
-    console.log("ordini per questo seller:", this.userOrdersList);
   }
   // funziona con l'interfaccia
   async formatOrderI(list: any[]){
@@ -70,6 +69,29 @@ export class OrderListComponent implements OnInit {
       LIST.push(orders);
     });
     return LIST;
+  }
+  /// FILTERS ON THE LIST
+  myFunction() {
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput") as HTMLInputElement;
+    table = document.getElementById("orderlist");
+    if(input && table){
+      filter = input.value.toUpperCase();
+      tr = table.getElementsByTagName("tr");
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
   }
 }
   

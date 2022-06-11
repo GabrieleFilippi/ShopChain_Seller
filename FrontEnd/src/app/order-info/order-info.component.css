@@ -46,7 +46,7 @@ button{
     color: rgb(92,173,189);
     margin: 0.3em;
 }
-  button:hover{
-    background-color: rgb(92,173,189);
-    color: rgb(36,82,122);
-  }
+button:hover{
+background-color: rgb(92,173,189);
+color: rgb(36,82,122);
+}

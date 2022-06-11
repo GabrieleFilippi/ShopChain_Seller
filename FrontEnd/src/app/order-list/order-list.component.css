@@ -4,7 +4,7 @@ h1 {
 }
 .state{
   font-weight: bold;
-  text-shadow: 2px 0 0 rgb(36,82,122), -2px 0 0 rgb(36,82,122), 0 2px 0 rgb(36,82,122), 0 -2px 0 rgb(36,82,122), 1px 1px rgb(36,82,122), -1px -1px 0 rgb(36,82,122), 1px -1px 0 rgb(36,82,122), -1px 1px 0 rgb(36,82,122);
+  /* text-shadow: 2px 0 0 rgb(36,82,122), -2px 0 0 rgb(36,82,122), 0 2px 0 rgb(36,82,122), 0 -2px 0 rgb(36,82,122), 1px 1px rgb(36,82,122), -1px -1px 0 rgb(36,82,122), 1px -1px 0 rgb(36,82,122), -1px 1px 0 rgb(36,82,122); */
 }
 button{
   background-color: rgb(36,82,122);
@@ -15,11 +15,11 @@ button:hover{
   background-color: rgb(92,173,189);
   color: rgb(36,82,122);
 }
-.table-striped>tbody>tr:nth-child(odd)>td, 
+/* .table-striped>tbody>tr:nth-child(odd)>td, 
 .table-striped>tbody>tr:nth-child(odd)>th {
-    background-color: rgba(92, 173, 189, 0.3); /* Choose your own color here */
+    background-color: rgba(92, 173, 189, 0.3); 
 }
 .table-striped>tbody>tr:nth-child(even)>td, 
 .table-striped>tbody>tr:nth-child(even)>th {
-    background-color: rgba(36, 82, 122, 0.3); /* Choose your own color here */
-}
+    background-color: rgba(36, 82, 122, 0.3); 
+} */
