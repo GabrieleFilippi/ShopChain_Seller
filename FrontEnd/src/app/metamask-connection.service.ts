@@ -124,7 +124,7 @@ export class MetamaskConnectionService {
     const ship = await MetamaskConnectionService.tokenContract.shipOrder(orderId);
     const tx = await ship.wait();
     return tx.status === 1;
-    }catch(e) { return console.log(e);}
+    } catch(e) { return e;}
   }
   ///////////////////////////////////////////////////////
   //             REFUND BUYER                         ///

@@ -2,12 +2,6 @@ h1,h2 {
     display: grid; 
     place-items: center; 
 }
-button:hover{
-    background-color: rgba(199, 199, 199, 0.829);
-}
-button:onclick{
-    background-color: rgb(204, 204, 204);
-}
 .centered{
     display: grid; 
     place-items: center;
@@ -47,3 +41,12 @@ button:onclick{
 .container {
     text-align: center;
 }
+button{
+    background-color: rgb(36,82,122);
+    color: rgb(92,173,189);
+    margin: 0.3em;
+}
+  button:hover{
+    background-color: rgb(92,173,189);
+    color: rgb(36,82,122);
+  }

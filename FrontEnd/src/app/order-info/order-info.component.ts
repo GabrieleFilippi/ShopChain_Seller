@@ -95,11 +95,6 @@ export class OrderInfoComponent implements OnInit {
       this.state = e[4];
       this.amount = e[3];
       OrderInfoComponent.AMOUNT = e[3];
-      console.log(OrderInfoComponent.AMOUNT);
-      console.log(this.amount);
-      console.log(order.amount);
-      console.log(ethers.utils.parseEther(order.amount.toString()));
-      this.order = order;
     }
   });
   return order;
@@ -110,28 +105,24 @@ export class OrderInfoComponent implements OnInit {
   async deleteOrder(){
     const elem = this.getElement();
     if(elem){
-      const orderId = OrderInfoComponent.ID;
       elem.hidden = false;
-      const result = await MetamaskConnectionService.deleteOrder(orderId);
+      const result = await MetamaskConnectionService.deleteOrder(OrderInfoComponent.ID);
       this.transactionEnd(elem, result);
     }
   }
   async shipOrder(){
-    const orderId = OrderInfoComponent.ID;
-    //await this.metamaskConnectionService.getContract();
     const elem = this.getElement();
     if(elem){
       elem.hidden = false;
-      const result = await this.metamaskConnectionService.shipOrder(orderId);
+      const result = await this.metamaskConnectionService.shipOrder(OrderInfoComponent.ID);
       this.transactionEnd(elem, result);
     }
   }
   async refundBuyer(){
-    const orderId = OrderInfoComponent.ID;
     const elem = this.getElement();
     if(elem){
       elem.hidden = false;
-      const result = await this.metamaskConnectionService.refundBuyer(orderId, OrderInfoComponent.AMOUNT);
+      const result = await this.metamaskConnectionService.refundBuyer(OrderInfoComponent.ID, OrderInfoComponent.AMOUNT);
       this.transactionEnd(elem, result);
     }
   }
@@ -139,7 +130,7 @@ export class OrderInfoComponent implements OnInit {
     const elem = this.getElement();
     if(elem){
       elem.hidden = false;
-      const result = await this.metamaskConnectionService.askRefund(orderId);
+      const result = await this.metamaskConnectionService.askRefund(OrderInfoComponent.ID);
       this.transactionEnd(elem, result);
     }
   }
@@ -155,11 +146,15 @@ export class OrderInfoComponent implements OnInit {
     var elem = document.getElementById('overlay');
     return elem;
   }
-  transactionEnd(elem: { hidden: boolean; },result: any){
-    if(elem && result){
+  async transactionEnd(elem: { hidden: boolean; },result: any){
+    try{
+      if(elem && result){
       elem.hidden = true;
       window.location.reload();
-    }else console.log("error");
+      }
+    }catch(e){
+      console.log(e);
+    } 
   }
   downloadQrImage(){
     var items:any = document.getElementsByClassName('coolQRCode')[0];
