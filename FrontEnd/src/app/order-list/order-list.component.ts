@@ -93,5 +93,26 @@ export class OrderListComponent implements OnInit {
       }
     }
   }
+  orderByValue() {
+    // Declare variables
+    var table, tr, td, i, next;
+    table = document.getElementById("orderlist");
+    if(table){
+      tr = table.getElementsByTagName("tr");
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length-1; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        next = tr[i+1].getElementsByTagName("td")[2];
+        if (td) {
+          if(next){
+            console.log("bo")
+            const i = next;
+            next = td;
+            td = i;
+          }
+        }
+      }
+    }
+  }
 }
   
