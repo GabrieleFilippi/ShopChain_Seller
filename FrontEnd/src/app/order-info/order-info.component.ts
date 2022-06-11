@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MetamaskConnectionService } from '../metamask-connection.service';
 import { Orders, State } from '../orders';
 import { BigNumber, Contract, ethers} from 'ethers';
+import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 import { QRCodeElementType } from 'angularx-qrcode';
 
 @Component({
@@ -24,6 +25,12 @@ export class OrderInfoComponent implements OnInit {
   amount: BigNumber | undefined;
   public order: Orders | undefined;
   public userAddress: any;
+  ///////////////QR CODE///////////////
+  public elementType = NgxQrcodeElementTypes.URL;
+  public correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
+  public value = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+  public link: any;
+  ////////////////////////////////////////////
   // per creare l'ordine
   //newAmount = BigNumber.from("1.4") ;
   state: State | undefined;
@@ -43,11 +50,7 @@ export class OrderInfoComponent implements OnInit {
     'refundAsked',
     'refunded',
   ];
-  // abi = [
-  //   "event Transfer(address indexed src, address indexed dst, uint val)"
-  // ];
   signerAddress: any ;
-  elementType = "canvas";
   constructor(private route: ActivatedRoute, private metamaskConnectionService: MetamaskConnectionService) {}
 
   async ngOnInit(): Promise<void> {
@@ -158,49 +161,9 @@ export class OrderInfoComponent implements OnInit {
       window.location.reload();
     }else console.log("error");
   }
-  saveAsImage() {
+  downloadQrImage(){
+    var items:any = document.getElementsByClassName('coolQRCode')[0];
+    let img = items.getElementsByTagName("img");
+    this.link = img[0].src;
   }
-  //   let parentElement = null
-
-  //   if (elementType === "canvas") {
-  //     // fetches base 64 data from canvas
-  //     parentElement = parent.qrcElement.nativeElement
-  //       .querySelector("canvas")
-  //       .toDataURL("image/png")
-  //   } else if (elementType === "img" || elementType === "url") {
-  //     // fetches base 64 data from image
-  //     // parentElement contains the base64 encoded image src
-  //     // you might use to store somewhere
-  //     parentElement = parent.qrcElement.nativeElement.querySelector("img").src
-  //   } else {
-  //     alert("Set elementType to 'canvas', 'img' or 'url'.")
-  //   }
-
-  //   if (parentElement) {
-  //     // converts base 64 encoded image to blobData
-  //     let blobData = this.convertBase64ToBlob(parentElement)
-  //     // saves as image
-  //     const blob = new Blob([blobData], { type: "image/png" })
-  //     const url = window.URL.createObjectURL(blob)
-  //     const link = document.createElement("a")
-  //     link.href = url
-  //     // name of the file
-  //     link.download = "Qrcode"
-  //     link.click()
-  //   }
-  // }
-
-  // private convertBase64ToBlob(Base64Image: string) {
-  //   // split into two parts
-  //   const parts = Base64Image.split(";base64,")
-  //   // hold the content type
-  //   const imageType = parts[0].split(":")[1]
-  //   // decode base64 string
-  //   const decodedData = window.atob(parts[1])
-  //   // create unit8array of size same as row data length
-  //   const uInt8Array = new Uint8Array(decodedData.length)
-  //   // insert all character code into uint8array
-  //   for (let i = 0; i < decodedData.length; ++i) {
-  //     uInt8Array[i] = decodedData.charCodeAt(i)
-  //   }
 }

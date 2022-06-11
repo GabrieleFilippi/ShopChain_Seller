@@ -19,6 +19,7 @@ import { OrderInfoComponent } from './order-info/order-info.component';
 import { OrderLogComponent } from './order-log/order-log.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { ProgressbarComponent } from './progressbar/progressbar.component';
+import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 
 
@@ -44,7 +45,8 @@ import { ProgressbarComponent } from './progressbar/progressbar.component';
     MatListModule,
     MatSidenavModule,
     MatTableModule,
-    QRCodeModule
+    QRCodeModule,
+    NgxQRCodeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

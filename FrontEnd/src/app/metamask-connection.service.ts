@@ -111,7 +111,6 @@ export class MetamaskConnectionService {
   //////////////////////////////////////////////////////
   public static async deleteOrder(orderId: any): Promise<any>{
     try{
-    console.log('DELETE:', orderId );
     const del =  await MetamaskConnectionService.tokenContract.deleteOrder(orderId);
     const tx = await del.wait();
     return tx.status === 1;
@@ -122,7 +121,6 @@ export class MetamaskConnectionService {
   //////////////////////////////////////////////////////
   async shipOrder(orderId: any){
     try{
-    console.log('SHIP:', orderId );
     const ship = await MetamaskConnectionService.tokenContract.shipOrder(orderId);
     const tx = await ship.wait();
     return tx.status === 1;
@@ -133,7 +131,6 @@ export class MetamaskConnectionService {
   //////////////////////////////////////////////////////
   async refundBuyer(orderId: any, amount: any){
     try{
-      console.log('REFUND:', orderId );
       const refund = await MetamaskConnectionService.tokenContract.refundBuyer(orderId,amount);
       const tx = await refund.wait();
       return tx.status === 1;
