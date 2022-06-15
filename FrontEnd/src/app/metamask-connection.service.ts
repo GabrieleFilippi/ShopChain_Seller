@@ -30,6 +30,7 @@ export class MetamaskConnectionService {
   public static provider : any;
   public static web3Contract: any;
   public static FAKETokenContract: any;
+  public static errorMessage: any;
 
   constructor(private router: Router) {}
    ///////////////////////////////////////////////////////
@@ -106,35 +107,49 @@ export class MetamaskConnectionService {
     //MetamaskConnectionService.tokenContract = await this.getContract();
     return await MetamaskConnectionService.tokenContract.getOrdersOfUser(address);
   }
+  ////////////error handler/////
+  public UserException(message: any) {
+    var message = message;
+    var name = 'UserException';
+  }
   ///////////////////////////////////////////////////////
   //              DELETE ORDER                        ///
   //////////////////////////////////////////////////////
   public static async deleteOrder(orderId: any): Promise<any>{
-    try{
-    const del =  await MetamaskConnectionService.tokenContract.deleteOrder(orderId);
+    const del =  await MetamaskConnectionService.tokenContract.deleteOrder(orderId).catch((error: any) => { 
+      console.log("Error:",error.code);
+      MetamaskConnectionService.errorMessage = error.message;
+    });
+    if(del){
     const tx = await del.wait();
     return tx.status === 1;
-    }catch (e) { return console.log(e);}
   }
+}
   ///////////////////////////////////////////////////////
   //            SIGN AS SHIPPED                       ///
   //////////////////////////////////////////////////////
-  async shipOrder(orderId: any){
-    try{
-    const ship = await MetamaskConnectionService.tokenContract.shipOrder(orderId);
+  public static async shipOrder(orderId: any): Promise<any>{
+    const ship = await MetamaskConnectionService.tokenContract.shipOrder(orderId).catch((error: any) => { 
+      console.log("Error:",error.code);
+      MetamaskConnectionService.errorMessage = error.message;
+    });
+    if(ship){
     const tx = await ship.wait();
     return tx.status === 1;
-    } catch(e) { return e;}
+    }
   }
   ///////////////////////////////////////////////////////
   //             REFUND BUYER                         ///
   //////////////////////////////////////////////////////
-  async refundBuyer(orderId: any, amount: any){
-    try{
-      const refund = await MetamaskConnectionService.tokenContract.refundBuyer(orderId,amount);
-      const tx = await refund.wait();
-      return tx.status === 1;
-    } catch (e) { return console.log(e);}
+  public static async refundBuyer(orderId: any, amount: any): Promise<any>{
+    const refund = await MetamaskConnectionService.tokenContract.refundBuyer(orderId,amount).catch((error: any) => { 
+      console.log("Error:",error.code);
+      MetamaskConnectionService.errorMessage = error.message;
+    });
+    if(refund){
+    const tx = await refund.wait();
+    return tx.status === 1;
+  }
   }
   ///////////////////////////////////////////////////////
   //            GET ORDER LOG                         ///

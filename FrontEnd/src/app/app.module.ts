@@ -32,7 +32,7 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
     HeaderComponent,
     OrderInfoComponent,
     OrderLogComponent,
-    ProgressbarComponent
+    ProgressbarComponent,
   ],
   imports: [
     BrowserModule,

@@ -6,6 +6,7 @@ import { Orders, State } from '../orders';
 import { BigNumber, Contract, ethers} from 'ethers';
 import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 import { QRCodeElementType } from 'angularx-qrcode';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-order-info',
@@ -30,6 +31,7 @@ export class OrderInfoComponent implements OnInit {
   public correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
   public value = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
   public link: any;
+  public errorCode: any;
   ////////////////////////////////////////////
   // per creare l'ordine
   //newAmount = BigNumber.from("1.4") ;
@@ -107,6 +109,7 @@ export class OrderInfoComponent implements OnInit {
     if(elem){
       elem.hidden = false;
       const result = await MetamaskConnectionService.deleteOrder(OrderInfoComponent.ID);
+      if(MetamaskConnectionService.errorMessage) this.errorCode = MetamaskConnectionService.errorMessage;
       this.transactionEnd(elem, result);
     }
   }
@@ -114,7 +117,8 @@ export class OrderInfoComponent implements OnInit {
     const elem = this.getElement();
     if(elem){
       elem.hidden = false;
-      const result = await this.metamaskConnectionService.shipOrder(OrderInfoComponent.ID);
+      const result = await MetamaskConnectionService.shipOrder(OrderInfoComponent.ID);
+      if(MetamaskConnectionService.errorMessage) this.errorCode = MetamaskConnectionService.errorMessage;
       this.transactionEnd(elem, result);
     }
   }
@@ -122,7 +126,8 @@ export class OrderInfoComponent implements OnInit {
     const elem = this.getElement();
     if(elem){
       elem.hidden = false;
-      const result = await this.metamaskConnectionService.refundBuyer(OrderInfoComponent.ID, OrderInfoComponent.AMOUNT);
+      const result = await MetamaskConnectionService.refundBuyer(OrderInfoComponent.ID, OrderInfoComponent.AMOUNT);
+      if(MetamaskConnectionService.errorMessage) this.errorCode = MetamaskConnectionService.errorMessage;
       this.transactionEnd(elem, result);
     }
   }
@@ -147,13 +152,11 @@ export class OrderInfoComponent implements OnInit {
     return elem;
   }
   async transactionEnd(elem: { hidden: boolean; },result: any){
-    try{
-      if(elem && result){
-      elem.hidden = true;
-      window.location.reload();
-      }
-    }catch(e){
-      console.log(e);
+    if(result){
+    elem.hidden = true;
+    window.location.reload();
+    }else{
+      setTimeout(function(){elem.hidden = true;}, 2000);
     } 
   }
   downloadQrImage(){
