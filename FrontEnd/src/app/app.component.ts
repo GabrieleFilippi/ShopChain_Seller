@@ -16,11 +16,15 @@ export class AppComponent {
   constructor(private metamaskConnectionService: MetamaskConnectionService) {
   }
   title = 'shopchain';
+  showHeader = true;
   async ngOnInit(){
     if (await this.metamaskConnectionService.onRightChain()) {
+      this.showHeader = true;
       await this.metamaskConnectionService.getContract();
       this.metamaskConnectionService.accountChanged();
       this.metamaskConnectionService.chainChanged();
+    }else{
+      this.showHeader = false;
     }
   }
 }

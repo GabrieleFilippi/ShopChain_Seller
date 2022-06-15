@@ -12,10 +12,9 @@ export class WrongNetworkComponent implements OnInit {
   constructor(private router: Router,private metamaskConnectionService: MetamaskConnectionService) { }
 
   async ngOnInit(): Promise<void> {
-    //this.changeNetwork();
   }
   async changeNetwork() : Promise<any> {
     await this.metamaskConnectionService.changeNetwork();
     window.location.reload();
   }
-  }
+}

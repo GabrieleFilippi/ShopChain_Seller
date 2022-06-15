@@ -18,7 +18,6 @@ import {MatTableModule} from '@angular/material/table';
 import { OrderInfoComponent } from './order-info/order-info.component';
 import { OrderLogComponent } from './order-log/order-log.component';
 import { QRCodeModule } from 'angularx-qrcode';
-import { ProgressbarComponent } from './progressbar/progressbar.component';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 
 
@@ -32,7 +31,6 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
     HeaderComponent,
     OrderInfoComponent,
     OrderLogComponent,
-    ProgressbarComponent,
   ],
   imports: [
     BrowserModule,

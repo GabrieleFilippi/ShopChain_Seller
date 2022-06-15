@@ -1,0 +1,33 @@
+:host-context(body){
+    background-color: rgba(36, 82, 122, 0.411);
+    height: 100%;
+    width: 100%;
+    display: block;
+}
+.back{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+p,h1{
+    text-align: center;
+}
+button{
+    margin-top: 1.5em;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgb(36,82,122);
+    color: rgb(92,173,189);
+}
+button:hover{
+background-color: rgb(92,173,189);
+color: rgb(36,82,122);
+}
+
+img{
+    height: 50%;
+    width: 50%;
+}
