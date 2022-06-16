@@ -5,7 +5,6 @@
 </div>
 <div *ngIf="order">
   <div class="container">
-  <div class="row">
     <div class="col-md-12">
         <div class="table-wrap">
             <table class="table table-striped">
@@ -29,15 +28,15 @@
               </tbody>
             </table>
         </div>
-    </div>
   </div>
   <h2 *ngIf="order.state === 3">No avaiable actions on this order</h2>
   <div *ngIf="order.state != 3" class="centered">
     <h2 >Possible Actions on this Order</h2>
-      <div class="container">
+      <div class="">
         <a href="{{link}}" download><button type="button" mat-raised-button (click)="downloadQrImage()">Download QrCode</button></a>
         <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="value" class="coolQRCode" hidden></ngx-qrcode>
         </div>
+  <div class="">
     <div *ngIf="order.state === 0 || order.state === 1">
       <button mat-raised-button (click)="deleteOrder()">Delete Order</button>
     </div>
@@ -54,16 +53,11 @@
       <button mat-raised-button (click)="createOrder(signerAddress)">Create Order</button>
     </div>
   </div>
+  </div>
   <div id="overlay" hidden>
   <img id="loading" src="../../assets/images/output-onlinegiftools.gif"/>
   <p id="loadingtext">Waiting for Transaction...</p>
   <p>Transaction ended with error: </p>{{this.errorCode}}
-  </div>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6 text-center mb-5">
-      </div>
-    </div>
   </div>
   <app-order-log></app-order-log>
 </div>

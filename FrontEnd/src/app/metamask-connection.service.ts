@@ -43,6 +43,7 @@ export class MetamaskConnectionService {
     }else{
       console.log('MetaMask is installed');
       this.getContract();
+      console.log("Chiamato getContract: da getMetamask");
     }
   }
   isInstalled(){
@@ -54,12 +55,9 @@ export class MetamaskConnectionService {
     await provider.send('eth_requestAccounts', []); // <- this promps user to connect metamask
     const signer = provider.getSigner();
     MetamaskConnectionService.tokenContract = new ethers.Contract(abi.contractAddress, abi.abi, signer);
-
-
     //////FAKE PER PROVE////////
     MetamaskConnectionService.FAKETokenContract = new ethers.Contract('0xd9145CCE52D386f254917e481eB44e9943F39138', fake, signer);
     //////////////////
-
     this.tokenAddress = MetamaskConnectionService.tokenContract.address;
     MetamaskConnectionService.signerAddress = await signer.getAddress();
     this.truncatedSignerAddress = truncateEthAddress(MetamaskConnectionService.signerAddress);
@@ -75,12 +73,12 @@ export class MetamaskConnectionService {
     if(await signer.getChainId() !== MetamaskConnectionService.chainId){
       this.gotToAnotherPage(undefined);
     }
-    /// dovrebbe risolvere eroorre//////
-    window.addEventListener('load', async () => {
-      try {
-                 await window.ethereum.enable();
-             } catch (error) {}
-      });
+    // /// dovrebbe risolvere eroorre//////
+    // window.addEventListener('load', async () => {
+    //   try {
+    //              await window.ethereum.enable();
+    //          } catch (error) {}
+    //   });
     return MetamaskConnectionService.tokenContract;
   }
   ///////////////////////////////////////////////////////
@@ -88,6 +86,7 @@ export class MetamaskConnectionService {
   /////////////////////////////////////////////////////
   async getUserAddress(){
     MetamaskConnectionService.tokenContract = await this.getContract();
+    console.log("Chiamato getContract: da getUSerAddress");
     return await MetamaskConnectionService.signerAddress;
   }
   async getSignerBalance(){
@@ -162,6 +161,7 @@ export class MetamaskConnectionService {
   //////////////////////////////////////////////////////
   async getSellerList(): Promise<any[]>{
     MetamaskConnectionService.tokenContract = await this.getContract();
+    console.log("Chiamato getContract: da getsellerlist");
     return this.sellerList =  await MetamaskConnectionService.tokenContract.getSellers();
   }
   async isRegistered(): Promise<boolean>{
@@ -228,8 +228,7 @@ export class MetamaskConnectionService {
       });
       this.router.navigate(['/login']);
     } catch (error : any) {
-      console.log(error);
-      // This error code indicates that the chain has not been added to MetaMask
+        // This error code indicates that the chain has not been added to MetaMask
         // if it is not, then install it into the user MetaMask
       if (error.code === 4902) {
         await MetamaskConnectionService.provider.request({

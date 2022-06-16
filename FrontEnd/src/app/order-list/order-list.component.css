@@ -15,11 +15,49 @@ button:hover{
   background-color: rgb(92,173,189);
   color: rgb(36,82,122);
 }
+.table-striped>tbody>tr{
+  text-align: center;
+  border-radius: 35px;
+  box-shadow: 0 1px 6px rgba(36, 82, 122, 0.642), 0 1px 2px rgba(36, 82, 122, 0.593);
+  background-color: rgba(207, 230, 250, 0.293);
+}
+thead, tbody, tfoot, tr, td, th {
+  border-color: inherit;
+  border-style: none;
+  border-width: 0;
+}
+.table > tbody {
+  vertical-align: 0px;
+}
+.table {
+  --bs-stable-border-radius: 40rem;
+  --bs-table-color: var(--bs-body-color);
+  --bs-table-bg: transparent;
+  --bs-table-border-color: var(--bs-border-color);
+  --bs-table-accent-bg: transparent;
+  --bs-table-striped-color: var(--bs-body-color);
+  --bs-table-striped-bg: rgba(0, 0, 0, 0.05);
+  --bs-table-active-color: var(--bs-body-color);
+  --bs-table-active-bg: rgba(36, 82, 122, 0.593);
+  --bs-table-hover-color: var(--bs-body-color);
+  --bs-table-hover-bg: rgba(0, 0, 0, 0.075);
+  width: 100%;
+  margin-bottom: 1rem;
+  color: var(--bs-table-color);
+  vertical-align: top;
+  border-color: var(--bs-table-border-color);
+}
 /* .table-striped>tbody>tr:nth-child(odd)>td, 
 .table-striped>tbody>tr:nth-child(odd)>th {
-    background-color: rgba(92, 173, 189, 0.3); 
+  text-align: center;
+  border-radius: 35px;
+  box-shadow: 0 1px 6px rgba(36, 82, 122, 0.642), 0 1px 40px rgba(36, 82, 122, 0.593);
+  background-color: rgba(207, 230, 250, 0.293);
 }
 .table-striped>tbody>tr:nth-child(even)>td, 
 .table-striped>tbody>tr:nth-child(even)>th {
-    background-color: rgba(36, 82, 122, 0.3); 
+  text-align: center;
+  border-radius: 35px;
+  box-shadow: 0 1px 6px rgba(36, 82, 122, 0.642), 0 1px 40px rgba(36, 82, 122, 0.593);
+  background-color: rgba(207, 230, 250, 0.293); 
 } */

@@ -1,16 +1,20 @@
 :host-context(body){
-    background-color: rgba(36, 82, 122, 0.411);
+    background-color: rgba(36, 82, 122, 0.559);
     height: 100%;
     width: 100%;
     display: block;
 }
 .back{
-    margin: 0;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    border-radius: 55px;
+    padding: 50px;
+    box-shadow: 0 1px 6px rgba(36, 82, 122, 0.642), 0 1px 40px rgba(36, 82, 122, 0.593);
+    background-color: rgba(207, 230, 250, 0.293);
 }
+
 p,h1{
     text-align: center;
 }
