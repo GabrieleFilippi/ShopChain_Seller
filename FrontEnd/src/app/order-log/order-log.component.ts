@@ -23,6 +23,7 @@ export class OrderLogComponent implements OnInit, OnChanges {
   constructor(private route: ActivatedRoute, private metamaskConnectionService: MetamaskConnectionService) { }
 
   async ngOnInit(): Promise<void> {
+    console.info("ngOnInit di orderlog")
     this.getId();
     this.logs = await this.getLogsOfOrder(OrderLogComponent.orderId);
     this.LIST = await this.printLogs(this.logs);

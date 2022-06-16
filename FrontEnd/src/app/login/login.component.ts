@@ -13,9 +13,13 @@ export class LoginComponent implements OnInit {
   public signer: any;
   public logoSrc = "../assets/images/avax.png" 
   constructor( public metamaskConnectionService: MetamaskConnectionService) { }
-
+ 
   ngOnInit(){
+    console.info("ngOnInit di logincomponent")
+    console.info("logincomponent chiama getContract")
     this.getMetamask();
+    this.metamaskConnectionService.getContract()
+    console.info("login chiede a sellerlist il contract")
     this.isRegistered();
   }
   async getMetamask(){

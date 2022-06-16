@@ -56,6 +56,7 @@ export class OrderInfoComponent implements OnInit {
   constructor(private route: ActivatedRoute, private metamaskConnectionService: MetamaskConnectionService) {}
 
   async ngOnInit(): Promise<void> {
+    console.info("ngOnInit di orderinfo")
     this.order = await this.getId();
     this.signerAddress = await this.getUser();
   }

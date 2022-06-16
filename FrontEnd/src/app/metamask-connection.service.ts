@@ -51,8 +51,9 @@ export class MetamaskConnectionService {
   }
   // Inizializza il contratto
   async getContract(): Promise<any>{
+    console.count(" CONTRACT ROUND: ")
     const provider = new ethers.providers.Web3Provider(window.ethereum);
-    await provider.send('eth_requestAccounts', []); // <- this promps user to connect metamask
+    //await provider.send('eth_requestAccounts', []); // <- this promps user to connect metamask
     const signer = provider.getSigner();
     MetamaskConnectionService.tokenContract = new ethers.Contract(abi.contractAddress, abi.abi, signer);
     //////FAKE PER PROVE////////
@@ -85,11 +86,13 @@ export class MetamaskConnectionService {
   //         INFORMAZIONI SUL SIGNER                 ///
   /////////////////////////////////////////////////////
   async getUserAddress(){
+    console.count(" GETUSERADDRESS ROUND: ")
     MetamaskConnectionService.tokenContract = await this.getContract();
     console.log("Chiamato getContract: da getUSerAddress");
     return await MetamaskConnectionService.signerAddress;
   }
   async getSignerBalance(){
+    console.count(" GETSIGNERBALANCE ROUND: ")
     this.sellerBalance = await MetamaskConnectionService.provider.getBalance(MetamaskConnectionService.signerAddress).then((balances: ethers.BigNumberish) => {
       // convert a currency unit from wei to ether
       const balanceInEth = ethers.utils.formatEther(balances);
@@ -100,9 +103,11 @@ export class MetamaskConnectionService {
   //               ORDER LIST                        ///
   //////////////////////////////////////////////////////
   static async getOrderList(): Promise<any[]>{
+    console.count(" GETORDER LIST ROUND: ")
     return await MetamaskConnectionService.tokenContract.getOrders();
   }
   async getUserOrderList(address: any): Promise<any[]>{
+    console.count(" GETUSERORDERLIST ROUND: ")
     //MetamaskConnectionService.tokenContract = await this.getContract();
     return await MetamaskConnectionService.tokenContract.getOrdersOfUser(address);
   }
@@ -154,17 +159,20 @@ export class MetamaskConnectionService {
   //            GET ORDER LOG                         ///
   //////////////////////////////////////////////////////
   static async getLogsOfOrder(orderId: any){
+    console.count(" GETORDERLOGS ROUND: ")
     return await MetamaskConnectionService.tokenContract.getLogsOfOrder(orderId);
   }
   ////////////////////////////////////////////////////////
   //            GESTIONE DEI SELLER                   ///
   //////////////////////////////////////////////////////
   async getSellerList(): Promise<any[]>{
+    console.count(" GETSELLERLIST ROUND: ")
     MetamaskConnectionService.tokenContract = await this.getContract();
     console.log("Chiamato getContract: da getsellerlist");
     return this.sellerList =  await MetamaskConnectionService.tokenContract.getSellers();
   }
   async isRegistered(): Promise<boolean>{
+    console.count(" ISREGISTERED ROUND: ")
     //MetamaskConnectionService.tokenContract = await this.getContract();
     const list = await this.getSellerList();
     if(list.includes(MetamaskConnectionService.signerAddress)){
