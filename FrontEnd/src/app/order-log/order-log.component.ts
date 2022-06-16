@@ -23,10 +23,11 @@ export class OrderLogComponent implements OnInit, OnChanges {
   constructor(private route: ActivatedRoute, private metamaskConnectionService: MetamaskConnectionService) { }
 
   async ngOnInit(): Promise<void> {
-    console.info("ngOnInit di orderlog")
+    if (await this.metamaskConnectionService.onRightChain()) {
     this.getId();
     this.logs = await this.getLogsOfOrder(OrderLogComponent.orderId);
     this.LIST = await this.printLogs(this.logs);
+    }
   }
   async getId(){
     OrderLogComponent.orderId = Number(this.route.snapshot.paramMap.get('id'));

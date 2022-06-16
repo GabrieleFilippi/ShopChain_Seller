@@ -55,6 +55,7 @@ export class MetamaskConnectionService {
     //await provider.send('eth_requestAccounts', []); // <- this promps user to connect metamask
     console.log("provider:",provider)
     const signer = provider.getSigner();
+    this.signer = signer;
     console.log("signer:",signer)
     MetamaskConnectionService.tokenContract = new ethers.Contract(abi.contractAddress, abi.abi, signer);
     console.log("contract:", MetamaskConnectionService.tokenContract)
@@ -91,9 +92,9 @@ export class MetamaskConnectionService {
   // ora come ora mi serve per forza il getContract ma da risolvere, magari posso snellire la funzione getContract e far fare le altre cose ad altre
   async getUserAddress(){
     console.count(" GETUSERADDRESS ROUND: ")
-    console.log("getUserAddress non riesce a prendere il contract:",MetamaskConnectionService.signerAddress );
-    MetamaskConnectionService.tokenContract = await this.getContract();
+    console.log("getUserAddress non riesce a prendere il contract:",this.signer );
     console.log("Chiamato getContract: da getUSerAddress");
+    MetamaskConnectionService.signerAddress =  await this.signer.getAddress();
     return await MetamaskConnectionService.signerAddress;
   }
   async getSignerBalance(){
@@ -210,7 +211,6 @@ export class MetamaskConnectionService {
 
   public accountChanged() : void {
     MetamaskConnectionService.provider.on("accountsChanged",async () => {
-      //await this.getContract();
       window.location.reload();
     })
   }

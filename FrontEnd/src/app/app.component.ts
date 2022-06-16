@@ -18,10 +18,12 @@ export class AppComponent {
   title = 'shopchain';
   showHeader = true;
   async ngOnInit(){
+    console.log("ngOninit di appcomponent")
     if (await this.metamaskConnectionService.onRightChain()) {
+      console.log("ngOninit di appcomponent post if")
+      this.metamaskConnectionService.getMetamask();
+      this.metamaskConnectionService.getContract();
       this.showHeader = true;
-      //await this.metamaskConnectionService.getContract();
-      console.log("Chiamato getContract da ngoninit:");
       this.metamaskConnectionService.accountChanged();
       this.metamaskConnectionService.chainChanged();
     }else{
