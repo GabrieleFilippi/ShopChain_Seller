@@ -2,6 +2,7 @@
     <p>Non hai Metamask installato nel browser</p>
     <button onclick="window.location.href='https://metamask.io/download/'">Installa Metamask</button>
 </div>
+<div class="container">
 <div *ngIf = "metamaskConnectionService.signer" class="home">
     <h1>Welcome to the Seller section</h1>
     <h2>You are currently logged with the account: <a href="https://testnet.snowtrace.io/address/{{metamaskConnectionService.truncatedSignerAddress}}">{{metamaskConnectionService.truncatedSignerAddress}}</a></h2>
@@ -11,16 +12,17 @@
     <!-- <p>{{metamaskConnectionService.truncatedSignerAddress}}</p> -->
     <h2>With a balance of: {{metamaskConnectionService.sellerBalance}} AVAX <img [src]="logoSrc" class="logo"/></h2>
     <div *ngIf="sellerIsSigned">
-        <p>Clicca qui per vedere la lista degli ordini collegati a questo account</p>
+        <p>Click this button to see your Orders</p>
         <a routerLink="/orderlist">
             <button  mat-raised-button routerLink="/orderlist">Vai a vedere la lista ordini</button>
         </a>
     </div>
     <div *ngIf="sellerIsSigned === false">
-        <p>Non sei registrato come seller, clicca qui per registrarti.</p>
+        <p>You are not registered as a seller, click this button to register</p>
         <!-- METTERE CHE FA PARTIRE REGISTERSELLER()-->
         <button  mat-raised-button (click)="registerAsSeller()">Registrati come venditore</button>
     </div>
+</div>
 </div>
                 
                 

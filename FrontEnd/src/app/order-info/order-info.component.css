@@ -1,6 +1,6 @@
 h1,h2 {
-    display: grid; 
-    place-items: center; 
+    text-align:center;
+    border: 10px;
 }
 .centered{
     display: grid; 
@@ -38,13 +38,9 @@ h1,h2 {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.cont{
+    text-align: center;
     border-radius: 55px;
-    padding: 50px;
     box-shadow: 0 1px 6px rgba(36, 82, 122, 0.642), 0 1px 40px rgba(36, 82, 122, 0.593);
     background-color: rgba(207, 230, 250, 0.293);
 }
@@ -56,4 +52,7 @@ button{
 button:hover{
 background-color: rgb(92,173,189);
 color: rgb(36,82,122);
+}
+.table{
+    width: 100%;
 }

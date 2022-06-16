@@ -70,7 +70,8 @@ export class MetamaskConnectionService {
     this.sellerBalance = await provider.getBalance(MetamaskConnectionService.signerAddress).then((balances) => {
       // convert a currency unit from wei to ether
       const balanceInEth = ethers.utils.formatEther(balances);
-      return balanceInEth;
+      console.log("BALANCE:", balanceInEth)
+      return balanceInEth.substring(0,6);;
      })
     this.signer = signer;
     // FUNZIONE BETA FORSE DA TOGLIERE????
