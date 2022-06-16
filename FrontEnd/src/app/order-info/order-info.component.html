@@ -1,11 +1,11 @@
 
-<div>
 <div *ngIf="order">
-  <div class="cont">
+  <div class="container">
       <h1>Order Info</h1>
-    <div class="col-md-12">
-        <div class="table-wrap">
-            <table class="table table-striped">
+      <div class="row">
+        <div class="col-md-12">
+            <div class="table-wrap">
+                <table class="table table-striped">
               <thead>
                 <tr>
                   <th>OrderId</th>
@@ -26,6 +26,7 @@
               </tbody>
             </table>
         </div>
+      </div>
   </div>
   <h2 *ngIf="order.state === 3">No avaiable actions on this order</h2>
   <div *ngIf="order.state != 3" class="centered">

@@ -38,8 +38,13 @@ h1,h2 {
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.cont{
+.container{
+    position: absolute;
+    top: 400px;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
+    /* margin-top: 10vh; */
     border-radius: 55px;
     box-shadow: 0 1px 6px rgba(36, 82, 122, 0.642), 0 1px 40px rgba(36, 82, 122, 0.593);
     background-color: rgba(207, 230, 250, 0.293);
@@ -53,6 +58,6 @@ button:hover{
 background-color: rgb(92,173,189);
 color: rgb(36,82,122);
 }
-.table{
+/* .table{
     width: 100%;
-}
+} */
