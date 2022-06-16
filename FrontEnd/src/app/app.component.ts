@@ -20,7 +20,7 @@ export class AppComponent {
   async ngOnInit(){
     if (await this.metamaskConnectionService.onRightChain()) {
       this.showHeader = true;
-      await this.metamaskConnectionService.getContract();
+      //await this.metamaskConnectionService.getContract();
       console.log("Chiamato getContract da ngoninit:");
       this.metamaskConnectionService.accountChanged();
       this.metamaskConnectionService.chainChanged();

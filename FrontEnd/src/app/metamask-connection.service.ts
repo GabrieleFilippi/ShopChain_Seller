@@ -42,8 +42,7 @@ export class MetamaskConnectionService {
       console.log('MetaMask is NOT installed!');
     }else{
       console.log('MetaMask is installed');
-      this.getContract();
-      console.log("Chiamato getContract: da getMetamask");
+      //this.getContract();
     }
   }
   isInstalled(){
@@ -54,13 +53,17 @@ export class MetamaskConnectionService {
     console.count(" CONTRACT ROUND: ")
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     //await provider.send('eth_requestAccounts', []); // <- this promps user to connect metamask
+    console.log("provider:",provider)
     const signer = provider.getSigner();
+    console.log("signer:",signer)
     MetamaskConnectionService.tokenContract = new ethers.Contract(abi.contractAddress, abi.abi, signer);
+    console.log("contract:", MetamaskConnectionService.tokenContract)
     //////FAKE PER PROVE////////
     MetamaskConnectionService.FAKETokenContract = new ethers.Contract('0xd9145CCE52D386f254917e481eB44e9943F39138', fake, signer);
     //////////////////
     this.tokenAddress = MetamaskConnectionService.tokenContract.address;
     MetamaskConnectionService.signerAddress = await signer.getAddress();
+    console.log("address:",  MetamaskConnectionService.signerAddress)
     this.truncatedSignerAddress = truncateEthAddress(MetamaskConnectionService.signerAddress);
     // balance del wallet connesso
     this.sellerBalance = await provider.getBalance(MetamaskConnectionService.signerAddress).then((balances) => {
@@ -85,8 +88,10 @@ export class MetamaskConnectionService {
   ///////////////////////////////////////////////////////
   //         INFORMAZIONI SUL SIGNER                 ///
   /////////////////////////////////////////////////////
+  // ora come ora mi serve per forza il getContract ma da risolvere, magari posso snellire la funzione getContract e far fare le altre cose ad altre
   async getUserAddress(){
     console.count(" GETUSERADDRESS ROUND: ")
+    console.log("getUserAddress non riesce a prendere il contract:",MetamaskConnectionService.signerAddress );
     MetamaskConnectionService.tokenContract = await this.getContract();
     console.log("Chiamato getContract: da getUSerAddress");
     return await MetamaskConnectionService.signerAddress;
@@ -107,7 +112,7 @@ export class MetamaskConnectionService {
     return await MetamaskConnectionService.tokenContract.getOrders();
   }
   async getUserOrderList(address: any): Promise<any[]>{
-    console.count(" GETUSERORDERLIST ROUND: ")
+   // console.count(" GETUSERORDERLIST ROUND: ")
     //MetamaskConnectionService.tokenContract = await this.getContract();
     return await MetamaskConnectionService.tokenContract.getOrdersOfUser(address);
   }
@@ -167,7 +172,7 @@ export class MetamaskConnectionService {
   //////////////////////////////////////////////////////
   async getSellerList(): Promise<any[]>{
     console.count(" GETSELLERLIST ROUND: ")
-    MetamaskConnectionService.tokenContract = await this.getContract();
+    //MetamaskConnectionService.tokenContract = await this.getContract();
     console.log("Chiamato getContract: da getsellerlist");
     return this.sellerList =  await MetamaskConnectionService.tokenContract.getSellers();
   }

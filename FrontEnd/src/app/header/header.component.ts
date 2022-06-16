@@ -15,7 +15,7 @@ export class HeaderComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     console.info("ngOnInit di header")
-    this.getMetamask();
+    //this.getMetamask();
     this.balance = await this.truncateBalance();
   }
   async getMetamask(){
