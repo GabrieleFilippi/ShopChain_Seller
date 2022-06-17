@@ -255,14 +255,14 @@ export class MetamaskConnectionService {
   ////////////////////////////////////
   ///ROBA BUYER ORDER DA RIMUOVERE/////
   /////////////////////////////////////
-  async askRefund(orderId: any){
-    return await MetamaskConnectionService.tokenContract.askRefund(orderId);
-  }
-  async createOrder(buyer: any, amount: any){
-    const create = await MetamaskConnectionService.tokenContract.createOrder('0x0Ca317B657C9F6E35B57Ea94DE308A40f2B63a6D', {value: ethers.utils.parseEther("0.02")});
-    const tx = await create.wait();
-    return tx.status === 1;
-  }
+  // async askRefund(orderId: any){
+  //   return await MetamaskConnectionService.tokenContract.askRefund(orderId);
+  // }
+  // async createOrder(buyer: any, amount: any){
+  //   const create = await MetamaskConnectionService.tokenContract.createOrder('0x0Ca317B657C9F6E35B57Ea94DE308A40f2B63a6D', {value: ethers.utils.parseEther("0.02")});
+  //   const tx = await create.wait();
+  //   return tx.status === 1;
+  // }
 
 }
 

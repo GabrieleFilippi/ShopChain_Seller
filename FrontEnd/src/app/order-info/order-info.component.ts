@@ -133,22 +133,22 @@ export class OrderInfoComponent implements OnInit {
       this.transactionEnd(elem, result);
     }
   }
-  async askRefund(orderId: any){
-    const elem = this.getElement();
-    if(elem){
-      elem.hidden = false;
-      const result = await this.metamaskConnectionService.askRefund(OrderInfoComponent.ID);
-      this.transactionEnd(elem, result);
-    }
-  }
-  async createOrder(address: any){
-    const elem = this.getElement();
-    if(elem){ 
-      elem.hidden = false;
-      const result = await this.metamaskConnectionService.createOrder(address, this.amount);
-      this.transactionEnd(elem, result);
-    }
-  }
+  // async askRefund(orderId: any){
+  //   const elem = this.getElement();
+  //   if(elem){
+  //     elem.hidden = false;
+  //     const result = await this.metamaskConnectionService.askRefund(OrderInfoComponent.ID);
+  //     this.transactionEnd(elem, result);
+  //   }
+  // }
+  // async createOrder(address: any){
+  //   const elem = this.getElement();
+  //   if(elem){ 
+  //     elem.hidden = false;
+  //     const result = await this.metamaskConnectionService.createOrder(address, this.amount);
+  //     this.transactionEnd(elem, result);
+  //   }
+  // }
   getElement(){
     var elem = document.getElementById('overlay');
     return elem;

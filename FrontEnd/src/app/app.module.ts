@@ -19,6 +19,8 @@ import { OrderInfoComponent } from './order-info/order-info.component';
 import { OrderLogComponent } from './order-log/order-log.component';
 import { QRCodeModule } from 'angularx-qrcode';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import {MatSelectModule} from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 
 
@@ -44,7 +46,9 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
     MatSidenavModule,
     MatTableModule,
     QRCodeModule,
-    NgxQRCodeModule
+    NgxQRCodeModule,
+    MatSelectModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

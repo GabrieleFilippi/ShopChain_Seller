@@ -19,9 +19,9 @@ export class AppComponent {
   showHeader = true;
   async ngOnInit(){
     console.log("ngOninit di appcomponent")
+    this.metamaskConnectionService.getMetamask();
     if (await this.metamaskConnectionService.onRightChain()) {
       console.log("ngOninit di appcomponent post if")
-      this.metamaskConnectionService.getMetamask();
       this.metamaskConnectionService.getContract();
       this.showHeader = true;
       this.metamaskConnectionService.accountChanged();

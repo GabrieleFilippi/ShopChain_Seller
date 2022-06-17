@@ -1,4 +1,8 @@
-
+<nav>
+  <ul>
+    <li><a routerLink="/orderlist">Order List</a></li>
+  </ul>
+</nav>
 <div *ngIf="order">
   <div class="container">
       <h1>Order Info</h1>
@@ -45,12 +49,12 @@
     <div *ngIf="order.state === 4">
       <button mat-raised-button (click)="refundBuyer()">Refund Buyer</button>
     </div>
-    <div>
+    <!-- <div>
       <button mat-raised-button (click)="askRefund(numberId)">Ask refund</button>
     </div>
     <div>
       <button mat-raised-button (click)="createOrder(signerAddress)">Create Order</button>
-    </div>
+    </div> -->
   </div>
   </div>
   <app-order-log></app-order-log>

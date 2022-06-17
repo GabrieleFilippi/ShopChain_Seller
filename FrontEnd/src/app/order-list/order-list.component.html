@@ -2,7 +2,19 @@
     <h1>Orders list</h1>
   </div>
 <div class="container">
-  <input type="text" id="myInput" (keyup)="myFunction()" placeholder="Search for id..">  
+  <input type="text" id="IdInput" (keyup)="myFunction()" placeholder="Search for id..">  
+  <mat-form-field appearance="fill">
+    <mat-label>Filter by state</mat-label>
+    <select id="selectState" matNativeControl required (change)="orderByState()">
+      <option value="">No Filter</option>
+      <option value="Created">Created</option>
+      <option value="Confirmed">Confirmed</option>
+      <option value="Deleted">Deleted</option>
+      <option value="RefundAsked">RefundAsked</option>
+      <option value="Refunded">Refunded</option>
+    </select>
+  </mat-form-field>
+  
   <!-- <button (click)="myFunction()">Search</button> -->
   <!-- <button (click)="orderByValue()">order by amaount</button> -->
   <div class="row justify-content-center">
@@ -33,7 +45,9 @@
               </table>
           </div>
       </div>
+      <h1 id="noMatch" hidden>No matching results</h1>
   </div>
+
 </div>
 
 

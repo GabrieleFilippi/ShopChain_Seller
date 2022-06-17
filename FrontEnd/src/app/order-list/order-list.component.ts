@@ -76,8 +76,8 @@ export class OrderListComponent implements OnInit {
   /// FILTERS ON THE LIST
   myFunction() {
     // Declare variables
-    var input, filter, table, tr, td, i, txtValue;
-    input = document.getElementById("myInput") as HTMLInputElement;
+    var input, filter, table, tr, td, i, txtValue, match = 0;
+    input = document.getElementById("IdInput") as HTMLInputElement;
     table = document.getElementById("orderlist");
     if(input && table){
       filter = input.value.toUpperCase();
@@ -89,29 +89,36 @@ export class OrderListComponent implements OnInit {
           txtValue = td.textContent || td.innerText;
           if (txtValue.toUpperCase().indexOf(filter) > -1) {
             tr[i].style.display = "";
+            match++;
           } else {
             tr[i].style.display = "none";
           }
         }
       }
+      var elem = document.getElementById('noMatch');
+      if(elem){
+      if(match === 0) elem.hidden = false;
+      else elem.hidden = true;
     }
   }
-  orderByValue() {
+}
+  orderByState() {
     // Declare variables
-    var table, tr, td, i, next;
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("selectState") as HTMLInputElement;
     table = document.getElementById("orderlist");
-    if(table){
+    if(input && table){
+      filter = input.value.toUpperCase();
       tr = table.getElementsByTagName("tr");
       // Loop through all table rows, and hide those who don't match the search query
-      for (i = 0; i < tr.length-1; i++) {
-        td = tr[i].getElementsByTagName("td")[2];
-        next = tr[i+1].getElementsByTagName("td")[2];
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[3];
         if (td) {
-          if(next){
-            console.log("bo")
-            const i = next;
-            next = td;
-            td = i;
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
           }
         }
       }
