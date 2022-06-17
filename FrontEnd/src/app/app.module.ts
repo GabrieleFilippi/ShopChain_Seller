@@ -21,6 +21,8 @@ import { QRCodeModule } from 'angularx-qrcode';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
 import {MatSelectModule} from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule} from '@angular/material/form-field';
 
 
 
@@ -48,7 +50,9 @@ import { MatInputModule } from '@angular/material/input';
     QRCodeModule,
     NgxQRCodeModule,
     MatSelectModule,
-    MatInputModule
+    MatInputModule,
+    FormsModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

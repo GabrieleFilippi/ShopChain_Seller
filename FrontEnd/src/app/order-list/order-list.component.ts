@@ -10,6 +10,7 @@ import { ethers} from 'ethers';
   styleUrls: ['./order-list.component.css']
 })
 export class OrderListComponent implements OnInit {
+  chosenFilter: string = "";
   userOrdersList: Orders[] = [];
   orderList: any;
   sellerList: any;
@@ -74,10 +75,43 @@ export class OrderListComponent implements OnInit {
     return LIST;
   }
   /// FILTERS ON THE LIST
+  noMatch(match: number,elem: { hidden: boolean; }){
+      if(match === 0) elem.hidden = false;
+      else elem.hidden = true;
+  };
+  showFilter(value: any){
+    console.log("STICAZZI", value)
+    const idFilter = document.getElementById("idFilter") as HTMLInputElement;
+    const stateFilter = document.getElementById("stateFilter") as HTMLInputElement;
+    const addressFilter = document.getElementById("") as HTMLInputElement;
+    const valueFilter = document.getElementById("") as HTMLInputElement;
+    switch(value){
+      case "0":
+        idFilter.hidden = true;
+        stateFilter.hidden = true;
+        addressFilter.hidden = true;
+        valueFilter.hidden = true;
+        break;
+      case "1":
+        console.log("caso1");
+        idFilter.hidden = false;
+        stateFilter.hidden = true;
+        addressFilter.hidden = true;
+        valueFilter.hidden = true;
+        break;
+      case "2":
+        console.log("caso2")
+        stateFilter.hidden = false;
+        idFilter.hidden = true;
+        addressFilter.hidden = true;
+        valueFilter.hidden = true;
+        break;
+    }
+}
   myFunction() {
     // Declare variables
     var input, filter, table, tr, td, i, txtValue, match = 0;
-    input = document.getElementById("IdInput") as HTMLInputElement;
+    input = document.getElementById("IdMatInput") as HTMLInputElement;
     table = document.getElementById("orderlist");
     if(input && table){
       filter = input.value.toUpperCase();
@@ -96,15 +130,12 @@ export class OrderListComponent implements OnInit {
         }
       }
       var elem = document.getElementById('noMatch');
-      if(elem){
-      if(match === 0) elem.hidden = false;
-      else elem.hidden = true;
+      if(elem) this.noMatch(match,elem);
     }
   }
-}
   orderByState() {
     // Declare variables
-    var input, filter, table, tr, td, i, txtValue;
+    var input, filter, table, tr, td, i, txtValue, match = 0;
     input = document.getElementById("selectState") as HTMLInputElement;
     table = document.getElementById("orderlist");
     if(input && table){
@@ -117,12 +148,15 @@ export class OrderListComponent implements OnInit {
           txtValue = td.textContent || td.innerText;
           if (txtValue.toUpperCase().indexOf(filter) > -1) {
             tr[i].style.display = "";
+            match++;
           } else {
             tr[i].style.display = "none";
           }
         }
       }
     }
+    var elem = document.getElementById('noMatch');
+      if(elem) this.noMatch(match,elem);
   }
 }
   

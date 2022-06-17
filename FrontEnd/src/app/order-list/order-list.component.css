@@ -48,6 +48,31 @@ thead, tbody, tfoot, tr, td, th {
   vertical-align: top;
   border-color: var(--bs-table-border-color);
 }
+/* COLORE TESTO */
+#idFilter ::ng-deep .mat-form-field-appearance-outline {
+  width: 65px;
+  height: 45px;
+  line-height: 1.725;
+  color: red;
+}
+
+#idFilter ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+  padding: 0px 10px 0px 10px;
+  color: rgb(36,82,122);
+}
+
+#idFilter ::ng-deep .mat-form-field-infix {
+  padding: 3px 0 3px 0;
+}
+
+#idFilter ::ng-deep .mat-form-field-hide-placeholder .mat-form-field-label-wrapper {
+  text-align: center;
+  top: -25px;
+}
+
+#idFilter ::ng-deep .mat-form-field-should-float {
+  text-align: center;
+}
 /* .table-striped>tbody>tr:nth-child(odd)>td, 
 .table-striped>tbody>tr:nth-child(odd)>th {
   text-align: center;

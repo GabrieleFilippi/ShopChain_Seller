@@ -2,8 +2,26 @@
     <h1>Orders list</h1>
   </div>
 <div class="container">
-  <input type="text" id="IdInput" (keyup)="myFunction()" placeholder="Search for id..">  
-  <mat-form-field appearance="fill">
+  <div>
+  <mat-form-field appearance="outline">
+    <mat-label>Filters</mat-label>
+    <select id="selectFilter" [(ngModel)]="chosenFilter" (ngModelChange)="showFilter(chosenFilter)" matNativeControl required>
+      <option value="0">No Filter</option>
+      <option value="1">Filter by Id</option>
+      <option value="2">Filter by State</option>
+      <option value="3">Filter by Address</option>
+      <option value="4">Filter by Value</option>
+    </select>
+  </mat-form-field>
+</div>
+  <div id="idFilter" hidden>
+  <mat-form-field appearance="outline">
+    <mat-label>ID</mat-label>
+    <input type="text" id="IdMatInput" (keyup)="myFunction()" matInput placeholder="ID">
+  </mat-form-field>
+  </div>
+  <div id="stateFilter" hidden>
+  <mat-form-field >
     <mat-label>Filter by state</mat-label>
     <select id="selectState" matNativeControl required (change)="orderByState()">
       <option value="">No Filter</option>
@@ -14,6 +32,7 @@
       <option value="Refunded">Refunded</option>
     </select>
   </mat-form-field>
+  </div>
   
   <!-- <button (click)="myFunction()">Search</button> -->
   <!-- <button (click)="orderByValue()">order by amaount</button> -->
