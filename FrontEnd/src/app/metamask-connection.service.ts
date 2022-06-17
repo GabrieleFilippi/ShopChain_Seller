@@ -17,7 +17,9 @@ declare let window: any;
 })
 export class MetamaskConnectionService {
   public static chainId : number = 43113;
+  public installed: boolean | undefined;
   public signer: any;
+  public connected: boolean = true;
   public static signerAddress: any;
   public static tokenContract: any;
   public tokenAddress: any;
@@ -40,7 +42,9 @@ export class MetamaskConnectionService {
   async getMetamask(){
     if (this.isInstalled() === undefined) {
       console.log('MetaMask is NOT installed!');
+      this.installed = false;
     }else{
+      this.installed = true;
       console.log('MetaMask is installed');
       //this.getContract();
     }
@@ -48,6 +52,17 @@ export class MetamaskConnectionService {
   isInstalled(){
     return window.ethereum;
   }
+  onClickConnect = async () => {
+    try {
+      // Will open the MetaMask UI
+      // You should disable this button while the request is pending!
+      await window.ethereum.request({ method: 'eth_requestAccounts' });
+      this.connected = true;
+      //window.location.reload();
+    } catch (error) {
+      console.error(error);
+    }
+  };
   // Inizializza il contratto
   async getContract(): Promise<any>{
     console.count(" CONTRACT ROUND: ")
@@ -75,16 +90,21 @@ export class MetamaskConnectionService {
      })
     this.signer = signer;
     // FUNZIONE BETA FORSE DA TOGLIERE????
-    if(!window.ethereum._metamask.isUnlocked()) this.gotToAnotherPage(undefined);
-    if(await signer.getChainId() !== MetamaskConnectionService.chainId){
-      this.gotToAnotherPage(undefined);
-    }
-    // /// dovrebbe risolvere eroorre//////
-    // window.addEventListener('load', async () => {
-    //   try {
-    //              await window.ethereum.enable();
-    //          } catch (error) {}
-    //   });
+    // if(!window.ethereum._metamask.isUnlocked()) this.gotToAnotherPage(undefined);
+    // if(await signer.getChainId() !== MetamaskConnectionService.chainId){
+    //   this.gotToAnotherPage(undefined);
+    // }
+    const isMetaMaskConnected = async () => {
+      const accounts = await provider.listAccounts();
+      return accounts.length > 0;
+  }
+  await isMetaMaskConnected().then((connected) => {
+      if (connected) {
+        this.connected = true;
+      } else {
+        this.connected = false;
+      }
+  });
     return MetamaskConnectionService.tokenContract;
   }
   ///////////////////////////////////////////////////////
@@ -197,7 +217,9 @@ export class MetamaskConnectionService {
   // AGGIORNAMENTO IN BASE A CAMBIO NETWORK E ACCOUNT///
   //////////////////////////////////////////////////////
   async gotToAnotherPage(data: undefined){
-    if(!data) await this.router.navigate(['/wrongnetwork']);
+    if(!data){ 
+      await this.router.navigate(['/wrongnetwork']);
+    }
     else this.router.navigate(['/orderlist:data']);
   };
 
@@ -240,7 +262,9 @@ export class MetamaskConnectionService {
         // prende il chainId in esadecimali
         params: [{ chainId: "0x" + MetamaskConnectionService.chainId.toString(16) }],
       });
-      this.router.navigate(['/login']);
+      this.router.navigate(['/login']).then(() => {
+        window.location.reload();
+      });;
     } catch (error : any) {
         // This error code indicates that the chain has not been added to MetaMask
         // if it is not, then install it into the user MetaMask

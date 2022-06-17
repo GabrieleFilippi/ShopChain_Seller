@@ -1,9 +1,15 @@
-<div *ngIf = "!metamaskConnectionService.signer" class="connect-button">
+<div *ngIf = "!metamaskConnectionService.installed" class="connect-button">
     <p>Non hai Metamask installato nel browser</p>
     <button onclick="window.location.href='https://metamask.io/download/'">Installa Metamask</button>
 </div>
-<div class="container">
-<div *ngIf = "metamaskConnectionService.signer" class="home">
+<div *ngIf = "!metamaskConnectionService.connected">
+    <div class="container">
+        <h1>Unlock your Metamask PlugIn</h1>
+        <button (click)="metamaskConnectionService.onClickConnect()">Connect</button>
+    </div>
+</div>
+<div *ngIf = "metamaskConnectionService.installed && metamaskConnectionService.connected" class="home">
+    <div class="container">
     <h1>Welcome to the Seller section</h1>
     <h2>You are currently logged with the account: <a href="https://testnet.snowtrace.io/address/{{metamaskConnectionService.truncatedSignerAddress}}">{{metamaskConnectionService.truncatedSignerAddress}}</a></h2>
     <!-- <p>Indirizzo del contratto:</p>

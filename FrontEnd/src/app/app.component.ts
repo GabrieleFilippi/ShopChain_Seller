@@ -27,6 +27,7 @@ export class AppComponent {
       this.metamaskConnectionService.accountChanged();
       this.metamaskConnectionService.chainChanged();
     }else{
+      this.metamaskConnectionService.gotToAnotherPage(undefined);
       this.showHeader = false;
     }
   }
