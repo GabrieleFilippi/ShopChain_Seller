@@ -2,7 +2,7 @@
     <h1>Orders list</h1>
   </div>
 <div class="container">
-  <div>
+  <div class="centered">
   <mat-form-field appearance="outline">
     <mat-label>Filters</mat-label>
     <select id="selectFilter" [(ngModel)]="chosenFilter" (ngModelChange)="showFilter(chosenFilter)" matNativeControl required>
@@ -13,7 +13,6 @@
       <option value="4">Filter by Value</option>
     </select>
   </mat-form-field>
-</div>
   <div id="idFilter" hidden>
   <mat-form-field appearance="outline">
     <mat-label>ID</mat-label>
@@ -45,9 +44,7 @@
       <input type="text" id="ValueMatInput" (keyup)="filterByValue()" matInput placeholder="Address">
     </mat-form-field>
   </div>
-  
-  <!-- <button (click)="myFunction()">Search</button> -->
-  <!-- <button (click)="orderByValue()">order by amaount</button> -->
+</div>
   <div class="row justify-content-center">
   </div>
   <div class="row">
@@ -64,9 +61,9 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr *ngFor="let element of userOrdersList">
+                  <tr *ngFor="let element of userOrdersList" class="hoverable">
                     <td>{{element.id}}</td>
-                    <td>{{element.buyerAddress}}</td>
+                    <td id="code">{{element.buyerAddress}}</td>
                     <td>{{element.amount}}</td>
                     <td [ngStyle]="{'color':Color[element.state]}" class="state">{{States[element.state] | uppercase}}</td>
                     <!-- btn info é una classe bootstrap-->

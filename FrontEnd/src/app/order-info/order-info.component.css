@@ -1,6 +1,7 @@
 h1,h2 {
     text-align:center;
     border: 10px;
+    margin-top: 20px;
 }
 .centered{
     display: grid; 
@@ -61,3 +62,4 @@ color: rgb(36,82,122);
 /* .table{
     width: 100%;
 } */
+

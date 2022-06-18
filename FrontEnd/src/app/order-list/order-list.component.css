@@ -1,3 +1,45 @@
+/* MOBILE */
+/* body{
+  --desktop: 1200px;
+  --laptop: 1024px;
+  --tablet: 768;
+  --phone: 480px;
+} */
+@media screen and (max-width: 480px) {
+  .table {
+    border-collapse: separate;
+    border-spacing:0 20px;
+    --bs-table-color: var(--bs-body-color);
+    --bs-table-bg: transparent;
+    --bs-table-border-color: var(--bs-border-color);
+    --bs-table-accent-bg: transparent;
+    --bs-table-striped-color: var(--bs-body-color);
+    --bs-table-striped-bg: rgba(0, 0, 0, 0.0);
+    --bs-table-active-color: var(--bs-body-color);
+    --bs-table-active-bg: rgba(36, 82, 122, 0.593);
+    /* --bs-table-hover-color: var(--bs-body-color); */
+    --bs-table-hover-bg: rgba(0, 0, 0, 0.0);
+    width: 50px;
+    margin-bottom: 1rem;
+    color: var(--bs-table-color);
+    vertical-align: top;
+    border-color: var(--bs-table-border-color);
+  }
+  h1{
+    color:red;
+  }
+  #code{ 
+    display: none;
+  }
+}
+.centered{
+  display: grid; 
+  place-items: center;
+}
+/* NORMALE */
+#codeButton{
+  display: none;
+}
 h1 {
     display: grid; 
     place-items: center; 
@@ -14,7 +56,8 @@ button:hover{
   background-color: rgb(92,173,189);
   color: rgb(36,82,122);
 }
-.table-striped>tbody>tr{
+/* TABELLA ORDINI */
+/* .table-striped>tbody>tr{
   text-align: center;
   border-radius: 35px;
   box-shadow: 0 1px 6px rgba(36, 82, 122, 0.642), 0 1px 3px rgba(36, 82, 122, 0.593);
@@ -32,22 +75,21 @@ thead, tbody, tfoot, tr, td, th {
 .table {
   border-collapse: separate;
   border-spacing:0 20px;
-  --bs-table-color: var(--bs-body-color);
+  --bs-table-color: none;
   --bs-table-bg: transparent;
-  --bs-table-border-color: var(--bs-border-color);
+  --bs-table-border-color: none;
   --bs-table-accent-bg: transparent;
-  --bs-table-striped-color: var(--bs-body-color);
+  --bs-table-striped-color: none;
   --bs-table-striped-bg: rgba(0, 0, 0, 0.0);
-  --bs-table-active-color: var(--bs-body-color);
+  --bs-table-active-color: none;
   --bs-table-active-bg: rgba(36, 82, 122, 0.593);
-  /* --bs-table-hover-color: var(--bs-body-color); */
+  --bs-table-hover-color: rgb(36, 82, 122);
   --bs-table-hover-bg: rgba(0, 0, 0, 0.0);
   width: 100%;
   margin-bottom: 1rem;
-  color: var(--bs-table-color);
+  color: black;
   vertical-align: top;
-  border-color: var(--bs-table-border-color);
-}
+} */
 /* COLORE TESTO */
 #idFilter ::ng-deep .mat-form-field-appearance-outline {
   width: 65px;
@@ -77,17 +119,3 @@ thead, tbody, tfoot, tr, td, th {
   width: 200px;
   height: 45px;
 }
-/* .table-striped>tbody>tr:nth-child(odd)>td, 
-.table-striped>tbody>tr:nth-child(odd)>th {
-  text-align: center;
-  border-radius: 35px;
-  box-shadow: 0 1px 6px rgba(36, 82, 122, 0.642), 0 1px 40px rgba(36, 82, 122, 0.593);
-  background-color: rgba(207, 230, 250, 0.293);
-}
-.table-striped>tbody>tr:nth-child(even)>td, 
-.table-striped>tbody>tr:nth-child(even)>th {
-  text-align: center;
-  border-radius: 35px;
-  box-shadow: 0 1px 6px rgba(36, 82, 122, 0.642), 0 1px 40px rgba(36, 82, 122, 0.593);
-  background-color: rgba(207, 230, 250, 0.293); 
-} */
