@@ -17,7 +17,7 @@
   <div id="idFilter" hidden>
   <mat-form-field appearance="outline">
     <mat-label>ID</mat-label>
-    <input type="text" id="IdMatInput" (keyup)="myFunction()" matInput placeholder="ID">
+    <input type="text" id="IdMatInput" (keyup)="orderById()" matInput placeholder="ID">
   </mat-form-field>
   </div>
   <div id="stateFilter" hidden>
@@ -32,6 +32,18 @@
       <option value="Refunded">Refunded</option>
     </select>
   </mat-form-field>
+  </div>
+  <div id="addressFilter" hidden>
+    <mat-form-field appearance="outline">
+      <mat-label>Address</mat-label>
+      <input type="text" id="AddressMatInput" (keyup)="filterByAddress()" matInput placeholder="Address">
+    </mat-form-field>
+  </div>
+  <div id="valueFilter" hidden>
+    <mat-form-field appearance="outline">
+      <mat-label>Address</mat-label>
+      <input type="text" id="ValueMatInput" (keyup)="filterByValue()" matInput placeholder="Address">
+    </mat-form-field>
   </div>
   
   <!-- <button (click)="myFunction()">Search</button> -->

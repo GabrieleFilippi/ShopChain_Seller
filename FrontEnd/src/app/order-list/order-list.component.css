@@ -73,6 +73,10 @@ thead, tbody, tfoot, tr, td, th {
 #idFilter ::ng-deep .mat-form-field-should-float {
   text-align: center;
 }
+#AddressMatInput ::ng-deep .mat-form-field-appearance-outline{
+  width: 200px;
+  height: 45px;
+}
 /* .table-striped>tbody>tr:nth-child(odd)>td, 
 .table-striped>tbody>tr:nth-child(odd)>th {
   text-align: center;

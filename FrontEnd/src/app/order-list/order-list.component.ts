@@ -80,11 +80,10 @@ export class OrderListComponent implements OnInit {
       else elem.hidden = true;
   };
   showFilter(value: any){
-    console.log("STICAZZI", value)
     const idFilter = document.getElementById("idFilter") as HTMLInputElement;
     const stateFilter = document.getElementById("stateFilter") as HTMLInputElement;
-    const addressFilter = document.getElementById("") as HTMLInputElement;
-    const valueFilter = document.getElementById("") as HTMLInputElement;
+    const addressFilter = document.getElementById("addressFilter") as HTMLInputElement;
+    const valueFilter = document.getElementById("valueFilter") as HTMLInputElement;
     switch(value){
       case "0":
         idFilter.hidden = true;
@@ -93,70 +92,85 @@ export class OrderListComponent implements OnInit {
         valueFilter.hidden = true;
         break;
       case "1":
-        console.log("caso1");
+        console.log("caso1")
         idFilter.hidden = false;
         stateFilter.hidden = true;
         addressFilter.hidden = true;
         valueFilter.hidden = true;
         break;
       case "2":
-        console.log("caso2")
         stateFilter.hidden = false;
         idFilter.hidden = true;
         addressFilter.hidden = true;
         valueFilter.hidden = true;
         break;
+      case "3":
+        addressFilter.hidden = false;
+        stateFilter.hidden = true;
+        idFilter.hidden = true;
+        valueFilter.hidden = true;
+        break;
+      case "4":
+        valueFilter.hidden = false;
+        addressFilter.hidden = true;
+        stateFilter.hidden = true;
+        idFilter.hidden = true;
+        break;
     }
-}
-  myFunction() {
-    // Declare variables
-    var input, filter, table, tr, td, i, txtValue, match = 0;
+  }
+  orderById() {
+    var input, table;
     input = document.getElementById("IdMatInput") as HTMLInputElement;
     table = document.getElementById("orderlist");
     if(input && table){
-      filter = input.value.toUpperCase();
-      tr = table.getElementsByTagName("tr");
-      // Loop through all table rows, and hide those who don't match the search query
-      for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[0];
-        if (td) {
-          txtValue = td.textContent || td.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-            match++;
-          } else {
-            tr[i].style.display = "none";
-          }
-        }
-      }
-      var elem = document.getElementById('noMatch');
-      if(elem) this.noMatch(match,elem);
+      this.matchFinder(input, table, 0);
     }
   }
   orderByState() {
     // Declare variables
-    var input, filter, table, tr, td, i, txtValue, match = 0;
+    var input, table;
     input = document.getElementById("selectState") as HTMLInputElement;
     table = document.getElementById("orderlist");
     if(input && table){
-      filter = input.value.toUpperCase();
-      tr = table.getElementsByTagName("tr");
-      // Loop through all table rows, and hide those who don't match the search query
-      for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td")[3];
-        if (td) {
-          txtValue = td.textContent || td.innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            tr[i].style.display = "";
-            match++;
-          } else {
-            tr[i].style.display = "none";
-          }
+      this.matchFinder(input, table, 3);
+    }
+  }
+  filterByAddress(){
+    var input, table;
+    input = document.getElementById("AddressMatInput") as HTMLInputElement;
+    table = document.getElementById("orderlist");
+    if(input && table){
+      this.matchFinder(input, table, 1);
+    }
+  }
+  filterByValue(){
+    var input, table;
+    input = document.getElementById("ValueMatInput") as HTMLInputElement;
+    table = document.getElementById("orderlist");
+    if(input && table){
+      this.matchFinder(input, table, 2);
+    }
+  }
+  matchFinder(input: { value: string; }, table: { getElementsByTagName: (arg0: string) => any; }, finder: number){
+    var td, filter, tr, txtValue, match = 0, i; 
+    filter = input.value.toUpperCase();
+    tr = table.getElementsByTagName("tr");
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[finder];
+      if (td) {
+        txtValue = td.textContent || td.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+          match++;
+        } else {
+          tr[i].style.display = "none";
         }
       }
     }
     var elem = document.getElementById('noMatch');
-      if(elem) this.noMatch(match,elem);
+    if(elem) this.noMatch(match,elem);
   }
 }
+
   
