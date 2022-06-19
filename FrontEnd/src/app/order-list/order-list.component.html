@@ -1,11 +1,11 @@
-<div>
+<div class="title">
   <h1>Orders list</h1>
 </div>
 <div class="container">
   <div class="centered">
     <mat-form-field appearance="outline">
       <mat-label>Filters</mat-label>
-      <select id="selectFilter" [(ngModel)]="chosenFilter" (ngModelChange)="showFilter(chosenFilter)" matNativeControl required>
+      <select id="selectFilter" [(ngModel)]="chosenFilter" (ngModelChange)="showFilter(chosenFilter)" matNativeControl >
         <option value="0">No Filter</option>
         <option value="1">Filter by Id</option>
         <option value="2">Filter by State</option>
@@ -20,11 +20,12 @@
       </mat-form-field>
     </div>
     <div id="stateFilter" hidden>
-      <mat-form-field >
+      <mat-form-field appearance="outline">
         <mat-label>Filter by state</mat-label>
-        <select id="selectState" matNativeControl required (change)="orderByState()">
+        <select id="selectState" matNativeControl (change)="orderByState()">
           <option value="">No Filter</option>
           <option value="Created">Created</option>
+          <option value="Shipped">Shipped</option>
           <option value="Confirmed">Confirmed</option>
           <option value="Deleted">Deleted</option>
           <option value="RefundAsked">RefundAsked</option>
@@ -35,13 +36,13 @@
     <div id="addressFilter" hidden>
       <mat-form-field appearance="outline">
         <mat-label>Address</mat-label>
-        <input type="text" id="AddressMatInput" (keyup)="filterByAddress()" matInput placeholder="Address">
+        <input type="text" id="AddressMatInput" (keyup)="filterByAddress()" matInput placeholder="Insert an Address">
       </mat-form-field>
     </div>
     <div id="valueFilter" hidden>
       <mat-form-field appearance="outline">
-        <mat-label>Address</mat-label>
-        <input type="text" id="ValueMatInput" (keyup)="filterByValue()" matInput placeholder="Address">
+        <mat-label>Value</mat-label>
+        <input type="text" id="ValueMatInput" (keyup)="filterByValue()" matInput placeholder="Insert a Value">
       </mat-form-field>
     </div>
   </div>

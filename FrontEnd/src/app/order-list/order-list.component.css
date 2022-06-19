@@ -5,6 +5,9 @@
   --tablet: 768;
   --phone: 480px;
 } */
+.title{
+  margin-top: 10px;
+}
 /* filtri */
 #idFilter ::ng-deep .mat-form-field-appearance-outline {
   width: 65px;
@@ -35,6 +38,7 @@
 }
 /* #stateFilter{
   
+
 } */
 .state{
   font-weight: bold;
