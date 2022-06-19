@@ -73,7 +73,7 @@ export class MetamaskConnectionService {
       // You should disable this button while the request is pending!
       await window.ethereum.request({ method: 'eth_requestAccounts' });
       this.connected = true;
-      //window.location.reload();
+      window.location.reload();
     } catch (error) {
       console.error(error);
     }
@@ -83,24 +83,24 @@ export class MetamaskConnectionService {
     console.count(" CONTRACT ROUND: ")
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     //await provider.send('eth_requestAccounts', []); // <- this promps user to connect metamask
-    console.log("provider:",provider)
+    //console.log("provider:",provider)
     const signer = provider.getSigner();
     this.signer = signer;
-    console.log("signer:",signer)
+    //console.log("signer:",signer)
     MetamaskConnectionService.tokenContract = new ethers.Contract(abi.contractAddress, abi.abi, signer);
-    console.log("contract:", MetamaskConnectionService.tokenContract)
+    //console.log("contract:", MetamaskConnectionService.tokenContract)
     //////FAKE PER PROVE////////
     MetamaskConnectionService.FAKETokenContract = new ethers.Contract('0xd9145CCE52D386f254917e481eB44e9943F39138', fake, signer);
     //////////////////
     this.tokenAddress = MetamaskConnectionService.tokenContract.address;
     MetamaskConnectionService.signerAddress = await signer.getAddress();
-    console.log("address:",  MetamaskConnectionService.signerAddress)
+    //console.log("address:",  MetamaskConnectionService.signerAddress)
     this.truncatedSignerAddress = truncateEthAddress(MetamaskConnectionService.signerAddress);
     // balance del wallet connesso
     this.sellerBalance = await provider.getBalance(MetamaskConnectionService.signerAddress).then((balances) => {
       // convert a currency unit from wei to ether
       const balanceInEth = ethers.utils.formatEther(balances);
-      console.log("BALANCE:", balanceInEth)
+      //console.log("BALANCE:", balanceInEth)
       return balanceInEth.substring(0,6);;
      })
     this.signer = signer;
@@ -128,7 +128,7 @@ export class MetamaskConnectionService {
   // ora come ora mi serve per forza il getContract ma da risolvere, magari posso snellire la funzione getContract e far fare le altre cose ad altre
   async getUserAddress(){
     console.count(" GETUSERADDRESS ROUND: ")
-    console.log("getUserAddress non riesce a prendere il contract:",this.signer );
+    //console.log("getUserAddress non riesce a prendere il contract:",this.signer );
     console.log("Chiamato getContract: da getUSerAddress");
     MetamaskConnectionService.signerAddress =  await this.signer.getAddress();
     return await MetamaskConnectionService.signerAddress;
@@ -161,7 +161,7 @@ export class MetamaskConnectionService {
   //////////////////////////////////////////////////////
   public static async deleteOrder(orderId: any): Promise<any>{
     const del =  await MetamaskConnectionService.tokenContract.deleteOrder(orderId).catch((error: any) => { 
-      console.log("Error:",error.code);
+      //console.log("Error:",error.code);
       MetamaskConnectionService.errorMessage = error.message;
     });
     if(del){
@@ -174,7 +174,7 @@ export class MetamaskConnectionService {
   //////////////////////////////////////////////////////
   public static async shipOrder(orderId: any): Promise<any>{
     const ship = await MetamaskConnectionService.tokenContract.shipOrder(orderId).catch((error: any) => { 
-      console.log("Error:",error.code);
+      //console.log("Error:",error.code);
       MetamaskConnectionService.errorMessage = error.message;
     });
     if(ship){
@@ -282,6 +282,10 @@ export class MetamaskConnectionService {
       }
     }
   }
+  public async connectionChecker(){
+    const connected = await this.loggedOnMetamask();
+    if(connected === true) return await this.onRightChain();
+    else return false;
   ////////////////////////////////////
   ///ROBA BUYER ORDER DA RIMUOVERE/////
   /////////////////////////////////////
@@ -293,6 +297,6 @@ export class MetamaskConnectionService {
   //   const tx = await create.wait();
   //   return tx.status === 1;
   // }
-
+  }
 }
 

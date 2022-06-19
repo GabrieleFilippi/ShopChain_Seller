@@ -38,7 +38,7 @@ export class OrderListComponent implements OnInit {
   constructor(private metamaskConnectionService: MetamaskConnectionService) { }
 
   async ngOnInit() {
-    if (await this.metamaskConnectionService.onRightChain()) {
+    if( await this.metamaskConnectionService.connectionChecker()){
     //this.metamaskConnectionService.getContract();
     this.getUserOrders();
     }

@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
   constructor( public metamaskConnectionService: MetamaskConnectionService) { }
  
   async ngOnInit(){
-    if (await this.metamaskConnectionService.onRightChain()) {
+    if( await this.metamaskConnectionService.connectionChecker()){
     this.isRegistered();
     }
   }
