@@ -87,11 +87,52 @@ body {
     font-size: 14px;
     text-align: left;
   }
+  /* 
+  
+  
+  */
+  .mytable thead{
+    display: none;
+  }
+  .mytable, .mytable tbody, .mytable tr, .mytable td{
+    display: block;
+    width: 100%;
+  }
+  .mytable tr{
+    margin-bottom: 15px;
+  }
+  .mytable tbody tr td{
+    text-align: right !important;
+    padding-left: 50%;
+    position: relative;
+  }
+  .mytable td:before{
+    vertical-align: middle;
+    color: #FFFFFF;
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
+  }
+  .mytable tbody tr td#roundedbottomleft{
+    border-radius: 0
+    
+  }
+  .mytable tbody tr td#roundedbottomright{
+    border-bottom: none;
+    border-right: none;
+    border-bottom-right-radius: 40px;
+  }
 }
 /* desktop */
 .table-container{
   padding-left: 0 10%;
   margin:  40px auto 0;
+  padding-bottom: 40px;
 }
 .table{
   width: 100%;
@@ -108,7 +149,7 @@ body {
   color: #FFFFFF;
   opacity: 1;
   padding: 12px;
-  vertical-align: top;
+  /* vertical-align: top; */
   border: 1px solid #dee2e685;
 }
 .table tbody tr td{
@@ -119,5 +160,64 @@ body {
   background-color: #3c3f44;
   padding: 8px;
   text-align: center;
+  vertical-align: middle;
   border: 1px solid #dee2e685;
 }
+/*                  
+
+
+
+*/
+/* .mytable-container{
+  padding-left: 0 10%;
+  margin:  40px auto 0;
+  padding-bottom: 40px;
+}
+.mytable{
+  width: 100%;
+  border-collapse: collapse;
+}
+.mytable thead{
+  text-align: center;
+  background-color: rgb(36, 82, 122);
+}
+.mytable thead tr th.roundedtopleft{
+  border-top: none;
+  border-left: none;
+  border-top-left-radius: 40px;
+}
+.mytable thead tr th.roundedtopright{
+  border-top: none;
+  border-right: none;
+  border-top-right-radius: 40px;
+}
+.mytable thead tr th{
+  font-size: 14px;
+  font-weight: medium;
+  letter-spacing: 0.35px;
+  color: #FFFFFF;
+  opacity: 1;
+  padding: 12px;
+  vertical-align: top;
+  border: 1px solid #dee2e685;
+}
+.mytable tbody tr td{
+  font-size: 14px;
+  letter-spacing: 0.35px;
+  font-weight: normal;
+  color: #f1f1f1;
+  background-color: #3c3f44;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #dee2e685;
+}
+.mytable tbody tr td#roundedbottomleft{
+  border-bottom: none;
+  border-left: none;
+  border-bottom-left-radius: 40px;
+}
+.mytable tbody tr td#roundedbottomright{
+  border-bottom: none;
+  border-right: none;
+  border-bottom-right-radius: 40px;
+} */

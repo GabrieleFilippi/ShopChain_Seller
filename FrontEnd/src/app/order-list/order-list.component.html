@@ -1,73 +1,73 @@
 <div>
-    <h1>Orders list</h1>
-  </div>
+  <h1>Orders list</h1>
+</div>
 <div class="container">
   <div class="centered">
-  <mat-form-field appearance="outline">
-    <mat-label>Filters</mat-label>
-    <select id="selectFilter" [(ngModel)]="chosenFilter" (ngModelChange)="showFilter(chosenFilter)" matNativeControl required>
-      <option value="0">No Filter</option>
-      <option value="1">Filter by Id</option>
-      <option value="2">Filter by State</option>
-      <option value="3">Filter by Address</option>
-      <option value="4">Filter by Value</option>
-    </select>
-  </mat-form-field>
-  <div id="idFilter" hidden>
-  <mat-form-field appearance="outline">
-    <mat-label>ID</mat-label>
-    <input type="text" id="IdMatInput" (keyup)="orderById()" matInput placeholder="ID">
-  </mat-form-field>
-  </div>
-  <div id="stateFilter" hidden>
-  <mat-form-field >
-    <mat-label>Filter by state</mat-label>
-    <select id="selectState" matNativeControl required (change)="orderByState()">
-      <option value="">No Filter</option>
-      <option value="Created">Created</option>
-      <option value="Confirmed">Confirmed</option>
-      <option value="Deleted">Deleted</option>
-      <option value="RefundAsked">RefundAsked</option>
-      <option value="Refunded">Refunded</option>
-    </select>
-  </mat-form-field>
-  </div>
-  <div id="addressFilter" hidden>
     <mat-form-field appearance="outline">
-      <mat-label>Address</mat-label>
-      <input type="text" id="AddressMatInput" (keyup)="filterByAddress()" matInput placeholder="Address">
+      <mat-label>Filters</mat-label>
+      <select id="selectFilter" [(ngModel)]="chosenFilter" (ngModelChange)="showFilter(chosenFilter)" matNativeControl required>
+        <option value="0">No Filter</option>
+        <option value="1">Filter by Id</option>
+        <option value="2">Filter by State</option>
+        <option value="3">Filter by Address</option>
+        <option value="4">Filter by Value</option>
+      </select>
     </mat-form-field>
-  </div>
-  <div id="valueFilter" hidden>
-    <mat-form-field appearance="outline">
-      <mat-label>Address</mat-label>
-      <input type="text" id="ValueMatInput" (keyup)="filterByValue()" matInput placeholder="Address">
-    </mat-form-field>
-  </div>
-</div>
-  <div class="table-container">
-      <table id="orderlist" class="table">
-        <thead>
-          <tr>
-            <th>OrderId</th>
-            <th>Buyer Address</th>
-            <th>Amount</th>
-            <th>State</th>
-            <th>Order's Options</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let element of userOrdersList" class="hoverable">
-            <td class="text"data-label="Id">{{element.id}}</td>
-            <td data-label="Address" class="addressText">{{element.buyerAddress}}</td>
-            <td class="text"data-label="Amount">{{element.amount}}</td>
-            <td data-label="State" [ngStyle]="{'color':Color[element.state]}" class="centeredintable">{{States[element.state] | uppercase}}</td>
-            <!-- btn info é una classe bootstrap-->
-            <td data-label="Order's options"class="centeredintable"><button mat-raised-button routerLink="/orderinfo/{{element.id}}">OPTIONS</button></td>
-          </tr>
-        </tbody>
-      </table>
+    <div id="idFilter" hidden>
+      <mat-form-field appearance="outline">
+        <mat-label>ID</mat-label>
+        <input type="text" id="IdMatInput" (keyup)="orderById()" matInput placeholder="ID">
+      </mat-form-field>
     </div>
+    <div id="stateFilter" hidden>
+      <mat-form-field >
+        <mat-label>Filter by state</mat-label>
+        <select id="selectState" matNativeControl required (change)="orderByState()">
+          <option value="">No Filter</option>
+          <option value="Created">Created</option>
+          <option value="Confirmed">Confirmed</option>
+          <option value="Deleted">Deleted</option>
+          <option value="RefundAsked">RefundAsked</option>
+          <option value="Refunded">Refunded</option>
+        </select>
+      </mat-form-field>
+    </div>
+    <div id="addressFilter" hidden>
+      <mat-form-field appearance="outline">
+        <mat-label>Address</mat-label>
+        <input type="text" id="AddressMatInput" (keyup)="filterByAddress()" matInput placeholder="Address">
+      </mat-form-field>
+    </div>
+    <div id="valueFilter" hidden>
+      <mat-form-field appearance="outline">
+        <mat-label>Address</mat-label>
+        <input type="text" id="ValueMatInput" (keyup)="filterByValue()" matInput placeholder="Address">
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="table-container">
+    <table id="orderlist" class="table">
+      <thead>
+        <tr>
+          <th>OrderId</th>
+          <th>Buyer Address</th>
+          <th>Amount</th>
+          <th>State</th>
+          <th>Order's Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let element of userOrdersList" class="hoverable">
+          <td class="text"data-label="Id">{{element.id}}</td>
+          <td data-label="Address" class="addressText">{{element.buyerAddress}}</td>
+          <td class="text"data-label="Amount">{{element.amount}}</td>
+          <td data-label="State" [ngStyle]="{'color':Color[element.state]}" class="state">{{States[element.state] | uppercase}}</td>
+          <!-- btn info é una classe bootstrap-->
+          <td data-label="Order's options"class="centeredintable"><button mat-raised-button routerLink="/orderinfo/{{element.id}}">OPTIONS</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <h1 id="noMatch" hidden>No matching results</h1>
 </div>
 

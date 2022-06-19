@@ -10,7 +10,6 @@
   width: 65px;
   height: 45px;
   line-height: 1.725;
-  color: red;
 }
 
 #idFilter ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
@@ -34,74 +33,12 @@
   width: 200px;
   height: 45px;
 }
-/* movile */
-/* @media screen and (max-width: 480px){
-  .table td.addressText{
-    display: none;
-  }
-} */
-/* tablet*/
-/* @media screen and (max-width: 768px) {
-  .table thead{
-    display: none;
-  }
-  .table, .table tbody, .table tr, .table td{
-    display: block;
-    width: 100%;
-  }
-  .table tr{
-    margin-bottom: 15px;
-  }
-  .table tbody tr td{
-    text-align: right !important;
-    padding-left: 50%;
-    position: relative;
-  }
-  .table td:before{
-    vertical-align: middle;
-    color: #FFFFFF;
-    content: attr(data-label);
-    position: absolute;
-    left: 0;
-    width: 50%;
-    padding-left: 15px;
-    font-weight: 600;
-    font-size: 14px;
-    text-align: left;
-  }
-} */
-/* desktop */
-/* .table-container{
-  padding-left: 0 10%;
-  margin:  40px auto 0;
+#stateFilter{
+  
 }
-.table{
-  width: 100%;
-  border-collapse: collapse;
+.state{
+  font-weight: bold;
 }
-.table thead{
-  background-color: rgb(36, 82, 122);
-}
-.table thead tr th{
-  font-size: 14px;
-  font-weight: medium;
-  letter-spacing: 0.35px;
-  color: #FFFFFF;
-  opacity: 1;
-  padding: 12px;
-  vertical-align: top;
-  border: 1px solid #dee2e685;
-}
-.table tbody tr td{
-  font-size: 14px;
-  letter-spacing: 0.35px;
-  font-weight: normal;
-  color: #f1f1f1;
-  background-color: #3c3f44;
-  padding: 8px;
-  text-align: center;
-  border: 1px solid #dee2e685;
-}*/
  .centered{
   display: grid; 
   place-items: center;
