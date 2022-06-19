@@ -7,7 +7,7 @@ body {
     background-color: rgb(242, 242, 242); 
     /* background-color: rgb(37, 37, 37); */
  }
- .table-striped>tbody>tr{
+ /* .table-striped>tbody>tr{
     text-align: center;
     border-radius: 35px;
     box-shadow: 0 1px 6px rgba(36, 82, 122, 0.642), 0 1px 3px rgba(36, 82, 122, 0.593);
@@ -39,16 +39,85 @@ body {
     margin-bottom: 1rem;
     color: black;
     vertical-align: top;
-  }
-.hoverable:hover {
+  } */
+/* .hoverable:hover {
     /* background-color: #f5f5f5; */
-    transform: scale(1.05);
-    transition: all 0.4s;
-    /* box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2); */
-}
+    /* transform: scale(1.05);
+    transition: all 0.4s; */
+    /* box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2); 
+} */
 /* body{
     --desktop: 1200px;
     --laptop: 1024px;
     --tablet: 768;
     --phone: 480px;
 } */
+/* movile */
+@media screen and (max-width: 480px){
+  .table td.addressText{
+    display: none;
+  }
+}
+/* tablet*/
+@media screen and (max-width: 768px) {
+  .table thead{
+    display: none;
+  }
+  .table, .table tbody, .table tr, .table td{
+    display: block;
+    width: 100%;
+  }
+  .table tr{
+    margin-bottom: 15px;
+  }
+  .table tbody tr td{
+    text-align: right !important;
+    padding-left: 50%;
+    position: relative;
+  }
+  .table td:before{
+    vertical-align: middle;
+    color: #FFFFFF;
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
+  }
+}
+/* desktop */
+.table-container{
+  padding-left: 0 10%;
+  margin:  40px auto 0;
+}
+.table{
+  width: 100%;
+  border-collapse: collapse;
+}
+.table thead{
+  text-align: center;
+  background-color: rgb(36, 82, 122);
+}
+.table thead tr th{
+  font-size: 14px;
+  font-weight: medium;
+  letter-spacing: 0.35px;
+  color: #FFFFFF;
+  opacity: 1;
+  padding: 12px;
+  vertical-align: top;
+  border: 1px solid #dee2e685;
+}
+.table tbody tr td{
+  font-size: 14px;
+  letter-spacing: 0.35px;
+  font-weight: normal;
+  color: #f1f1f1;
+  background-color: #3c3f44;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #dee2e685;
+}

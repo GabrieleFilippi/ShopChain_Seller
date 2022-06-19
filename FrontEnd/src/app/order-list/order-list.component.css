@@ -5,92 +5,7 @@
   --tablet: 768;
   --phone: 480px;
 } */
-@media screen and (max-width: 480px) {
-  .table {
-    border-collapse: separate;
-    border-spacing:0 20px;
-    --bs-table-color: var(--bs-body-color);
-    --bs-table-bg: transparent;
-    --bs-table-border-color: var(--bs-border-color);
-    --bs-table-accent-bg: transparent;
-    --bs-table-striped-color: var(--bs-body-color);
-    --bs-table-striped-bg: rgba(0, 0, 0, 0.0);
-    --bs-table-active-color: var(--bs-body-color);
-    --bs-table-active-bg: rgba(36, 82, 122, 0.593);
-    /* --bs-table-hover-color: var(--bs-body-color); */
-    --bs-table-hover-bg: rgba(0, 0, 0, 0.0);
-    width: 50px;
-    margin-bottom: 1rem;
-    color: var(--bs-table-color);
-    vertical-align: top;
-    border-color: var(--bs-table-border-color);
-  }
-  h1{
-    color:red;
-  }
-  #code{ 
-    display: none;
-  }
-}
-.centered{
-  display: grid; 
-  place-items: center;
-}
-/* NORMALE */
-#codeButton{
-  display: none;
-}
-h1 {
-    display: grid; 
-    place-items: center; 
-}
-.state{
-  font-weight: bold;
-  /* text-shadow: 2px 0 0 rgb(36,82,122), -2px 0 0 rgb(36,82,122), 0 2px 0 rgb(36,82,122), 0 -2px 0 rgb(36,82,122), 1px 1px rgb(36,82,122), -1px -1px 0 rgb(36,82,122), 1px -1px 0 rgb(36,82,122), -1px 1px 0 rgb(36,82,122); */
-}
-button{
-  background-color: rgb(36,82,122);
-  color: rgb(92,173,189);
-}
-button:hover{
-  background-color: rgb(92,173,189);
-  color: rgb(36,82,122);
-}
-/* TABELLA ORDINI */
-/* .table-striped>tbody>tr{
-  text-align: center;
-  border-radius: 35px;
-  box-shadow: 0 1px 6px rgba(36, 82, 122, 0.642), 0 1px 3px rgba(36, 82, 122, 0.593);
-  background-color: rgba(207, 230, 250, 0);
-}
-thead, tbody, tfoot, tr, td, th {
-  border-color: inherit;
-  border-style: none;
-  border-width: 0;
-}
-.table > tbody {
-  vertical-align: 0px;
-  background-color: rgba(207, 230, 250, 0);
-}
-.table {
-  border-collapse: separate;
-  border-spacing:0 20px;
-  --bs-table-color: none;
-  --bs-table-bg: transparent;
-  --bs-table-border-color: none;
-  --bs-table-accent-bg: transparent;
-  --bs-table-striped-color: none;
-  --bs-table-striped-bg: rgba(0, 0, 0, 0.0);
-  --bs-table-active-color: none;
-  --bs-table-active-bg: rgba(36, 82, 122, 0.593);
-  --bs-table-hover-color: rgb(36, 82, 122);
-  --bs-table-hover-bg: rgba(0, 0, 0, 0.0);
-  width: 100%;
-  margin-bottom: 1rem;
-  color: black;
-  vertical-align: top;
-} */
-/* COLORE TESTO */
+/* filtri */
 #idFilter ::ng-deep .mat-form-field-appearance-outline {
   width: 65px;
   height: 45px;
@@ -118,4 +33,92 @@ thead, tbody, tfoot, tr, td, th {
 #AddressMatInput ::ng-deep .mat-form-field-appearance-outline{
   width: 200px;
   height: 45px;
+}
+/* movile */
+/* @media screen and (max-width: 480px){
+  .table td.addressText{
+    display: none;
+  }
+} */
+/* tablet*/
+/* @media screen and (max-width: 768px) {
+  .table thead{
+    display: none;
+  }
+  .table, .table tbody, .table tr, .table td{
+    display: block;
+    width: 100%;
+  }
+  .table tr{
+    margin-bottom: 15px;
+  }
+  .table tbody tr td{
+    text-align: right !important;
+    padding-left: 50%;
+    position: relative;
+  }
+  .table td:before{
+    vertical-align: middle;
+    color: #FFFFFF;
+    content: attr(data-label);
+    position: absolute;
+    left: 0;
+    width: 50%;
+    padding-left: 15px;
+    font-weight: 600;
+    font-size: 14px;
+    text-align: left;
+  }
+} */
+/* desktop */
+/* .table-container{
+  padding-left: 0 10%;
+  margin:  40px auto 0;
+}
+.table{
+  width: 100%;
+  border-collapse: collapse;
+}
+.table thead{
+  background-color: rgb(36, 82, 122);
+}
+.table thead tr th{
+  font-size: 14px;
+  font-weight: medium;
+  letter-spacing: 0.35px;
+  color: #FFFFFF;
+  opacity: 1;
+  padding: 12px;
+  vertical-align: top;
+  border: 1px solid #dee2e685;
+}
+.table tbody tr td{
+  font-size: 14px;
+  letter-spacing: 0.35px;
+  font-weight: normal;
+  color: #f1f1f1;
+  background-color: #3c3f44;
+  padding: 8px;
+  text-align: center;
+  border: 1px solid #dee2e685;
+}*/
+ .centered{
+  display: grid; 
+  place-items: center;
+} 
+/* NORMALE */
+#codeButton{
+  display: none;
+}
+h1 {
+    display: grid; 
+    place-items: center; 
+}
+button{
+  background-color: rgb(36,82,122);
+  color: rgb(92,173,189);
+}
+button:hover{
+  background-color: rgb(92,173,189);
+  color: rgb(36,82,122);
 }

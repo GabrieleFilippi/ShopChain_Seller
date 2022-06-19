@@ -45,37 +45,30 @@
     </mat-form-field>
   </div>
 </div>
-  <div class="row justify-content-center">
-  </div>
-  <div class="row">
-      <div class="col-md-12">
-          <div class="table-wrap">
-              <table id="orderlist" class="table table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th>OrderId</th>
-                    <th>Buyer Address</th>
-                    <th>Amount</th>
-                    <th>State</th>
-                    <th>Order's Options</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let element of userOrdersList" class="hoverable">
-                    <td>{{element.id}}</td>
-                    <td id="code">{{element.buyerAddress}}</td>
-                    <td>{{element.amount}}</td>
-                    <td [ngStyle]="{'color':Color[element.state]}" class="state">{{States[element.state] | uppercase}}</td>
-                    <!-- btn info é una classe bootstrap-->
-                    <td><button mat-raised-button routerLink="/orderinfo/{{element.id}}">OPTIONS</button></td>
-                  </tr>
-                </tbody>
-              </table>
-          </div>
-      </div>
-      <h1 id="noMatch" hidden>No matching results</h1>
-  </div>
-
+  <div class="table-container">
+      <table id="orderlist" class="table">
+        <thead>
+          <tr>
+            <th>OrderId</th>
+            <th>Buyer Address</th>
+            <th>Amount</th>
+            <th>State</th>
+            <th>Order's Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let element of userOrdersList" class="hoverable">
+            <td class="text"data-label="Id">{{element.id}}</td>
+            <td data-label="Address" class="addressText">{{element.buyerAddress}}</td>
+            <td class="text"data-label="Amount">{{element.amount}}</td>
+            <td data-label="State" [ngStyle]="{'color':Color[element.state]}" class="centeredintable">{{States[element.state] | uppercase}}</td>
+            <!-- btn info é una classe bootstrap-->
+            <td data-label="Order's options"class="centeredintable"><button mat-raised-button routerLink="/orderinfo/{{element.id}}">OPTIONS</button></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  <h1 id="noMatch" hidden>No matching results</h1>
 </div>
 
 

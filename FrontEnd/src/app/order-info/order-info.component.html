@@ -6,10 +6,8 @@
 <div *ngIf="order">
   <div class="container">
       <h1>Order Info</h1>
-      <div class="row">
-        <div class="col-md-12">
-            <div class="table-wrap">
-                <table class="table table-striped">
+      <div class="table-container">
+        <table class="table">
               <thead>
                 <tr>
                   <th>OrderId</th>
@@ -20,18 +18,17 @@
               </thead>
               <tbody>
                 <tr class="hoverable">
-                  <td>{{order.id}}</td>
+                  <td class="text"data-label="Id">{{order.id}}</td>
                   <!-- inserire qui un bottone visibile solo da mobile che permette di copiare l'address anziche farlo vedere che occupa mezzo schermo -->
-                  <td>{{order.buyerAddress}}</td>
-                  <td>{{order.amount}}</td>
-                  <td [ngStyle]="{'color':Color[order.state]}" class="state">{{States[order.state] | uppercase }}</td>
+                  <td data-label="Address" class="addressText">{{order.buyerAddress}}</td>
+                  <td class="text"data-label="Amount">{{order.amount}}</td>
+                  <td data-label="State" [ngStyle]="{'color':Color[order.state]}" class="state">{{States[order.state] | uppercase }}</td>
                   <!-- btn info é una classe bootstrap-->
                 </tr>
               </tbody>
             </table>
         </div>
-      </div>
-  </div>
+        </div>
   <h2 *ngIf="order.state === 3">No avaiable actions on this order</h2>
   <div *ngIf="order.state != 3" class="centered">
     <h2 >Possible Actions on this Order</h2>
@@ -63,7 +60,6 @@
   <p id="loadingtext">Waiting for Transaction...</p>
   <p>Transaction ended with error: </p>{{this.errorCode}}
   </div>
-</div>
 </div>
 
 
