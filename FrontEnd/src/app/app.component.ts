@@ -20,6 +20,8 @@ export class AppComponent {
   async ngOnInit(){
     console.log("ngOninit di appcomponent")
     this.metamaskConnectionService.getMetamask();
+    // const connected = await this.metamaskConnectionService.loggedOnMetamask();
+    // console.log("connected?", connected)
     if (await this.metamaskConnectionService.onRightChain()) {
       console.log("ngOninit di appcomponent post if")
       this.metamaskConnectionService.getContract();

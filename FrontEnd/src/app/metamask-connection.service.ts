@@ -52,6 +52,21 @@ export class MetamaskConnectionService {
   isInstalled(){
     return window.ethereum;
   }
+  async loggedOnMetamask(){
+    const isMetaMaskConnected = async () => {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const accounts = await provider.listAccounts();
+      return accounts.length > 0;
+  }
+  await isMetaMaskConnected().then((connected) => {
+      if (connected) {
+        this.connected = true;
+      } else {
+        this.connected = false;
+      }
+  });
+    return this.connected;
+  }
   onClickConnect = async () => {
     try {
       // Will open the MetaMask UI
