@@ -111,8 +111,7 @@ export class OrderInfoComponent implements OnInit {
     if(elem){
       elem.hidden = false;
       const result = await MetamaskConnectionService.deleteOrder(OrderInfoComponent.ID);
-      if(MetamaskConnectionService.errorMessage) this.errorCode = MetamaskConnectionService.errorMessage;
-      this.transactionEnd(elem, result);
+      this.showError(elem, result);
     }
   }
   async shipOrder(){
@@ -120,8 +119,7 @@ export class OrderInfoComponent implements OnInit {
     if(elem){
       elem.hidden = false;
       const result = await MetamaskConnectionService.shipOrder(OrderInfoComponent.ID);
-      if(MetamaskConnectionService.errorMessage) this.errorCode = MetamaskConnectionService.errorMessage;
-      this.transactionEnd(elem, result);
+      this.showError(elem, result);
     }
   }
   async refundBuyer(){
@@ -129,9 +127,22 @@ export class OrderInfoComponent implements OnInit {
     if(elem){
       elem.hidden = false;
       const result = await MetamaskConnectionService.refundBuyer(OrderInfoComponent.ID, OrderInfoComponent.AMOUNT);
-      if(MetamaskConnectionService.errorMessage) this.errorCode = MetamaskConnectionService.errorMessage;
-      this.transactionEnd(elem, result);
+      this.showError(elem, result);
     }
+  }
+  showError(elem: { hidden: boolean; }, result: any){
+    if(MetamaskConnectionService.errorMessage){
+      this.errorCode = MetamaskConnectionService.errorMessage;
+      var error = document.getElementById('transactionerror');
+      var loading = document.getElementById('loading');
+      var loadingt = document.getElementById('loadingtext');
+      if(error && loading && loadingt){
+        loading.hidden = true;
+        loadingt.hidden = true;
+        error.hidden = false;
+      }
+    }
+    this.transactionEnd(elem, result);
   }
   // async askRefund(orderId: any){
   //   const elem = this.getElement();
@@ -158,7 +169,7 @@ export class OrderInfoComponent implements OnInit {
     elem.hidden = true;
     window.location.reload();
     }else{
-      setTimeout(function(){elem.hidden = true;}, 2000);
+      setTimeout(function(){elem.hidden = true;}, 3000);
     } 
   }
   downloadQrImage(){
