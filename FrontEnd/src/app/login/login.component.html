@@ -1,6 +1,8 @@
 <div *ngIf = "!metamaskConnectionService.installed" class="connect-button">
+    <div class="container">
     <p>Non hai Metamask installato nel browser</p>
     <button onclick="window.location.href='https://metamask.io/download/'">Installa Metamask</button>
+</div>
 </div>
 <div *ngIf = "!metamaskConnectionService.connected">
     <div class="container">
@@ -12,11 +14,7 @@
     <div class="container">
     <h1>Welcome to the Seller section</h1>
     <h2>You are currently logged with the account: <a href="https://testnet.snowtrace.io/address/{{metamaskConnectionService.truncatedSignerAddress}}">{{metamaskConnectionService.truncatedSignerAddress}}</a></h2>
-    <!-- <p>Indirizzo del contratto:</p>
-    <p>{{metamaskConnectionService.tokenAddress}}</p> -->
-    <!-- <p>Il tuo indirizzo metamask:</p> -->
-    <!-- <p>{{metamaskConnectionService.truncatedSignerAddress}}</p> -->
-    <h2>With a balance of: {{metamaskConnectionService.sellerBalance}} AVAX <img [src]="logoSrc" class="logo"/></h2>
+    <h2>With a balance of: {{metamaskConnectionService.sellerBalance}} AVAX <img [src]="logoSrc" class="logo" alt=""/></h2>
     <div *ngIf="sellerIsSigned">
         <p>Click this button to see your Orders</p>
         <a routerLink="/orderlist">

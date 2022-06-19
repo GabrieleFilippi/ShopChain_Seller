@@ -134,15 +134,13 @@ export class MetamaskConnectionService {
     return await MetamaskConnectionService.tokenContract.getOrders();
   }
   async getUserOrderList(address: any): Promise<any[]>{
-   // console.count(" GETUSERORDERLIST ROUND: ")
-    //MetamaskConnectionService.tokenContract = await this.getContract();
     return await MetamaskConnectionService.tokenContract.getOrdersOfUser(address);
   }
   ////////////error handler/////
-  public UserException(message: any) {
-    var message = message;
-    var name = 'UserException';
-  }
+  // public UserException(message: any) {
+  //   var message = message;
+  //   var name = 'UserException';
+  // }
   ///////////////////////////////////////////////////////
   //              DELETE ORDER                        ///
   //////////////////////////////////////////////////////
@@ -194,13 +192,11 @@ export class MetamaskConnectionService {
   //////////////////////////////////////////////////////
   async getSellerList(): Promise<any[]>{
     console.count(" GETSELLERLIST ROUND: ")
-    //MetamaskConnectionService.tokenContract = await this.getContract();
     console.log("Chiamato getContract: da getsellerlist");
     return this.sellerList =  await MetamaskConnectionService.tokenContract.getSellers();
   }
   async isRegistered(): Promise<boolean>{
     console.count(" ISREGISTERED ROUND: ")
-    //MetamaskConnectionService.tokenContract = await this.getContract();
     const list = await this.getSellerList();
     if(list.includes(MetamaskConnectionService.signerAddress)){
       console.log("Questo Wallet é registrato come seller");
@@ -210,7 +206,6 @@ export class MetamaskConnectionService {
     return false;
   }
   async registerAsSeller(){
-    //MetamaskConnectionService.tokenContract.registerAsSeller();
     console.log("ora ti registra");
   }
   ///////////////////////////////////////////////////////
@@ -250,10 +245,6 @@ export class MetamaskConnectionService {
   ///////////////////////////////////////
   //LIVE UPDATE AT TRANSACTION PENDING//
   /////////////////////////////////////
-  // public async pendingTransaction() : Promise<any>{
-  // const transferEvents = await MetamaskConnectionService.tokenContract.queryFilter('Transfer');
-  // console.log(transferEvents);
-  // }
   // funzione trovata su https://stackoverflow.com/questions/68252365/how-to-trigger-change-blockchain-network-request-on-metamask
   public async changeNetwork() : Promise<void> {
     try {
