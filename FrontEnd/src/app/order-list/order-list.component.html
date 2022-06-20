@@ -1,3 +1,10 @@
+<ul class="breadcrumb-navigation">
+  <li><a routerLink="/login"><mat-icon aria-hidden="true" aria-label="home icon" id="homeicon">home</mat-icon>Login</a></li>
+  <li><mat-icon>arrow_right</mat-icon></li>
+  <li><a>OrderList</a></li>
+</ul>
+<div *ngIf="userOrdersList.length === 0"><h1 id="noMatch">There are no orders registered on this wallet</h1> </div>
+<div *ngIf="userOrdersList.length != 0">
 <div class="title">
   <h1>Orders list</h1>
 </div>
@@ -69,6 +76,7 @@
       </tbody>
     </table>
   </div>
+</div>
   <h1 id="noMatch" hidden>No matching results</h1>
 </div>
 

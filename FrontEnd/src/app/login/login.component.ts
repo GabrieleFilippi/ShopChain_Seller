@@ -26,6 +26,9 @@ export class LoginComponent implements OnInit {
     this.sellerIsSigned = await this.metamaskConnectionService.isRegistered();
   }
   async registerAsSeller(){
-    await this.metamaskConnectionService.registerAsSeller();
+    const result = await MetamaskConnectionService.registerAsSeller();
+    if(result){
+      window.location.reload();
+    }
   }
 }

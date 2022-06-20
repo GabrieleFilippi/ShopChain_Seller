@@ -221,3 +221,11 @@ body {
   border-right: none;
   border-bottom-right-radius: 40px;
 } */
+.breadcrumb-navigation > li {
+  display: inline;
+}
+
+.mat-icon{
+  font-size: small;
+  width: 12px !important;
+}

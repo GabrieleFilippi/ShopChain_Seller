@@ -1,8 +1,10 @@
-<nav>
-  <ul>
-    <li><a routerLink="/orderlist">Order List</a></li>
-  </ul>
-</nav>
+<ul class="breadcrumb-navigation">
+  <li><a routerLink="/login"><mat-icon aria-hidden="true" aria-label="home icon" id="homeicon">home</mat-icon>Login</a></li>
+  <li><mat-icon>arrow_right</mat-icon></li>
+  <li><a routerLink="/orderlist">OrderList</a></li>
+  <li><mat-icon>arrow_right</mat-icon></li>
+  <li>OrderInfo</li>
+</ul>
 <div *ngIf="order">
   <div class="container">
     <h1>Order Info</h1>

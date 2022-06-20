@@ -220,8 +220,16 @@ export class MetamaskConnectionService {
     console.log("Questo Wallet NON é registrato come seller");
     return false;
   }
-  async registerAsSeller(){
-    console.log("ora ti registra");
+  public static async registerAsSeller(): Promise<any>{
+    //return await MetamaskConnectionService.tokenContract.registerAsSeller();
+    const register = await MetamaskConnectionService.tokenContract.registerAsSeller().catch((error: any) => { 
+      console.log("Error:",error.code);
+      MetamaskConnectionService.errorMessage = error.message;
+    });
+    if(register){
+    const tx = await register.wait();
+    return tx.status === 1;
+  }
   }
   ///////////////////////////////////////////////////////
   // AGGIORNAMENTO IN BASE A CAMBIO NETWORK E ACCOUNT///

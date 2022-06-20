@@ -72,6 +72,8 @@ export class OrderListComponent implements OnInit {
       this.color = this.Color[e[4]];
       LIST.push(orders);
     });
+    const elem =  document.getElementById('noMatch');
+    if(LIST.length === 0 && elem) this.noMatch(0, elem);
     return LIST;
   }
   /// FILTERS ON THE LIST
