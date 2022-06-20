@@ -173,7 +173,6 @@ export class OrderInfoComponent implements OnInit {
     } 
   }
   downloadQrImage(){
-    this.value =  this.qrInfo;
     var items:any = document.getElementsByClassName('coolQRCode')[0];
     let img = items.getElementsByTagName("img");
     this.link = img[0].src;

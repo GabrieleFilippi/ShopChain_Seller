@@ -33,7 +33,7 @@
   <h2 *ngIf="order.state === 3">No avaiable actions on this order</h2>
   <div *ngIf="order.state != 3" class="centered">
     <h2 >Possible Actions on this Order</h2>
-      <div class="">
+      <div *ngIf="order.state === 0" class="">
         <a href="{{link}}" download><button type="button" mat-raised-button (click)="downloadQrImage()">Download QrCode</button></a>
         <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="qrInfo" class="coolQRCode" hidden></ngx-qrcode>
         </div>
