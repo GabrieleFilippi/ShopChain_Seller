@@ -29,7 +29,7 @@ export class OrderInfoComponent implements OnInit {
   ///////////////QR CODE///////////////
   public elementType = NgxQrcodeElementTypes.URL;
   public correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
-  public value = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+  public value: string | undefined;
   public link: any;
   public errorCode: any;
   ////////////////////////////////////////////
@@ -94,8 +94,8 @@ export class OrderInfoComponent implements OnInit {
         amount: ethers.utils.formatEther(e[3]),
         state: e[4]
       }
-      this.qrInfo = 'Buyer Address: ' + order.buyerAddress + '\n';
-      this.qrInfo += 'Order Id: ' + this.numberId;
+      this.qrInfo = order.buyerAddress + ':';
+      this.qrInfo += this.numberId;
       this.state = e[4];
       this.amount = e[3];
       OrderInfoComponent.AMOUNT = e[3];
@@ -173,6 +173,7 @@ export class OrderInfoComponent implements OnInit {
     } 
   }
   downloadQrImage(){
+    this.value =  this.qrInfo;
     var items:any = document.getElementsByClassName('coolQRCode')[0];
     let img = items.getElementsByTagName("img");
     this.link = img[0].src;
