@@ -7,129 +7,16 @@ body {
     background-color: rgb(242, 242, 242); 
     /* background-color: rgb(37, 37, 37); */
  }
- /* .table-striped>tbody>tr{
-    text-align: center;
-    border-radius: 35px;
-    box-shadow: 0 1px 6px rgba(36, 82, 122, 0.642), 0 1px 3px rgba(36, 82, 122, 0.593);
-    background-color: rgba(207, 230, 250, 0);
-  }
-  thead, tbody, tfoot, tr, td, th {
-    border-color: inherit;
-    border-style: none;
-    border-width: 0;
-  }
-  .table > tbody {
-    vertical-align: 0px;
-    background-color: rgba(207, 230, 250, 0);
-  }
-  .table {
-    border-collapse: separate;
-    border-spacing:0 20px;
-    --bs-table-color: none;
-    --bs-table-bg: transparent;
-    --bs-table-border-color: none;
-    --bs-table-accent-bg: transparent;
-    --bs-table-striped-color: none;
-    --bs-table-striped-bg: rgba(0, 0, 0, 0.0);
-    --bs-table-active-color: none;
-    --bs-table-active-bg: rgba(36, 82, 122, 0.593);
-    --bs-table-hover-color: rgb(36, 82, 122);
-    --bs-table-hover-bg: rgba(0, 0, 0, 0.0);
-    width: 100%;
-    margin-bottom: 1rem;
-    color: black;
-    vertical-align: top;
-  } */
-/* .hoverable:hover {
-    /* background-color: #f5f5f5; */
-    /* transform: scale(1.05);
-    transition: all 0.4s; */
-    /* box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2); 
-} */
-/* body{
-    --desktop: 1200px;
-    --laptop: 1024px;
-    --tablet: 768;
-    --phone: 480px;
-} */
-/* movile */
-@media screen and (max-width: 480px){
-  .table td p.hideinmobile{
-    display: none;
-  }
-}
-/* tablet*/
-@media screen and (max-width: 768px) {
-  .table thead{
-    display: none;
-  }
-  .table, .table tbody, .table tr, .table td{
-    display: block;
-    width: 100%;
-  }
-  .table tr{
-    margin-bottom: 15px;
-  }
-  .table tbody tr td{
-    text-align: right !important;
-    padding-left: 50%;
-    position: relative;
-  }
-  .table td:before{
-    vertical-align: middle;
-    color: #FFFFFF;
-    content: attr(data-label);
-    position: absolute;
-    left: 0;
-    width: 50%;
-    padding-left: 15px;
-    font-weight: 600;
-    font-size: 14px;
-    text-align: left;
-    
-  }
-  /* 
-  
-  
-  */
-  .mytable thead{
-    display: none;
-  }
-  .mytable, .mytable tbody, .mytable tr, .mytable td{
-    display: block;
-    width: 100%;
-  }
-  .mytable tr{
-    margin-bottom: 15px;
-  }
-  .mytable tbody tr td{
-    text-align: right !important;
-    padding-left: 50%;
-    position: relative;
-  }
-  .mytable td:before{
-    vertical-align: middle;
-    color: #FFFFFF;
-    content: attr(data-label);
-    position: absolute;
-    left: 0;
-    width: 50%;
-    padding-left: 15px;
-    font-weight: 600;
-    font-size: 14px;
-    text-align: left;
-  }
-  .mytable tbody tr td#roundedbottomleft{
-    border-radius: 0
-    
-  }
-  .mytable tbody tr td#roundedbottomright{
-    border-bottom: none;
-    border-right: none;
-    border-bottom-right-radius: 40px;
-  }
-}
 /* desktop */
+@media screen and (min-width: 769px) {
+  #showInMobile{
+    display: none;
+  }
+.addressText{
+  text-align: center;
+  vertical-align: baseline;
+  margin-bottom: 0px;
+}
 .table-container{
   padding-left: 0 10%;
   margin:  40px auto 0;
@@ -164,64 +51,7 @@ body {
   vertical-align: middle;
   border: 1px solid #dee2e685;
 }
-/*                  
 
-
-
-*/
-/* .mytable-container{
-  padding-left: 0 10%;
-  margin:  40px auto 0;
-  padding-bottom: 40px;
-}
-.mytable{
-  width: 100%;
-  border-collapse: collapse;
-}
-.mytable thead{
-  text-align: center;
-  background-color: rgb(36, 82, 122);
-}
-.mytable thead tr th.roundedtopleft{
-  border-top: none;
-  border-left: none;
-  border-top-left-radius: 40px;
-}
-.mytable thead tr th.roundedtopright{
-  border-top: none;
-  border-right: none;
-  border-top-right-radius: 40px;
-}
-.mytable thead tr th{
-  font-size: 14px;
-  font-weight: medium;
-  letter-spacing: 0.35px;
-  color: #FFFFFF;
-  opacity: 1;
-  padding: 12px;
-  vertical-align: top;
-  border: 1px solid #dee2e685;
-}
-.mytable tbody tr td{
-  font-size: 14px;
-  letter-spacing: 0.35px;
-  font-weight: normal;
-  color: #f1f1f1;
-  background-color: #3c3f44;
-  padding: 8px;
-  text-align: center;
-  border: 1px solid #dee2e685;
-}
-.mytable tbody tr td#roundedbottomleft{
-  border-bottom: none;
-  border-left: none;
-  border-bottom-left-radius: 40px;
-}
-.mytable tbody tr td#roundedbottomright{
-  border-bottom: none;
-  border-right: none;
-  border-bottom-right-radius: 40px;
-} */
 .breadcrumb-navigation > li {
   display: inline;
 }
@@ -229,4 +59,88 @@ body {
 .mat-icon{
   font-size: small;
   width: 12px !important;
+}
+}
+/* tablet*/
+@media screen and (max-width: 768px) {
+  /* table */
+  .table-container{
+    padding-left: 0 10%;
+    margin:  40px auto 0;
+    padding-bottom: 40px;
+  }
+  .table{
+    width: 100%;
+    border-collapse: collapse;
+  }
+  #showInMobile{
+    display: none;
+  }
+  .table thead{
+    display: none;
+  }
+  .table, .table tbody, .table tr, .table td{
+    display: block;
+    width: 100%;
+  }
+  .table tr{
+    margin-bottom: 15px;
+  }
+  .table tbody tr td{
+    font-size: 14px;
+    letter-spacing: 0.35px;
+    font-weight: normal;
+    color: #f1f1f1;
+    background-color: #3c3f44;
+    padding: 8px;
+    vertical-align: middle;
+    display:flex;
+    justify-content:space-between;
+    margin-bottom: 0px;
+  }
+  .table tbody tr td p{
+    text-align: right;
+    /* padding-left: 400px; */
+  }
+  .table td::before{
+    color: white;
+    content: attr(data-label);
+    font-weight: 600;
+    vertical-align: middle;
+    font-size: 14px;
+  }
+  /* .addressText{
+    text-align: right;
+  } */
+  /*  other*/
+  .breadcrumb-navigation > li {
+    display: inline;
+  }
+  
+  .mat-icon{
+    font-size: small;
+    width: 12px !important;
+  }
+}
+
+/* .hoverable:hover {
+    /* background-color: #f5f5f5; */
+    /* transform: scale(1.05);
+    transition: all 0.4s; */
+    /* box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.2), -1px -1px 8px rgba(0, 0, 0, 0.2); 
+} */
+/* body{
+    --desktop: 1200px;
+    --laptop: 1024px;
+    --tablet: 768;
+    --phone: 480px;
+} */
+/* movile */
+@media screen and (max-width: 532px){
+  .addressText{
+    display: none;
+  }
+  #showInMobile{
+    display: block;
+  }
 }

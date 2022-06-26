@@ -173,6 +173,12 @@ export class OrderListComponent implements OnInit {
     var elem = document.getElementById('noMatch');
     if(elem) this.noMatch(match,elem);
   }
+  copyAddress(text: any){
+  if(text){
+  console.log(text);
+  navigator.clipboard.writeText(text);
+    }
+  }
 }
 
   

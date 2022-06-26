@@ -66,10 +66,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let element of userOrdersList" class="hoverable">
-          <td class="text"data-label="Id">{{element.id}}</td>
-          <td data-label="Address" class="addressText">{{element.buyerAddress}}</td>
-          <td class="text"data-label="Amount">{{element.amount}}</td>
-          <td data-label="State" [ngStyle]="{'color':Color[element.state]}" class="state">{{States[element.state] | uppercase}}</td>
+          <td data-label="Id" class="text"><p>{{element.id}}</p></td>
+          <td data-label="Address"><p class="addressText">{{element.buyerAddress}}</p><button mat-raised-button (click)="copyAddress(element.buyerAddress)">Copy Address</button></td>
+          <td class="text" data-label="Amount"><p>{{element.amount}}</p></td>
+          <td data-label="State" [ngStyle]="{'color':Color[element.state]}" class="state"><p>{{States[element.state] | uppercase}} </p></td>
           <!-- btn info é una classe bootstrap-->
           <td data-label="Order's options"class="centeredintable"><button mat-raised-button routerLink="/orderinfo/{{element.id}}">OPTIONS</button></td>
         </tr>

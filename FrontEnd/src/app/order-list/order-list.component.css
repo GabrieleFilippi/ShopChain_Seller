@@ -63,3 +63,9 @@ button:hover{
   background-color: rgb(92,173,189);
   color: rgb(36,82,122);
 }
+
+@media screen and (max-width: 450px){
+  #compressing{
+    
+  }
+}
