@@ -67,7 +67,7 @@
       <tbody>
         <tr *ngFor="let element of userOrdersList" class="hoverable">
           <td data-label="Id" class="text"><p>{{element.id}}</p></td>
-          <td data-label="Address"><p class="addressText">{{element.buyerAddress}}</p><button mat-raised-button (click)="copyAddress(element.buyerAddress)">Copy Address</button></td>
+          <td data-label="Address"><p class="addressText">{{element.buyerAddress}}</p><button id="showInMobile" mat-raised-button (click)="copyAddress(element.buyerAddress)">Copy Address</button></td>
           <td class="text" data-label="Amount"><p>{{element.amount}}</p></td>
           <td data-label="State" [ngStyle]="{'color':Color[element.state]}" class="state"><p>{{States[element.state] | uppercase}} </p></td>
           <!-- btn info é una classe bootstrap-->

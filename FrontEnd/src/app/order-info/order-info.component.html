@@ -22,7 +22,7 @@
           <tr class="hoverable">
             <td id="roundedbottomleft"class="text" data-label="Id">{{order.id}}</td>
             <!-- inserire qui un bottone visibile solo da mobile che permette di copiare l'address anziche farlo vedere che occupa mezzo schermo -->
-            <td data-label="Address" class="addressText">{{order.buyerAddress}}</td>
+            <td data-label="Address" class="addressText"><p class="addressText">{{order.buyerAddress}}</p><button id="showInMobile" mat-raised-button (click)="copyAddress(order.buyerAddress)">Copy Address</button></td>
             <td class="text"data-label="Amount">{{order.amount}}</td>
             <td id="roundedbottomright" data-label="State" [ngStyle]="{'color':Color[order.state]}" class="state">{{States[order.state] | uppercase }}</td>
             <!-- btn info é una classe bootstrap-->

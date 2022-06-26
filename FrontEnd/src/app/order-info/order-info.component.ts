@@ -177,4 +177,10 @@ export class OrderInfoComponent implements OnInit {
     let img = items.getElementsByTagName("img");
     this.link = img[0].src;
   }
+  copyAddress(text: any){
+    if(text){
+    console.log(text);
+    navigator.clipboard.writeText(text);
+      }
+    }
 }

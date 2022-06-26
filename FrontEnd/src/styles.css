@@ -64,6 +64,9 @@ body {
 /* tablet*/
 @media screen and (max-width: 768px) {
   /* table */
+  #showInMobile{
+    display: none;
+  }
   .table-container{
     padding-left: 0 10%;
     margin:  40px auto 0;
