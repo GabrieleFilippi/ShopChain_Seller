@@ -6,6 +6,7 @@ import { Orders, State } from '../orders';
 import { BigNumber, Contract, ethers} from 'ethers';
 import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 import { QRCodeElementType } from 'angularx-qrcode';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-order-info',
@@ -28,8 +29,9 @@ export class OrderInfoComponent implements OnInit {
   ///////////////QR CODE///////////////
   public elementType = NgxQrcodeElementTypes.URL;
   public correctionLevel = NgxQrcodeErrorCorrectionLevels.HIGH;
-  public value = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+  public value: string | undefined;
   public link: any;
+  public errorCode: any;
   ////////////////////////////////////////////
   // per creare l'ordine
   //newAmount = BigNumber.from("1.4") ;
@@ -54,8 +56,10 @@ export class OrderInfoComponent implements OnInit {
   constructor(private route: ActivatedRoute, private metamaskConnectionService: MetamaskConnectionService) {}
 
   async ngOnInit(): Promise<void> {
+    if( await this.metamaskConnectionService.connectionChecker()){
     this.order = await this.getId();
     this.signerAddress = await this.getUser();
+    }
   }
   //////////////////////////////////////
   //       GET ORDER DATA             ///
@@ -90,16 +94,11 @@ export class OrderInfoComponent implements OnInit {
         amount: ethers.utils.formatEther(e[3]),
         state: e[4]
       }
-      this.qrInfo = 'Buyer Address: ' + order.buyerAddress + '\n';
-      this.qrInfo += 'Order Id: ' + this.numberId;
+      this.qrInfo = order.buyerAddress + ':';
+      this.qrInfo += this.numberId;
       this.state = e[4];
       this.amount = e[3];
       OrderInfoComponent.AMOUNT = e[3];
-      console.log(OrderInfoComponent.AMOUNT);
-      console.log(this.amount);
-      console.log(order.amount);
-      console.log(ethers.utils.parseEther(order.amount.toString()));
-      this.order = order;
     }
   });
   return order;
@@ -110,60 +109,78 @@ export class OrderInfoComponent implements OnInit {
   async deleteOrder(){
     const elem = this.getElement();
     if(elem){
-      const orderId = OrderInfoComponent.ID;
       elem.hidden = false;
-      const result = await MetamaskConnectionService.deleteOrder(orderId);
-      this.transactionEnd(elem, result);
+      const result = await MetamaskConnectionService.deleteOrder(OrderInfoComponent.ID);
+      this.showError(elem, result);
     }
   }
   async shipOrder(){
-    const orderId = OrderInfoComponent.ID;
-    //await this.metamaskConnectionService.getContract();
     const elem = this.getElement();
     if(elem){
       elem.hidden = false;
-      const result = await this.metamaskConnectionService.shipOrder(orderId);
-      this.transactionEnd(elem, result);
+      const result = await MetamaskConnectionService.shipOrder(OrderInfoComponent.ID);
+      this.showError(elem, result);
     }
   }
   async refundBuyer(){
-    const orderId = OrderInfoComponent.ID;
     const elem = this.getElement();
     if(elem){
       elem.hidden = false;
-      const result = await this.metamaskConnectionService.refundBuyer(orderId, OrderInfoComponent.AMOUNT);
-      this.transactionEnd(elem, result);
+      const result = await MetamaskConnectionService.refundBuyer(OrderInfoComponent.ID, OrderInfoComponent.AMOUNT);
+      this.showError(elem, result);
     }
   }
-  async askRefund(orderId: any){
-    const elem = this.getElement();
-    if(elem){
-      elem.hidden = false;
-      const result = await this.metamaskConnectionService.askRefund(orderId);
-      this.transactionEnd(elem, result);
+  showError(elem: { hidden: boolean; }, result: any){
+    if(MetamaskConnectionService.errorMessage){
+      this.errorCode = MetamaskConnectionService.errorMessage;
+      var error = document.getElementById('transactionerror');
+      var loading = document.getElementById('loading');
+      var loadingt = document.getElementById('loadingtext');
+      if(error && loading && loadingt){
+        loading.hidden = true;
+        loadingt.hidden = true;
+        error.hidden = false;
+      }
     }
+    this.transactionEnd(elem, result);
   }
-  async createOrder(address: any){
-    const elem = this.getElement();
-    if(elem){ 
-      elem.hidden = false;
-      const result = await this.metamaskConnectionService.createOrder(address, this.amount);
-      this.transactionEnd(elem, result);
-    }
-  }
+  // async askRefund(orderId: any){
+  //   const elem = this.getElement();
+  //   if(elem){
+  //     elem.hidden = false;
+  //     const result = await this.metamaskConnectionService.askRefund(OrderInfoComponent.ID);
+  //     this.transactionEnd(elem, result);
+  //   }
+  // }
+  // async createOrder(address: any){
+  //   const elem = this.getElement();
+  //   if(elem){ 
+  //     elem.hidden = false;
+  //     const result = await this.metamaskConnectionService.createOrder(address, this.amount);
+  //     this.transactionEnd(elem, result);
+  //   }
+  // }
   getElement(){
     var elem = document.getElementById('overlay');
     return elem;
   }
-  transactionEnd(elem: { hidden: boolean; },result: any){
-    if(elem && result){
-      elem.hidden = true;
-      window.location.reload();
-    }else console.log("error");
+  async transactionEnd(elem: { hidden: boolean; },result: any){
+    if(result){
+    elem.hidden = true;
+    window.location.reload();
+    }else{
+      setTimeout(function(){elem.hidden = true;}, 3000);
+    } 
   }
   downloadQrImage(){
     var items:any = document.getElementsByClassName('coolQRCode')[0];
     let img = items.getElementsByTagName("img");
     this.link = img[0].src;
   }
+  copyAddress(text: any){
+    if(text){
+    console.log(text);
+    navigator.clipboard.writeText(text);
+      }
+    }
 }

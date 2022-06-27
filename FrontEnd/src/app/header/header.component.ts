@@ -14,8 +14,10 @@ export class HeaderComponent implements OnInit {
   constructor(public metamaskConnectionService: MetamaskConnectionService) { }
 
   async ngOnInit(): Promise<void> {
-    this.getMetamask();
+    if( await this.metamaskConnectionService.connectionChecker()){
+    console.info("ngOnInit di header post if");
     this.balance = await this.truncateBalance();
+    }
   }
   async getMetamask(){
     await this.metamaskConnectionService.getMetamask();

@@ -1,54 +1,43 @@
-
-<div>
-<div>
-<h1>Order Info</h1>
-</div>
+<ul class="breadcrumb-navigation">
+  <li><a routerLink="/login"><mat-icon aria-hidden="true" aria-label="home icon" id="homeicon">home</mat-icon>Login</a></li>
+  <li><mat-icon>arrow_right</mat-icon></li>
+  <li><a routerLink="/orderlist">OrderList</a></li>
+  <li><mat-icon>arrow_right</mat-icon></li>
+  <li>OrderInfo</li>
+</ul>
 <div *ngIf="order">
   <div class="container">
-    <div class="row justify-content-center">
+    <h1>Order Info</h1>
+    <div class="table-container">
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="roundedtopleft">OrderId</th>
+            <th>Buyer Address</th>
+            <th>Amount</th>
+            <th class="roundedtopright">State</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="hoverable">
+            <td id="roundedbottomleft"class="text" data-label="Id">{{order.id}}</td>
+            <!-- inserire qui un bottone visibile solo da mobile che permette di copiare l'address anziche farlo vedere che occupa mezzo schermo -->
+            <td data-label="Address" class="addressText"><p class="addressText">{{order.buyerAddress}}</p><button id="showInMobile" mat-raised-button (click)="copyAddress(order.buyerAddress)">Copy Address</button></td>
+            <td class="text"data-label="Amount">{{order.amount}}</td>
+            <td id="roundedbottomright" data-label="State" [ngStyle]="{'color':Color[order.state]}" class="state">{{States[order.state] | uppercase }}</td>
+            <!-- btn info é una classe bootstrap-->
+          </tr>
+        </tbody>
+      </table>
     </div>
-  <div class="row">
-    <div class="col-md-12">
-        <div class="table-wrap">
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>OrderId</th>
-                  <th>Buyer Address</th>
-                  <th>Amount</th>
-                  <th>State</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{{order.id}}</td>
-                  <!-- inserire qui un bottone visibile solo da mobile che permette di copiare l'address anziche farlo vedere che occupa mezzo schermo -->
-                  <td>{{order.buyerAddress}}</td>
-                  <td>{{order.amount}}</td>
-                  <td [ngStyle]="{'color':Color[order.state]}" class="state">{{States[order.state] | uppercase }}</td>
-                  <!-- btn info é una classe bootstrap-->
-                </tr>
-              </tbody>
-            </table>
-        </div>
-    </div>
-  </div>
-  <div class="centered">
-    <div class="container">
-      <!-- <button (click)="downloadQRCode()">Download QRCode</button> -->
-      <a href="{{link}}" download><button type="button" class="btn btn-primary" (click)="downloadQrImage()" style="margin-right:10px;">Download Image</button></a>
-      <h1>QRCODE GENERATOR</h1>
-      <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="value" class="coolQRCode"></ngx-qrcode>
-   </div>
-    <!-- <qrcode [elementType]="'canvas'" [qrdata]="qrInfo" [errorCorrectionLevel]="'M'" hidden></qrcode>
-    <button>Download Qr</button>
-    <div class="downloadButton">
-      <button (click)="saveAsImage()">Download QR Code Image</button>
-    </div> -->
-  </div>
   <h2 *ngIf="order.state === 3">No avaiable actions on this order</h2>
   <div *ngIf="order.state != 3" class="centered">
     <h2 >Possible Actions on this Order</h2>
+      <div *ngIf="order.state === 0" class="">
+        <a href="{{link}}" download><button type="button" mat-raised-button (click)="downloadQrImage()">Download QrCode</button></a>
+        <ngx-qrcode [elementType]="elementType" [errorCorrectionLevel]="correctionLevel" [value]="qrInfo" class="coolQRCode" hidden></ngx-qrcode>
+        </div>
+  <div class="">
     <div *ngIf="order.state === 0 || order.state === 1">
       <button mat-raised-button (click)="deleteOrder()">Delete Order</button>
     </div>
@@ -58,24 +47,14 @@
     <div *ngIf="order.state === 4">
       <button mat-raised-button (click)="refundBuyer()">Refund Buyer</button>
     </div>
-    <div>
-      <button mat-raised-button (click)="askRefund(numberId)">Ask refund</button>
-    </div>
-    <div>
-      <button mat-raised-button (click)="createOrder(signerAddress)">Create Order</button>
-    </div>
   </div>
+  </div>
+  <app-order-log></app-order-log>
   <div id="overlay" hidden>
   <img id="loading" src="../../assets/images/output-onlinegiftools.gif"/>
   <p id="loadingtext">Waiting for Transaction...</p>
+  <p id="transactionerror" hidden>Transaction ended with error: <br> {{this.errorCode}}</p>
   </div>
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-md-6 text-center mb-5">
-      </div>
-    </div>
-  </div>
-  <app-order-log></app-order-log>
 </div>
 </div>
 

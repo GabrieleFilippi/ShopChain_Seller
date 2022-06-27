@@ -13,14 +13,25 @@ import { Router } from "@angular/router";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  constructor(private metamaskConnectionService: MetamaskConnectionService) {
+  constructor(public metamaskConnectionService: MetamaskConnectionService) {
   }
   title = 'shopchain';
+  showHeader = true;
   async ngOnInit(){
+    console.log("ngOninit di appcomponent")
+    this.metamaskConnectionService.getMetamask();
+    if(await this.metamaskConnectionService.loggedOnMetamask()){
     if (await this.metamaskConnectionService.onRightChain()) {
-      await this.metamaskConnectionService.getContract();
+      console.log("ngOninit di appcomponent post if")
+      this.metamaskConnectionService.getContract();
+      this.showHeader = true;
       this.metamaskConnectionService.accountChanged();
       this.metamaskConnectionService.chainChanged();
+    }else{
+      this.metamaskConnectionService.gotToAnotherPage(undefined);
+      this.showHeader = false;
+    }
     }
   }
 }
+

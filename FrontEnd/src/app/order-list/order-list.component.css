@@ -1,25 +1,71 @@
+/* MOBILE */
+/* body{
+  --desktop: 1200px;
+  --laptop: 1024px;
+  --tablet: 768;
+  --phone: 480px;
+} */
+.title{
+  margin-top: 10px;
+}
+/* filtri */
+#idFilter ::ng-deep .mat-form-field-appearance-outline {
+  width: 65px;
+  height: 45px;
+  line-height: 1.725;
+}
+
+#idFilter ::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+  padding: 0px 10px 0px 10px;
+  color: rgb(36,82,122);
+}
+
+#idFilter ::ng-deep .mat-form-field-infix {
+  padding: 3px 0 3px 0;
+}
+
+#idFilter ::ng-deep .mat-form-field-hide-placeholder .mat-form-field-label-wrapper {
+  text-align: center;
+  top: -25px;
+}
+
+#idFilter ::ng-deep .mat-form-field-should-float {
+  text-align: center;
+}
+#AddressMatInput ::ng-deep .mat-form-field-appearance-outline{
+  width: 200px;
+  height: 45px;
+}
+/* #stateFilter{
+  
+
+} */
+.state{
+  font-weight: bold;
+}
+ .centered{
+  display: grid; 
+  place-items: center;
+} 
+/* NORMALE */
+#codeButton{
+  display: none;
+}
 h1 {
     display: grid; 
     place-items: center; 
-}
-.state{
-  font-weight: bold;
-  text-shadow: 2px 0 0 rgb(36,82,122), -2px 0 0 rgb(36,82,122), 0 2px 0 rgb(36,82,122), 0 -2px 0 rgb(36,82,122), 1px 1px rgb(36,82,122), -1px -1px 0 rgb(36,82,122), 1px -1px 0 rgb(36,82,122), -1px 1px 0 rgb(36,82,122);
 }
 button{
   background-color: rgb(36,82,122);
   color: rgb(92,173,189);
 }
-
 button:hover{
   background-color: rgb(92,173,189);
   color: rgb(36,82,122);
 }
-.table-striped>tbody>tr:nth-child(odd)>td, 
-.table-striped>tbody>tr:nth-child(odd)>th {
-    background-color: rgba(92, 173, 189, 0.3); /* Choose your own color here */
-}
-.table-striped>tbody>tr:nth-child(even)>td, 
-.table-striped>tbody>tr:nth-child(even)>th {
-    background-color: rgba(36, 82, 122, 0.3); /* Choose your own color here */
+
+@media screen and (max-width: 450px){
+  #compressing{
+    
+  }
 }

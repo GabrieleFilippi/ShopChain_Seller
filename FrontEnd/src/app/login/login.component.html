@@ -1,26 +1,32 @@
-<div *ngIf = "!metamaskConnectionService.signer" class="connect-button">
+<div *ngIf = "!metamaskConnectionService.installed" class="connect-button">
+    <div class="container">
     <p>Non hai Metamask installato nel browser</p>
     <button onclick="window.location.href='https://metamask.io/download/'">Installa Metamask</button>
 </div>
-<div *ngIf = "metamaskConnectionService.signer" class="home">
+</div>
+<div *ngIf = "!metamaskConnectionService.connected">
+    <div class="container">
+        <h1>Unlock your Metamask PlugIn</h1>
+        <button (click)="metamaskConnectionService.onClickConnect()">Connect</button>
+    </div>
+</div>
+<div *ngIf = "metamaskConnectionService.installed && metamaskConnectionService.connected" class="home">
+    <div class="container">
     <h1>Welcome to the Seller section</h1>
     <h2>You are currently logged with the account: <a href="https://testnet.snowtrace.io/address/{{metamaskConnectionService.truncatedSignerAddress}}">{{metamaskConnectionService.truncatedSignerAddress}}</a></h2>
-    <!-- <p>Indirizzo del contratto:</p>
-    <p>{{metamaskConnectionService.tokenAddress}}</p> -->
-    <!-- <p>Il tuo indirizzo metamask:</p> -->
-    <!-- <p>{{metamaskConnectionService.truncatedSignerAddress}}</p> -->
-    <h2>With a balance of: {{metamaskConnectionService.sellerBalance}} AVAX <img [src]="logoSrc" class="logo"/></h2>
+    <h2>With a balance of: {{metamaskConnectionService.sellerBalance}} AVAX <img [src]="logoSrc" class="logo" alt=""/></h2>
     <div *ngIf="sellerIsSigned">
-        <p>Clicca qui per vedere la lista degli ordini collegati a questo account</p>
+        <p>Click this button to see your Orders</p>
         <a routerLink="/orderlist">
             <button  mat-raised-button routerLink="/orderlist">Vai a vedere la lista ordini</button>
         </a>
     </div>
     <div *ngIf="sellerIsSigned === false">
-        <p>Non sei registrato come seller, clicca qui per registrarti.</p>
+        <p>You are not registered as a seller, click this button to register</p>
         <!-- METTERE CHE FA PARTIRE REGISTERSELLER()-->
         <button  mat-raised-button (click)="registerAsSeller()">Registrati come venditore</button>
     </div>
+</div>
 </div>
                 
                 

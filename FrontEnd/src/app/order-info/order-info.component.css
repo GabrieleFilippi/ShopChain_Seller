@@ -1,12 +1,8 @@
+
 h1,h2 {
-    display: grid; 
-    place-items: center; 
-}
-button:hover{
-    background-color: rgba(199, 199, 199, 0.829);
-}
-button:onclick{
-    background-color: rgb(204, 204, 204);
+    text-align:center;
+    border: 10px;
+    margin-top: 20px;
 }
 .centered{
     display: grid; 
@@ -26,6 +22,15 @@ button:onclick{
     bottom: 0;
     z-index: 2; 
 }
+#transactionerror{
+    text-align: center;
+    color: white;
+    margin: 0;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 #loading{
     display: block;
     margin-left: auto;
@@ -44,6 +49,29 @@ button:onclick{
     left: 50%;
     transform: translate(-50%, -50%);
 }
-.container {
+/* .container{
+    position: absolute;
+    top: 400px;
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
+    border-radius: 55px;
+    box-shadow: 0 1px 6px rgba(36, 82, 122, 0.642), 0 1px 40px rgba(36, 82, 122, 0.593);
+    background-color: rgba(207, 230, 250, 0.293);
+} */
+button{
+    background-color: rgb(36,82,122);
+    color: rgb(92,173,189);
+    margin: 0.3em;
 }
+button:hover{
+background-color: rgb(92,173,189);
+color: rgb(36,82,122);
+}
+/* .table{
+    width: 100%;
+} */
+#homeicon{
+    font-size: small;
+}
+

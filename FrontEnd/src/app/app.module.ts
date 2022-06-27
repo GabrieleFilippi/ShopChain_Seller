@@ -18,8 +18,11 @@ import {MatTableModule} from '@angular/material/table';
 import { OrderInfoComponent } from './order-info/order-info.component';
 import { OrderLogComponent } from './order-log/order-log.component';
 import { QRCodeModule } from 'angularx-qrcode';
-import { ProgressbarComponent } from './progressbar/progressbar.component';
 import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
+import {MatSelectModule} from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule} from '@angular/material/form-field';
 
 
 
@@ -32,7 +35,6 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
     HeaderComponent,
     OrderInfoComponent,
     OrderLogComponent,
-    ProgressbarComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +48,11 @@ import { NgxQRCodeModule } from '@techiediaries/ngx-qrcode';
     MatSidenavModule,
     MatTableModule,
     QRCodeModule,
-    NgxQRCodeModule
+    NgxQRCodeModule,
+    MatSelectModule,
+    MatInputModule,
+    FormsModule,
+    MatFormFieldModule
   ],
   providers: [],
   bootstrap: [AppComponent]

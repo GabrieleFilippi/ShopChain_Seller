@@ -1,36 +1,83 @@
-<div>
-    <h1>Orders list</h1>
-  </div>
+<ul class="breadcrumb-navigation">
+  <li><a routerLink="/login"><mat-icon aria-hidden="true" aria-label="home icon" id="homeicon">home</mat-icon>Login</a></li>
+  <li><mat-icon>arrow_right</mat-icon></li>
+  <li><a>OrderList</a></li>
+</ul>
+<div *ngIf="userOrdersList.length === 0"><h1 id="noMatch">There are no orders registered on this wallet</h1> </div>
+<div *ngIf="userOrdersList.length != 0">
+<div class="title">
+  <h1>Orders list</h1>
+</div>
 <div class="container">
-  <div class="row justify-content-center">
+  <div class="centered">
+    <mat-form-field appearance="outline">
+      <mat-label>Filters</mat-label>
+      <select id="selectFilter" [(ngModel)]="chosenFilter" (ngModelChange)="showFilter(chosenFilter)" matNativeControl >
+        <option value="0">No Filter</option>
+        <option value="1">Filter by Id</option>
+        <option value="2">Filter by State</option>
+        <option value="3">Filter by Address</option>
+        <option value="4">Filter by Value</option>
+      </select>
+    </mat-form-field>
+    <div id="idFilter" hidden>
+      <mat-form-field appearance="outline">
+        <mat-label>ID</mat-label>
+        <input type="text" id="IdMatInput" (keyup)="orderById()" matInput placeholder="ID">
+      </mat-form-field>
+    </div>
+    <div id="stateFilter" hidden>
+      <mat-form-field appearance="outline">
+        <mat-label>Filter by state</mat-label>
+        <select id="selectState" matNativeControl (change)="orderByState()">
+          <option value="">No Filter</option>
+          <option value="Created">Created</option>
+          <option value="Shipped">Shipped</option>
+          <option value="Confirmed">Confirmed</option>
+          <option value="Deleted">Deleted</option>
+          <option value="RefundAsked">RefundAsked</option>
+          <option value="Refunded">Refunded</option>
+        </select>
+      </mat-form-field>
+    </div>
+    <div id="addressFilter" hidden>
+      <mat-form-field appearance="outline">
+        <mat-label>Address</mat-label>
+        <input type="text" id="AddressMatInput" (keyup)="filterByAddress()" matInput placeholder="Insert an Address">
+      </mat-form-field>
+    </div>
+    <div id="valueFilter" hidden>
+      <mat-form-field appearance="outline">
+        <mat-label>Value</mat-label>
+        <input type="text" id="ValueMatInput" (keyup)="filterByValue()" matInput placeholder="Insert a Value">
+      </mat-form-field>
+    </div>
   </div>
-  <div class="row">
-      <div class="col-md-12">
-          <div class="table-wrap">
-              <table class="table table-striped table-hover">
-                <thead>
-                  <tr>
-                    <th>OrderId</th>
-                    <th>Buyer Address</th>
-                    <th>Amount</th>
-                    <th>State</th>
-                    <th>Order's Options</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr *ngFor="let element of userOrdersList">
-                    <td>{{element.id}}</td>
-                    <td>{{element.buyerAddress}}</td>
-                    <td>{{element.amount}}</td>
-                    <td [ngStyle]="{'color':Color[element.state]}" class="state">{{States[element.state] | uppercase}}</td>
-                    <!-- btn info é una classe bootstrap-->
-                    <td><button mat-raised-button routerLink="/orderinfo/{{element.id}}">OPTIONS</button></td>
-                  </tr>
-                </tbody>
-              </table>
-          </div>
-      </div>
+  <div class="table-container">
+    <table id="orderlist" class="table">
+      <thead>
+        <tr>
+          <th>OrderId</th>
+          <th>Buyer Address</th>
+          <th>Amount</th>
+          <th>State</th>
+          <th>Order's Options</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let element of userOrdersList" class="hoverable">
+          <td data-label="Id" class="text"><p>{{element.id}}</p></td>
+          <td data-label="Address"><p class="addressText">{{element.buyerAddress}}</p><button id="showInMobile" mat-raised-button (click)="copyAddress(element.buyerAddress)">Copy Address</button></td>
+          <td class="text" data-label="Amount"><p>{{element.amount}}</p></td>
+          <td data-label="State" [ngStyle]="{'color':Color[element.state]}" class="state"><p>{{States[element.state] | uppercase}} </p></td>
+          <!-- btn info é una classe bootstrap-->
+          <td data-label="Order's options"class="centeredintable"><button mat-raised-button routerLink="/orderinfo/{{element.id}}">OPTIONS</button></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
+</div>
+  <h1 id="noMatch" hidden>No matching results</h1>
 </div>
 
 
