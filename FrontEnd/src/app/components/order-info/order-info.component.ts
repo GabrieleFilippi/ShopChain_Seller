@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
-import { MetamaskConnectionService } from '../metamask-connection.service';
-import { Orders, State } from '../orders';
+import { MetamaskConnectionService } from '../../services/metamask-connection.service';
+import { Orders, State } from '../../orders';
 import { BigNumber, Contract, ethers} from 'ethers';
 import { NgxQrcodeElementTypes, NgxQrcodeErrorCorrectionLevels } from '@techiediaries/ngx-qrcode';
 import { QRCodeElementType } from 'angularx-qrcode';

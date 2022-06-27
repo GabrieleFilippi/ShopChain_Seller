@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MetamaskConnectionService } from '../metamask-connection.service';
+import { MetamaskConnectionService } from '../../services/metamask-connection.service';
 
 @Component({
   selector: 'app-header',

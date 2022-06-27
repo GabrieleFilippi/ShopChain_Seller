@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Contract, ethers } from 'ethers';
 import { threadId } from 'worker_threads';
-import abi from '../../contracts/ShopChain.json';
+import abi from '../../../contracts/ShopChain.json';
 import detectEthereumProvider from "@metamask/detect-provider";
 import truncateEthAddress from 'truncate-eth-address';
 import { Router } from "@angular/router";
@@ -9,7 +9,7 @@ import { Meta } from '@angular/platform-browser';
 import { getContractAddress } from 'ethers/lib/utils';
 import {EventEmitter} from 'events';
 import {waitFor} from 'wait-for-event';
-import fake from './tesABI.json';
+import fake from '../tesABI.json';
 import web3 from 'web3';
 declare let window: any;
 @Injectable({

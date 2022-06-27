@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from "@angular/router";
-import { MetamaskConnectionService } from '../metamask-connection.service';
+import { MetamaskConnectionService } from '../../services/metamask-connection.service';
 import { ethers } from 'ethers';
 @Component({
   selector: 'app-wrong-network',

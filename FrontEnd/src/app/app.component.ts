@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ethers } from 'ethers';
 import address from '../../contracts/ShopChain.json';
 import detectEthereumProvider from "@metamask/detect-provider";
-import { MetamaskConnectionService } from './metamask-connection.service';
+import { MetamaskConnectionService } from './services/metamask-connection.service';
 import { Router } from "@angular/router";
 
 

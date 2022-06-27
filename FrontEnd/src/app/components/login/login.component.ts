@@ -1,7 +1,6 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
-import { ContractService } from '../contract.service';
 import { ethers } from 'ethers';
-import { MetamaskConnectionService } from '../metamask-connection.service';
+import { MetamaskConnectionService } from '../../services/metamask-connection.service';
 declare let window: any;
 @Component({
   selector: 'app-login',

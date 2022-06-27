@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { listenerCount } from 'process';
-import { MetamaskConnectionService } from '../metamask-connection.service';
-import { Orders, State } from '../orders';
+import { MetamaskConnectionService } from '../../services/metamask-connection.service';
+import { Orders, State } from '../../orders';
 import { ethers} from 'ethers';
 //import * as initOrders from '../orders';
 @Component({

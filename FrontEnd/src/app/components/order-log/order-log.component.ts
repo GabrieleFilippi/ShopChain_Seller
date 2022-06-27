@@ -1,10 +1,10 @@
 import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { Router } from "@angular/router";
 import { ActivatedRoute } from '@angular/router';
-import { MetamaskConnectionService } from '../metamask-connection.service';
-import { Orders, State } from '../orders';
+import { MetamaskConnectionService } from '../../services/metamask-connection.service';
+import { Orders, State } from '../../orders';
 import { BigNumber, ethers} from 'ethers';
-import { Log } from '../Log';
+import { Log } from '../../Log';
 
 @Component({
   selector: 'app-order-log',

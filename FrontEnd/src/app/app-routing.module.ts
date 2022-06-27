@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './login/login.component';
-import { OrderListComponent } from './order-list/order-list.component';
-import { WrongNetworkComponent } from './wrong-network/wrong-network.component';
-import { OrderInfoComponent } from './order-info/order-info.component'
+import { LoginComponent } from './components/login/login.component';
+import { OrderListComponent } from './components/order-list/order-list.component';
+import { WrongNetworkComponent } from './components/wrong-network/wrong-network.component';
+import { OrderInfoComponent } from './components/order-info/order-info.component'
 
 const routes: Routes = [
   // //To make the application navigate to the dashboard automatically, add the following route to the routes array.
